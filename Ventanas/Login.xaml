@@ -18,7 +18,7 @@
     WindowStyle="None"
     mc:Ignorable="d">
     
-    <!--Esta parte un Branch del proyecto-->
+    <!--ESTAS EN LA RAMA "PRUEBA001"-->
     <Window.Resources>
         <!--  Colores  -->
         <SolidColorBrush x:Key="ColorBordeUsernameConCursor" Color="#7DBAFF" />
