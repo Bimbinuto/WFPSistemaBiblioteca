@@ -45,6 +45,12 @@ namespace Biblioteca.Ventanas
             frPageInicio.Content = new PageAdministracion();
         }
 
+
+        private void btnPrestamosYReservaciones(object sender, RoutedEventArgs e)
+        {
+            frPageInicio.Content = new PrestamosYReservaciones();
+        }
+
         private void btnMenuClose(object sender, RoutedEventArgs e)
         {
             Login nuevo = new Login();

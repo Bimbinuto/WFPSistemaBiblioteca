@@ -69,6 +69,9 @@
     <Compile Include="Ventanas\PageInicio.xaml.cs">
       <DependentUpon>PageInicio.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Ventanas\PrestamosYReservaciones.xaml.cs">
+      <DependentUpon>PrestamosYReservaciones.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -94,6 +97,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ventanas\PageInicio.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\PrestamosYReservaciones.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -141,6 +148,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Recursos\Library02.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Recursos\Iconos\administracion.svg" />
+    <Content Include="Recursos\Iconos\inicio.svg" />
+    <Content Include="Recursos\Iconos\prestaYreserva.svg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

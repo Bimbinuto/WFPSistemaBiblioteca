@@ -19,30 +19,226 @@
     mc:Ignorable="d">
 
     <Window.Resources>
-        <!--test Button-->
+        <!--  test Button  -->
         <Style x:Key="StyleButtons" TargetType="{x:Type Button}">
-            <Setter Property="Width" Value="110"/>
-            <Setter Property="Height" Value="110"/>
-            <Setter Property="Margin" Value="10"/>
-            <Setter Property="FontSize" Value="15"/>
-            <Setter Property="BorderBrush" Value="#ffdece"/>
-            <Setter Property="BorderThickness" Value="2"/>
-            <Setter Property="Background" Value="#50000000"/>
-            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Width" Value="110" />
+            <Setter Property="Height" Value="110" />
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="BorderBrush" Value="#ffdece" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Background" Value="#50000000" />
+            <Setter Property="Foreground" Value="White" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                Background="{TemplateBinding Background}"
-                                CornerRadius="5">
-                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#ffda9e"/>
-                                <Setter Property="Foreground" Value="Black"/>
-                                <Setter Property="BorderBrush" Value="#840007"/>
+                                <Setter Property="Background" Value="#ffda9e" />
+                                <Setter Property="Foreground" Value="Black" />
+                                <Setter Property="BorderBrush" Value="#840007" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--  Boton de "Inicio" personalzado -->
+        <Style x:Key="StyleButtonInicio" TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="110" />
+            <Setter Property="Height" Value="110" />
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5">
+                            <StackPanel Orientation="Vertical">
+                                <Path
+                                    x:Name="Icon"
+                                    Width="50"
+                                    Height="50"
+                                    Margin="0 20 0 3"
+                                    Data="M21.71,11.29l-9-9a1,1,0,0,0-1.42,0l-9,9a1,1,0,0,0-.21,1.09A1,1,0,0,0,3,13H4v7.3A1.77,1.77,0,0,0,5.83,22H8.5a1,1,0,0,0,1-1V16.1a1,1,0,0,1,1-1h3a1,1,0,0,1,1,1V21a1,1,0,0,0,1,1h2.67A1.77,1.77,0,0,0,20,20.3V13h1a1,1,0,0,0,.92-.62A1,1,0,0,0,21.71,11.29Z"
+                                    Fill="#ffdece"
+                                    Stretch="Uniform" />
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Icon" Property="Fill" Value="#840007"/>
+                                <!--Animate Scala Button-->
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleX)"
+                                                             To="1.1"
+                                                             Duration="0:0:0.1" />
+                                            <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleY)"
+                                                             To="1.1"
+                                                             Duration="0:0:0.1"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleX)"
+                                                             To="1"
+                                                             Duration="0:0:0.2" />
+                                            <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleY)"
+                                                             To="1"
+                                                             Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Boton de "Administracion" personalizado -->
+        <Style x:Key="StyleButtonAdministracion" TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="110" />
+            <Setter Property="Height" Value="110" />
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="5">
+                            <StackPanel Orientation="Vertical">
+                                <Path
+                            x:Name="Icon"
+                            Width="50"
+                            Height="50"
+                            Margin="0 20 0 3"
+                            Data="M25,7H23.82A3,3,0,0,0,21,5H20a3,3,0,0,0-3-3H15a3,3,0,0,0-3,3H11A3,3,0,0,0,8.18,7H7A2,2,0,0,0,5,9V28a2,2,0,0,0,2,2H25a2,2,0,0,0,2-2V9A2,2,0,0,0,25,7ZM11,7h1a2,2,0,0,0,2-2,1,1,0,0,1,1-1h2a1,1,0,0,1,1,1,2,2,0,0,0,2,2h1a1,1,0,0,1,1,1V9H10V8A1,1,0,0,1,11,7ZM25,28H7V9H8a2,2,0,0,0,2,2H22a2,2,0,0,0,2-2h1Z"
+                            Fill="#ffdece"
+                            Stretch="Uniform" />
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Icon" Property="Fill" Value="#840007"/>
+                                <!--Animate Scala Button-->
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleX)"
+                                                     To="1.1"
+                                                     Duration="0:0:0.1" />
+                                            <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleY)"
+                                                     To="1.1"
+                                                     Duration="0:0:0.1"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleX)"
+                                                     To="1"
+                                                     Duration="0:0:0.2" />
+                                            <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleY)"
+                                                     To="1"
+                                                     Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Boton "Prestamos y reservaciones" personalizado-->
+        <Style x:Key="StyleButtonprestaYreserva" TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="110" />
+            <Setter Property="Height" Value="110" />
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border
+            Background="{TemplateBinding Background}"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            BorderThickness="{TemplateBinding BorderThickness}"
+            CornerRadius="5">
+                            <StackPanel Orientation="Vertical">
+                                <Path
+                    x:Name="Icon"
+                    Width="50"
+                    Height="50"
+                    Margin="0 14 0 0"
+                    Data="M21.09 15.367L23 16.495 12 23 1 16.493l1.91-1.128.983.582-.927.547L12 21.838l9.033-5.342-.927-.547zM19.5 11.5c0 .03-.007.056-.009.085l1.543.911-4.198 2.483a1.988 1.988 0 0 1-.68.402L12 17.838l-9.035-5.344L5.5 10.998V9.837L1 12.493 12 19l11-6.505-3.5-2.067zM14 7V6H9v1zm-4 1v1h3V8zM7 2.5C7 1.66 7.952 1 9.167 1H18v11h-2v2H9.5A2.502 2.502 0 0 1 7 11.5zm1 0c0 .177.443.5 1.167.5H16v8h1V2H9.167C8.443 2 8 2.323 8 2.5zm0 9A1.502 1.502 0 0 0 9.5 13H15V4H9.167A2.943 2.943 0 0 1 8 3.77z"
+                    Fill="#ffdece"
+                    Stretch="Uniform" />
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Icon" Property="Fill" Value="#840007"/>
+                                <!--Animate Scala Button-->
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleX)"
+                                             To="1.1"
+                                             Duration="0:0:0.1" />
+                                            <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleY)"
+                                             To="1.1"
+                                             Duration="0:0:0.1"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleX)"
+                                             To="1"
+                                             Duration="0:0:0.2" />
+                                            <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleY)"
+                                             To="1"
+                                             Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -67,53 +263,82 @@
         </Border.BorderBrush>
 
         <Grid>
-            <Button Content="X"
-                    VerticalAlignment="Top"
-                    HorizontalAlignment="Right"
-                    Foreground="White"
-                    Background="Black"
-                    BorderBrush="Transparent"
-                    Grid.ColumnSpan="2"
-                    FontFamily="Arial"
-                    Margin="10"
-                    Click="btnMenuClose"/>
+            <Button
+                Grid.ColumnSpan="2"
+                Margin="10"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Background="Black"
+                BorderBrush="Transparent"
+                Click="btnMenuClose"
+                Content="X"
+                FontFamily="Arial"
+                Foreground="White" />
 
-            <Border Background="#10ffe4e1">
+            <Border Background="#20000000">
                 <StackPanel Grid.Column="0">
-                    <Button Content="Inicio"
-                            Margin="10 20 10 10"
-                            Click="btnInicio"
-                            Style="{StaticResource StyleButtons}"/>
-                    <Button Content="Administracion"
-                            Click="btnAdministracion"
-                            Style="{StaticResource StyleButtons}" />
+                    <Button
+                        Margin="10,20,10,10"
+                        Click="btnInicio"
+                        Content="Inicio"
+                        Style="{StaticResource StyleButtonInicio}"
+                        RenderTransformOrigin="0.5, 0.5">
+                        <Button.RenderTransform>
+                            <ScaleTransform ScaleX="1" ScaleY="1"/>
+                        </Button.RenderTransform>
+                    </Button>
+
+                    <Button
+                        Click="btnAdministracion"
+                        Content="Administracion"
+                        Style="{StaticResource StyleButtonAdministracion}"
+                        RenderTransformOrigin="0.5, 0.5">
+                        <Button.RenderTransform>
+                            <ScaleTransform ScaleX="1" ScaleY="1"/>
+                        </Button.RenderTransform>
+                    </Button>
+
+                    <Button Style="{StaticResource StyleButtonprestaYreserva}"
+                            RenderTransformOrigin="0.5, 0.5"
+                            Click="btnPrestamosYReservaciones">
+                        <TextBlock
+                            Text="Prestamos y Reservaciones"
+                            TextAlignment="Center"
+                            TextWrapping="Wrap" />
+                        <Button.RenderTransform>
+                            <ScaleTransform ScaleX="1" ScaleY="1"/>
+                        </Button.RenderTransform>
+                    </Button>
                     <Button Style="{StaticResource StyleButtons}">
-                        <TextBlock Text="Prestamos y Reservaciones"
-                                   TextWrapping="Wrap"
-                                   TextAlignment="Center"/>
+                        <TextBlock
+                            Text="Libros y Catalogos"
+                            TextAlignment="Center"
+                            TextWrapping="Wrap" />
                     </Button>
-                    <Button Style="{StaticResource StyleButtons}" >
-                        <TextBlock Text="Libros y Catalogos"
-                                   TextWrapping="Wrap"
-                                   TextAlignment="Center"/>
+
+                    <Button Style="{StaticResource StyleButtons}">
+                        <TextBlock
+                            Text="Reportes y Estaditicas"
+                            TextAlignment="Center"
+                            TextWrapping="Wrap" />
                     </Button>
-                    <Button Style="{StaticResource StyleButtons}" >
-                        <TextBlock Text="Reportes y Estaditicas"
-                                   TextWrapping="Wrap"
-                                   TextAlignment="Center"/>
-                    </Button>
-                    <Button Content="Acerca de"
-                            Style="{StaticResource StyleButtons}"/>
-                    <Button Content="Extra"
-                            Height="50"
-                            Width="50"
-                            Margin="20"
-                            Style="{StaticResource StyleButtons}"/>
+
+                    <Button Content="Acerca de" Style="{StaticResource StyleButtons}" />
+
+                    <Button
+                        Width="50"
+                        Height="50"
+                        Margin="20"
+                        Content="Extra"
+                        Style="{StaticResource StyleButtons}" />
                 </StackPanel>
             </Border>
 
             <Grid Grid.Column="1">
-                <Frame x:Name="frPageInicio" NavigationUIVisibility="Hidden" Navigated="frPageInicio_Navigated"/>
+                <Frame
+                    x:Name="frPageInicio"
+                    Navigated="frPageInicio_Navigated"
+                    NavigationUIVisibility="Hidden" />
             </Grid>
 
             <Grid.ColumnDefinitions>
