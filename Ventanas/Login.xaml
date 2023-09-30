@@ -17,6 +17,8 @@
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
+    
+    <!--Esta parte un Branch del proyecto-->
     <Window.Resources>
         <!--  Colores  -->
         <SolidColorBrush x:Key="ColorBordeUsernameConCursor" Color="#7DBAFF" />
