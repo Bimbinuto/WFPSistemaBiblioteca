@@ -58,6 +58,7 @@ namespace Biblioteca.Ventanas
             this.Close();
         }
 
+        //no se esta usando
         private void frPageInicio_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
         {
 
