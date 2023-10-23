@@ -39,20 +39,23 @@ namespace Biblioteca.Ventanas
 
         private void btnLogin(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(txtUsername.Text) || String.IsNullOrEmpty(txtPassword.Text))
+            if (String.IsNullOrEmpty(txtUsername.Text) || String.IsNullOrEmpty(txtPassword.Password))
             {
                 lbTest.Content = "complete campos";
-                intentos++;
-                if (intentos >= 3)
-                    this.Close();
             }
             else
             {
-                if (txtUsername.Text == "@username" && txtPassword.Text == "@password")
+                if (txtUsername.Text == "@username" && txtPassword.Password == "@password")
                 {
-                    Menu nuevo = new Menu(this);
+                    Menu nuevo = new Menu();
                     nuevo.Show();
                     this.Close();
+                }
+                else
+                {
+                    intentos++;
+                    if (intentos >= 3)
+                        this.Close();
                 }
             }
         }

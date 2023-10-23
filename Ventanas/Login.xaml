@@ -17,14 +17,20 @@
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
-    
-    <!--Esta parte un Branch del proyecto-->
+
     <Window.Resources>
+        <!--  Iconos  -->
+        <GeometryGroup x:Key="IconUser">
+            <PathGeometry Figures="m432 480h-352a31 31 0 0 1 -24.2-11.13c-6.5-7.77-9.12-18.38-7.18-29.11 8.44-46.82 34.78-86.15 76.18-113.76 36.78-24.51 83.37-38 131.2-38s94.42 13.5 131.2 38c41.4 27.6 67.74 66.93 76.18 113.75 1.94 10.73-.68 21.34-7.18 29.11a31 31 0 0 1 -24.2 11.14z" />
+            <PathGeometry Figures="m332.64 64.58c-19.46-21.01-46.64-32.58-76.64-32.58-30.16 0-57.43 11.5-76.8 32.38-19.58 21.11-29.12 49.8-26.88 80.78 4.44 61.12 50.95 110.84 103.68 110.84s99.16-49.71 103.67-110.82c2.27-30.7-7.33-59.33-27.03-80.6z" />
+        </GeometryGroup>
+        <Geometry x:Key="IconPassword">m512 176.001c0 97.202-78.798 175.999-176 175.999-11.22 0-22.19-1.062-32.827-3.069l-24.012 27.014a23.999 23.999 0 0 1 -17.938 8.055h-37.223v40c0 13.255-10.745 24-24 24h-40v40c0 13.255-10.745 24-24 24h-112c-13.255 0-24-10.745-24-24v-78.059c0-6.365 2.529-12.47 7.029-16.971l161.802-161.802c-5.723-17.354-8.831-35.897-8.831-55.168 0-97.202 78.797-175.999 175.999-176 97.489-.001 176.001 78.511 176.001 176.001zm-176-48.001c0 26.51 21.49 48 48 48s48-21.49 48-48-21.49-48-48-48-48 21.49-48 48z</Geometry>
+
         <!--  Colores  -->
         <SolidColorBrush x:Key="ColorBordeUsernameConCursor" Color="#7DBAFF" />
         <SolidColorBrush x:Key="ColorBordeUsernameCursorSobre" Color="Black" />
 
-        <!--  Texbox compartido con Username y Password  -->
+        <!--  Texbox Username  -->
         <Style x:Key="TextBoxStyleUsername" TargetType="{x:Type TextBox}">
             <Setter Property="Width" Value="230" />
             <Setter Property="Height" Value="30" />
@@ -47,27 +53,132 @@
                                     <GradientStop x:Name="GS2" Offset="1.0" Color="#ffdece" />
                                 </LinearGradientBrush>
                             </Border.BorderBrush>
-                            <ScrollViewer
-                                x:Name="PART_ContentHost"
-                                HorizontalScrollBarVisibility="Hidden"
-                                VerticalScrollBarVisibility="Hidden" />
+
+                            <StackPanel Orientation="Horizontal">
+                                <Path
+                                    x:Name="Icon"
+                                    Width="15"
+                                    Height="15"
+                                    Margin="5,0,5,0"
+                                    Data="{StaticResource IconUser}"
+                                    Fill="#FFC5A9"
+                                    Stretch="Uniform"
+                                    VerticalAlignment="Center"
+                                    RenderTransformOrigin="0.5 0.5" />
+                                <ScrollViewer
+                                    x:Name="PART_ContentHost"
+                                    HorizontalScrollBarVisibility="Hidden"
+                                    VerticalScrollBarVisibility="Hidden" />
+                            </StackPanel>
+
                         </Border>
                         <ControlTemplate.Triggers>
-                            <!--  SOLO COLOR DEL BORDE  -->
-                            <!-- <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="BorderBrush" Value="{DynamicResource ColorBordeUsernameCursorSobre}"/>
-                            </Trigger>-->
-                            <!--  SOLO BORDE CON GRADIENTE  -->
-                            <!--<Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="BorderBrush">
-                                    <Setter.Value>
-                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0.9,0">
-                                            <GradientStop Offset="0" Color="#ffdece" />
-                                            <GradientStop Offset="1" Color="#a62520" />
-                                        </LinearGradientBrush>
-                                    </Setter.Value>
-                                </Setter>
-                            </Trigger>-->
+                            <!--  BORDES CON ANIMACION GRADIENTE  -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="GS1"
+                                                Storyboard.TargetProperty="(GradientStop.Offset)"
+                                                To="0.0"
+                                                Duration="0:0:0.1" />
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="GS2"
+                                                Storyboard.TargetProperty="(GradientStop.Offset)"
+                                                To="0.5"
+                                                Duration="0:0:0.1" />
+                                            <ColorAnimation
+                                                Storyboard.TargetName="GS1"
+                                                Storyboard.TargetProperty="(GradientStop.Color)"
+                                                To="#ffdece"
+                                                Duration="0:0:0.1" />
+                                            <ColorAnimation
+                                                Storyboard.TargetName="GS2"
+                                                Storyboard.TargetProperty="(GradientStop.Color)"
+                                                To="#a62520"
+                                                Duration="0:0:0.1" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard FillBehavior="Stop">
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="GS1"
+                                                Storyboard.TargetProperty="(GradientStop.Offset)"
+                                                To="-0.1"
+                                                Duration="0:0:0.2" />
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="GS2"
+                                                Storyboard.TargetProperty="(GradientStop.Offset)"
+                                                To="1.0"
+                                                Duration="0:0:0.2" />
+                                            <ColorAnimation
+                                                Storyboard.TargetName="GS1"
+                                                Storyboard.TargetProperty="(GradientStop.Color)"
+                                                To="#ffdece"
+                                                Duration="0:0:0.2" />
+                                            <ColorAnimation
+                                                Storyboard.TargetName="GS2"
+                                                Storyboard.TargetProperty="(GradientStop.Color)"
+                                                To="#ffdece"
+                                                Duration="0:0:0.2" />
+
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="{DynamicResource ColorBordeUsernameConCursor}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--  PasswordBox  -->
+        <Style x:Key="TextBoxStylePassword" TargetType="{x:Type PasswordBox}">
+            <Setter Property="Width" Value="230" />
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="18" />
+            <Setter Property="BorderThickness" Value="3" />
+            <!--<Setter Property="BorderBrush" Value="White" />-->
+            <Setter Property="CaretBrush" Value="White" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type PasswordBox}">
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush StartPoint="0.1,0.3" EndPoint="0.9,0">
+                                    <GradientStop x:Name="GS1" Offset="0.0" Color="#ffdece" />
+                                    <GradientStop x:Name="GS2" Offset="1.0" Color="#ffdece" />
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
+                            <StackPanel Orientation="Horizontal">
+                                <Path
+                                    x:Name="Icon"
+                                    Width="15"
+                                    Height="15"
+                                    Margin="5,0,5,0"
+                                    Data="{StaticResource IconPassword}"
+                                    Fill="#FFC5A9"
+                                    Stretch="Uniform"
+                                    VerticalAlignment="Center"
+                                    RenderTransformOrigin="0.5 0.5" />
+                                <ScrollViewer
+                                    x:Name="PART_ContentHost"
+                                    HorizontalScrollBarVisibility="Hidden"
+                                    VerticalScrollBarVisibility="Hidden" />
+                            </StackPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
                             <!--  BORDES CON ANIMACION GRADIENTE  -->
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Trigger.EnterActions>
@@ -143,7 +254,7 @@
             <Setter Property="Foreground" Value="White" />
             <Setter Property="BorderBrush" Value="White" />
             <Setter Property="BorderThickness" Value="2" />
-            <Setter Property="FontSize" Value="18" />
+            <Setter Property="FontSize" Value="17" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -240,8 +351,8 @@
     <Border BorderThickness="5" Style="{StaticResource BorderWindow}">
         <Border.Background>
             <LinearGradientBrush StartPoint="0.8,0.2" EndPoint="0,0.8">
-                <GradientStop Color="#60ffbf75" Offset="1"/>
-                <GradientStop Color="Transparent" Offset="0"/>
+                <GradientStop Color="#60ffbf75" Offset="1" />
+                <GradientStop Color="Transparent" Offset="0" />
             </LinearGradientBrush>
         </Border.Background>
 
@@ -286,7 +397,7 @@
                         Margin="0,20,0,20"
                         Padding="20"
                         HorizontalAlignment="Center"
-                        Content="LOGIN"
+                        Content="Iniciar Sesion"
                         FontFamily="Arial"
                         FontSize="32"
                         FontWeight="DemiBold"
@@ -296,27 +407,30 @@
                         Margin="50,0,0,0"
                         HorizontalAlignment="Left"
                         Content="Username:"
-                        FontSize="18"
+                        FontSize="17"
                         Foreground="White" />
 
-                    <TextBox Style="{StaticResource TextBoxStyleUsername}" 
-                             Text="@username" 
-                             x:Name="txtUsername"/>
+                    <TextBox
+                        Style="{StaticResource TextBoxStyleUsername}"
+                        Text="@username"
+                        x:Name="txtUsername" />
 
                     <Label
                         Margin="50,10,0,0"
                         HorizontalAlignment="Left"
                         Content="Password:"
-                        FontSize="18"
+                        FontSize="17"
                         Foreground="White" />
 
-                    <TextBox Style="{StaticResource TextBoxStyleUsername}" 
-                             Text="@password" 
-                             x:Name="txtPassword"/>
+                    <PasswordBox
+                        Style="{StaticResource TextBoxStylePassword}"
+                        Password="@password"
+                        x:Name="txtPassword" />
 
-                    <Button Content="Sign in" 
-                            Style="{StaticResource ButtonLogin}" 
-                            Click="btnLogin"/>
+                    <Button
+                        Content="acceder"
+                        Style="{StaticResource ButtonLogin}"
+                        Click="btnLogin" />
 
                     <Button
                         Width="150"
@@ -326,11 +440,12 @@
                         Style="{DynamicResource ButtonInteresting}"
                         Visibility="Hidden" />
 
-                    <Label x:Name="lbTest"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           Margin="-10"
-                           Foreground="White"/>
+                    <Label
+                        x:Name="lbTest"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Margin="-10"
+                        Foreground="White" />
                 </StackPanel>
             </Grid>
 
@@ -338,7 +453,6 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-
 
         </Grid>
     </Border>
