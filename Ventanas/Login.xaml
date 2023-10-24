@@ -37,7 +37,7 @@
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Foreground" Value="White" />
             <Setter Property="FontSize" Value="18" />
-            <Setter Property="BorderThickness" Value="3" />
+            <Setter Property="BorderThickness" Value="0 0 0 2" />
             <!--<Setter Property="BorderBrush" Value="White" />-->
             <Setter Property="CaretBrush" Value="White" />
             <Setter Property="Template">
@@ -46,7 +46,7 @@
                         <Border
                             Background="{TemplateBinding Background}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="5">
+                            CornerRadius="3">
                             <Border.BorderBrush>
                                 <LinearGradientBrush StartPoint="0.1,0.3" EndPoint="0.9,0">
                                     <GradientStop x:Name="GS1" Offset="0.0" Color="#ffdece" />
@@ -56,10 +56,10 @@
 
                             <StackPanel Orientation="Horizontal">
                                 <Path
-                                    x:Name="Icon"
+                                    x:Name="Icon1"
                                     Width="15"
                                     Height="15"
-                                    Margin="5,0,5,0"
+                                    Margin="8,0,8,0"
                                     Data="{StaticResource IconUser}"
                                     Fill="#FFC5A9"
                                     Stretch="Uniform"
@@ -70,11 +70,11 @@
                                     HorizontalScrollBarVisibility="Hidden"
                                     VerticalScrollBarVisibility="Hidden" />
                             </StackPanel>
-
                         </Border>
                         <ControlTemplate.Triggers>
                             <!--  BORDES CON ANIMACION GRADIENTE  -->
                             <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Icon1" Property="Fill" Value="#fcfcda"/>
                                 <Trigger.EnterActions>
                                     <BeginStoryboard>
                                         <Storyboard>
@@ -145,7 +145,7 @@
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Foreground" Value="White" />
             <Setter Property="FontSize" Value="18" />
-            <Setter Property="BorderThickness" Value="3" />
+            <Setter Property="BorderThickness" Value="0 0 0 2" />
             <!--<Setter Property="BorderBrush" Value="White" />-->
             <Setter Property="CaretBrush" Value="White" />
             <Setter Property="Template">
@@ -154,7 +154,7 @@
                         <Border
                             Background="{TemplateBinding Background}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="5">
+                            CornerRadius="3">
                             <Border.BorderBrush>
                                 <LinearGradientBrush StartPoint="0.1,0.3" EndPoint="0.9,0">
                                     <GradientStop x:Name="GS1" Offset="0.0" Color="#ffdece" />
@@ -163,10 +163,10 @@
                             </Border.BorderBrush>
                             <StackPanel Orientation="Horizontal">
                                 <Path
-                                    x:Name="Icon"
+                                    x:Name="Icon2"
                                     Width="15"
                                     Height="15"
-                                    Margin="5,0,5,0"
+                                    Margin="8,0,8,0"
                                     Data="{StaticResource IconPassword}"
                                     Fill="#FFC5A9"
                                     Stretch="Uniform"
@@ -181,6 +181,7 @@
                         <ControlTemplate.Triggers>
                             <!--  BORDES CON ANIMACION GRADIENTE  -->
                             <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Icon2" Property="Fill" Value="#fcfcda"/>
                                 <Trigger.EnterActions>
                                     <BeginStoryboard>
                                         <Storyboard>
@@ -246,16 +247,18 @@
 
         <!--  Boton de Login (mejorar?)  -->
         <Style x:Key="ButtonLogin" TargetType="{x:Type Button}">
-            <Setter Property="Width" Value="80" />
+            <Setter Property="Width" Value="100" />
             <Setter Property="Height" Value="35" />
             <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="Margin" Value="0,40,0,20" />
+            <Setter Property="Margin" Value="0,50,0,20" />
             <Setter Property="Background" Value="#50868686" />
             <Setter Property="Foreground" Value="White" />
             <Setter Property="BorderBrush" Value="White" />
-            <Setter Property="BorderThickness" Value="2" />
-            <Setter Property="FontSize" Value="17" />
+            <Setter Property="BorderThickness" Value="0.8" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="Template">
+
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border
@@ -267,8 +270,7 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="DarkGray" />
-                                <Setter Property="BorderBrush" Value="Black" />
+                                <Setter Property="Background" Value="#80868686" />
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
                                 <Setter Property="Background" Value="{DynamicResource ColorBordeUsernameConCursor}" />
@@ -339,7 +341,7 @@
         <Style x:Key="BorderWindow" TargetType="{x:Type Border}">
             <Setter Property="BorderBrush">
                 <Setter.Value>
-                    <LinearGradientBrush StartPoint="0, 1" EndPoint="1, 0">
+                    <LinearGradientBrush StartPoint="0.1, 1" EndPoint="1.1, 0">
                         <GradientStop Offset="0" Color="#840007" />
                         <GradientStop Offset="1" Color="#fcfcda" />
                     </LinearGradientBrush>
@@ -348,11 +350,11 @@
         </Style>
     </Window.Resources>
 
-    <Border BorderThickness="5" Style="{StaticResource BorderWindow}">
+    <Border BorderThickness="2" Style="{StaticResource BorderWindow}">
         <Border.Background>
-            <LinearGradientBrush StartPoint="0.8,0.2" EndPoint="0,0.8">
-                <GradientStop Color="#60ffbf75" Offset="1" />
-                <GradientStop Color="Transparent" Offset="0" />
+            <LinearGradientBrush StartPoint="0.6,0.3" EndPoint="0,0.7">
+                <GradientStop Color="#ffbf75" Offset="1" />
+                <GradientStop Color="#d0251111" Offset="0" />
             </LinearGradientBrush>
         </Border.Background>
 
@@ -370,7 +372,7 @@
                     Source="/Recursos/Library02.jpg"
                     Stretch="UniformToFill">
                     <Image.OpacityMask>
-                        <LinearGradientBrush StartPoint="0.45, -0.15" EndPoint=" 0.2, -0.06">
+                        <LinearGradientBrush StartPoint="0.42, -0.12" EndPoint=" 0.12, -0.02">
                             <GradientStop Offset="0" Color="Transparent" />
                             <GradientStop Offset="1" Color="Black" />
                         </LinearGradientBrush>
@@ -378,7 +380,7 @@
                 </Image>
             </Grid>
 
-            <Grid Grid.Column="1" Background="Transparent">
+            <Grid Grid.Column="1">
 
                 <StackPanel Grid.Column="1">
 
@@ -398,17 +400,18 @@
                         Padding="20"
                         HorizontalAlignment="Center"
                         Content="Iniciar Sesion"
-                        FontFamily="Arial"
-                        FontSize="32"
-                        FontWeight="DemiBold"
+                        FontFamily="Calibri light"
+                        FontSize="36"
+                        FontWeight="UltraBold"
                         Foreground="White" />
 
                     <Label
                         Margin="50,0,0,0"
                         HorizontalAlignment="Left"
                         Content="Username:"
-                        FontSize="17"
-                        Foreground="White" />
+                        FontSize="16"
+                        Foreground="White"
+                        FontFamily="Calibri"/>
 
                     <TextBox
                         Style="{StaticResource TextBoxStyleUsername}"
@@ -419,8 +422,9 @@
                         Margin="50,10,0,0"
                         HorizontalAlignment="Left"
                         Content="Password:"
-                        FontSize="17"
-                        Foreground="White" />
+                        FontSize="16"
+                        Foreground="White" 
+                        FontFamily="Calibri"/>
 
                     <PasswordBox
                         Style="{StaticResource TextBoxStylePassword}"
