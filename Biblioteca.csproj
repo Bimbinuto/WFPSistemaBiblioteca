@@ -181,6 +181,12 @@
     <Resource Include="Recursos\avatar.jpg" />
     <Content Include="Recursos\Iconos\AcercaSoftware.svg" />
     <Content Include="Recursos\Iconos\Administracion2.svg" />
+    <Content Include="Recursos\Iconos\iClose.svg" />
+    <Content Include="Recursos\Iconos\iClose2.svg" />
+    <Content Include="Recursos\Iconos\iLeftBtn.svg" />
+    <Content Include="Recursos\Iconos\iMax.svg" />
+    <Content Include="Recursos\Iconos\iMin.svg" />
+    <Content Include="Recursos\Iconos\iRightBtn.svg" />
     <Content Include="Recursos\Iconos\key.svg" />
     <Content Include="Recursos\Iconos\Mind1.svg" />
     <Content Include="Recursos\Iconos\person.svg" />
