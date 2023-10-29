@@ -25,36 +25,19 @@ namespace Biblioteca.BDConexion
                               + "password=" + password + ";"
                               + "database=" + bd + ";";
 
-        //public MySqlConnection estadoConexion()
-        //{
-        //    try
-        //    {
-        //        conn.ConnectionString = cadenaConexion;
-        //        conn.Open();
-        //        MessageBox.Show("Se conecto a la base de datos");
-        //    }
-        //    catch (MySqlException ex)
-        //    {
-        //        MessageBox.Show("No se puedo conectar" + ex.Message.ToString());
-        //    }
-        //    return conn;
-        //}
-
-        //SI RETORNA UNICAMENTE 'FALSE' Y 'TRUE'
-        //private bool testc;
         public bool comprobarConexion()
         {
             try
             {
                 conn.ConnectionString = cadenaConexion;
                 conn.Open();
-                MessageBox.Show("True");
+                //MessageBox.Show("True");
                 //testc = true;
                 //return true;
             }
             catch (MySqlException ex)
             {
-                MessageBox.Show("False"); //+ "\n" + ex.ToString()
+                //MessageBox.Show("False"); //+ "\n" + ex.ToString()
                 return false;
             }
             //finally

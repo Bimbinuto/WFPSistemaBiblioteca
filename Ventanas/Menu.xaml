@@ -248,8 +248,9 @@
                     >
                     <!--  Icono de conexion  -->
                     <Path
-                        Width="23"
-                        Height="23"
+                        Margin="0 0 8 0"
+                        Width="24"
+                        Height="24"
                         Fill="White"
                         Stretch="Uniform">
                         <Path.Style>
