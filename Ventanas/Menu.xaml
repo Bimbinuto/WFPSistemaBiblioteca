@@ -246,9 +246,9 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Right"
                     >
-                    <!--  Icono de conexion  -->
+                    <!--  Icono de conexion a la base de datos  -->
                     <Path
-                        Margin="0 0 8 0"
+                        Margin="0 0 15 0"
                         Width="24"
                         Height="24"
                         Fill="White"

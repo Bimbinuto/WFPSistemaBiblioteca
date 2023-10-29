@@ -14,7 +14,7 @@ namespace Biblioteca.BDConexion
     {
         MySqlConnection conn = new MySqlConnection();
         static string servidor = "localhost";
-        static string bd = "Biblioteca";//"Biblioteca";
+        static string bd = "Biblioteca";
         static string usuario = "root";
         static string password = "@TensorFlowK3";
         static string puerto = "3306";
@@ -25,31 +25,34 @@ namespace Biblioteca.BDConexion
                               + "password=" + password + ";"
                               + "database=" + bd + ";";
 
+        //consulta permanente lenta
         public bool comprobarConexion()
         {
             try
             {
                 conn.ConnectionString = cadenaConexion;
                 conn.Open();
-                //MessageBox.Show("True");
-                //testc = true;
-                //return true;
             }
             catch (MySqlException ex)
             {
-                //MessageBox.Show("False"); //+ "\n" + ex.ToString()
                 return false;
             }
-            //finally
-            //{
-            //    if (conn.State == ConnectionState.Open)
-            //    {
-            //        conn.Close();
-            //    }
-            //}
-
             return true;
-            //testc = false;
+        }
+
+        //consulta permanente optima
+        public async Task<bool> comprobarConexionAsync()
+        {
+            try
+            {
+                conn.ConnectionString = cadenaConexion;
+                await conn.OpenAsync();
+            }
+            catch (MySqlException ex)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

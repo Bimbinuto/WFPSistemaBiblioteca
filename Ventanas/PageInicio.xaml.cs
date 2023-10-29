@@ -32,9 +32,7 @@ namespace Biblioteca.Ventanas
 
         private void btnConectar(object sender, RoutedEventArgs e)
         {
-            //dbvm = new BaseDeDatosVM();
             dbvm.estadoDeLaConexion();
-            //lbmostrar.Content = dbvm.EstaConectado.ToString();
         }
     }
 }

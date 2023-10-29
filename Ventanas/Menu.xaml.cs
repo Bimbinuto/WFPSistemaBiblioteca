@@ -30,7 +30,7 @@ namespace Biblioteca.Ventanas
         {
             InitializeComponent();
             dbvm = (BaseDeDatosVM)FindResource("BDVM"); //nuevo
-            dbvm.estadoDeLaConexion();
+            //dbvm.estadoDeLaConexion();
             frPagePrincipal.Content = new PageInicio();
             startclock();
         }
@@ -40,12 +40,25 @@ namespace Biblioteca.Ventanas
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += tickevent;
+            timer.Tick += Timer_TickAsync;
             timer.Start();
         }
 
         private void tickevent(object sender, EventArgs e)
         {
             lbTimer.Content = DateTime.Now.ToString(@"HH:mm");
+        }
+
+        //respuestas continuas lenta
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            dbvm.estadoDeLaConexion();
+        }
+
+        //respuestas continuas optima
+        private async void Timer_TickAsync(object sender, EventArgs e)
+        {
+            await dbvm.estadoDeLaConexionAsync();
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

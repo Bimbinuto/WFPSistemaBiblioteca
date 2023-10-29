@@ -33,10 +33,18 @@ namespace Biblioteca.ViewModel
             }
         }
 
+        //Prueba unica continua (Lento)
         public void estadoDeLaConexion()
         {
             cnn = new Conexion();
             EstaConectado = cnn.comprobarConexion();
+        }
+
+        //Prueba continua permanente (Optima)
+        public async Task estadoDeLaConexionAsync()
+        {
+            cnn = new Conexion();
+            EstaConectado = await cnn.comprobarConexionAsync();
         }
 
         protected virtual void OnPropertyChanged(string property)

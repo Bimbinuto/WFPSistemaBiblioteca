@@ -164,7 +164,6 @@
       <DependentUpon>PrestamosYReservaciones.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\BaseDeDatosVM.cs" />
-    <Compile Include="ViewModel\DatabaseViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
