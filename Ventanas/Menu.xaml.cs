@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Biblioteca.BDConexion;
+using Biblioteca.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,16 +16,21 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
+/*TODO se esta usando Mysql.Data Framework (el que pesa menos)*/
+
 namespace Biblioteca.Ventanas
 {
     public partial class Menu : Window
     {
-        private object sender;
         private DispatcherTimer timer;
+
+        BaseDeDatosVM dbvm;
 
         public Menu()
         {
             InitializeComponent();
+            dbvm = (BaseDeDatosVM)FindResource("BDVM"); //nuevo
+            dbvm.estadoDeLaConexion();
             frPagePrincipal.Content = new PageInicio();
             startclock();
         }
@@ -110,6 +117,7 @@ namespace Biblioteca.Ventanas
         private void btnPrestamosYReservaciones(object sender, RoutedEventArgs e)
         {
             frPagePrincipal.Content = new PrestamosYReservaciones();
+
         }
 
         private void btnAcercaDe(object sender, RoutedEventArgs e)
@@ -122,7 +130,7 @@ namespace Biblioteca.Ventanas
             Login nuevo = new Login();
             nuevo.Show();
             this.Close();
-
         }
+
     }
 }

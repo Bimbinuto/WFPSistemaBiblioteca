@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Biblioteca.BDConexion;
+using Biblioteca.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,19 @@ namespace Biblioteca.Ventanas
     /// </summary>
     public partial class PageInicio : Page
     {
+        BaseDeDatosVM dbvm;
+
         public PageInicio()
         {
             InitializeComponent();
+            dbvm = (BaseDeDatosVM)FindResource("BDVM");
+        }
+
+        private void btnConectar(object sender, RoutedEventArgs e)
+        {
+            //dbvm = new BaseDeDatosVM();
+            dbvm.estadoDeLaConexion();
+            //lbmostrar.Content = dbvm.EstaConectado.ToString();
         }
     }
 }
