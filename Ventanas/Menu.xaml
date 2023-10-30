@@ -3,112 +3,157 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:Biblioteca.Ventanas"
+    xmlns:local="clr-namespace:Biblioteca"
+    xmlns:VM="clr-namespace:Biblioteca.ViewModel"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Menu"
     Width="1600"
     Height="900"
     AllowsTransparency="True"
+    MouseDown="Window_MouseDown"
     Background="#01000000"
     FontSize="20"
     Loaded="Window_Loaded"
-    MouseDown="Window_MouseDown"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
+    <!--  xmlns:local="clr-namespace:Biblioteca.Ventanas" asi esta el original (fue modificado con sin Ventanas)  -->
 
     <Window.Resources>
-        <!--  test Button  -->
-        <Style x:Key="StyleButtons" TargetType="{x:Type Button}">
-            <Setter Property="Width" Value="110" />
-            <Setter Property="Height" Value="110" />
-            <Setter Property="Margin" Value="10" />
-            <Setter Property="FontSize" Value="15" />
-            <Setter Property="BorderBrush" Value="#ffdece" />
-            <Setter Property="BorderThickness" Value="2" />
-            <Setter Property="Background" Value="#50000000" />
-            <Setter Property="Foreground" Value="White" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border
-                            Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="5">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#ffda9e" />
-                                <Setter Property="Foreground" Value="Black" />
-                                <Setter Property="BorderBrush" Value="#840007" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+        <!--  x:locales  -->
+        <VM:BaseDeDatosVM x:Key="BDVM" />
 
-        <!--  Boton de "Inicio" personalzado -->
-        <Style x:Key="StyleButtonInicio" TargetType="{x:Type Button}">
-            <Setter Property="Width" Value="110" />
-            <Setter Property="Height" Value="110" />
-            <Setter Property="Margin" Value="10" />
-            <Setter Property="FontSize" Value="15" />
+        <!--  Iconos de conexion  -->
+        <Geometry x:Key="IconConectado">M34,17H28.23A6.25,6.25,0,0,0,22,12H14.15a6.25,6.25,0,0,0-6.21,5H2v2H7.93a6.22,6.22,0,0,0,6.22,5H22a6.22,6.22,0,0,0,6.22-5H34ZM17.08,22H14.15a4.17,4.17,0,0,1-4.31-4,4.17,4.17,0,0,1,4.31-4h2.94ZM22,22H19V14h3a4.17,4.17,0,0,1,4.31,4A4.17,4.17,0,0,1,22,22Z</Geometry>
+        <GeometryGroup x:Key="IconDesconectado">
+            <PathGeometry Figures="M12.17,6A6.21,6.21,0,0,0,6,11H2.13v2H6a6.23,6.23,0,0,0,6.21,5H17V6ZM15.1,16H12.17a4.2,4.2,0,0,1-4.31-4,4.17,4.17,0,0,1,4.31-4H15.1Z" />
+            <PathGeometry Figures="M33.92,23H30.14a6.25,6.25,0,0,0-6.21-5H19v2H14a1,1,0,1,0,0,2h5v4H14a1,1,0,0,0-1,1,1,1,0,0,0,1,1h5v2h4.94a6.23,6.23,0,0,0,6.22-5h3.76Zm-10,5H21V20h2.94a4.17,4.17,0,0,1,4.31,4A4.17,4.17,0,0,1,23.94,28Z" />
+        </GeometryGroup>
+        <Geometry x:Key="IconDesconectado2">M13.617 3.844a2.87 2.87 0 0 0-.451-.868l1.354-1.36L13.904 1l-1.36 1.354a2.877 2.877 0 0 0-.868-.452 3.073 3.073 0 0 0-2.14.075 3.03 3.03 0 0 0-.991.664L7 4.192l4.327 4.328 1.552-1.545c.287-.287.508-.618.663-.992a3.074 3.074 0 0 0 .075-2.14zm-.889 1.804a2.15 2.15 0 0 1-.471.705l-.93.93-3.09-3.09.93-.93a2.15 2.15 0 0 1 .704-.472 2.134 2.134 0 0 1 1.689.007c.264.114.494.271.69.472.2.195.358.426.472.69a2.134 2.134 0 0 1 .007 1.688zm-4.824 4.994l1.484-1.545-.616-.622-1.49 1.551-1.86-1.859 1.491-1.552L6.291 6 4.808 7.545l-.616-.615-1.551 1.545a3 3 0 0 0-.663.998 3.023 3.023 0 0 0-.233 1.169c0 .332.05.656.15.97.105.31.258.597.459.862L1 13.834l.615.615 1.36-1.353c.265.2.552.353.862.458.314.1.638.15.97.15.406 0 .796-.077 1.17-.232.378-.155.71-.376.998-.663l1.545-1.552-.616-.615zm-2.262 2.023a2.16 2.16 0 0 1-.834.164c-.301 0-.586-.057-.855-.17a2.278 2.278 0 0 1-.697-.466 2.28 2.28 0 0 1-.465-.697 2.167 2.167 0 0 1-.17-.854 2.16 2.16 0 0 1 .642-1.545l.93-.93 3.09 3.09-.93.93a2.22 2.22 0 0 1-.711.478z</Geometry>
+
+        <GeometryGroup x:Key="BDConectado">
+            <PathGeometry Figures="M48.78,39.629l-5.596,8.04l-3.949-3.241c-0.426-0.351-1.057-0.287-1.407,0.138c-0.351,0.427-0.289,1.058,0.139,1.407   l4.786,3.929c0.18,0.148,0.404,0.228,0.634,0.228c0.045,0,0.091-0.003,0.137-0.01c0.276-0.038,0.524-0.19,0.684-0.419l6.214-8.929   c0.315-0.453,0.204-1.076-0.25-1.392C49.717,39.061,49.095,39.175,48.78,39.629z" />
+            <PathGeometry Figures="M43.6,32.201c-7.168,0-13,5.832-13,13s5.832,13,13,13s13-5.832,13-13S50.769,32.201,43.6,32.201z M43.6,56.201   c-6.065,0-11-4.935-11-11s4.935-11,11-11s11,4.935,11,11S49.666,56.201,43.6,56.201z" />
+            <PathGeometry Figures="M24.236,29.965c0.326,0.009,0.651,0.018,0.982,0.023C25.674,29.996,26.135,30,26.6,30s0.926-0.004,1.383-0.011   c0.33-0.005,0.656-0.015,0.982-0.023c0.116-0.003,0.234-0.005,0.349-0.008c11.253-0.359,19.648-2.915,22.286-5.668V23v-0.5V22   v-7.111C46.733,18.232,36.444,20,26.6,20s-20.133-1.768-25-5.111V22v0.5V23v1.289c2.638,2.754,11.033,5.31,22.286,5.668   C24.002,29.96,24.12,29.962,24.236,29.965z" />
+            <PathGeometry Figures="M51.6,11.306V9.5V9c0-0.168-0.056-0.319-0.135-0.458C50.343,4.241,41.715,0,26.6,0C11.523,0,2.904,4.22,1.747,8.51   C1.662,8.657,1.6,8.818,1.6,9v0.5v1.806C4.437,14.267,13.917,17,26.6,17S48.764,14.267,51.6,11.306z" />
+            <PathGeometry Figures="M27.755,43.095c0.544-4.111,2.64-7.74,5.698-10.254c-1.359,0.105-2.764,0.188-4.246,0.229   c-0.87,0.027-1.74,0.041-2.606,0.041c-0.869,0-1.742-0.014-2.614-0.042c-7.341-0.201-13.191-1.238-17.403-2.717   C4.604,29.685,2.909,28.899,1.6,28v7.111v0.5v0.5V37.4c2.846,2.971,12.394,5.711,25,5.711   C26.991,43.111,27.37,43.101,27.755,43.095z" />
+            <PathGeometry Figures="M27.65,46.188c-0.351,0.004-0.693,0.012-1.05,0.012c-12.346,0-20.866-2.29-25-5.201v8.201c0,0.162,0.043,0.315,0.117,0.451   c1.181,4.895,11.747,8.549,24.883,8.549c2.508,0,4.92-0.135,7.194-0.385C30.278,55.076,27.941,50.909,27.65,46.188z" />
+        </GeometryGroup>
+
+        <GeometryGroup x:Key="BDDesconectado">
+            <PathGeometry Figures="M56.305,54.839L44.458,34.533c-0.405-0.695-1.127-1.109-1.932-1.109s-1.527,0.414-1.933,1.109L28.748,54.839   c-0.409,0.7-0.412,1.539-0.008,2.242c0.404,0.703,1.129,1.123,1.94,1.123h23.69c0.812,0,1.537-0.42,1.94-1.123   C56.716,56.377,56.713,55.54,56.305,54.839z M54.577,56.085c-0.031,0.054-0.092,0.119-0.206,0.119h-23.69   c-0.114,0-0.175-0.064-0.206-0.119s-0.056-0.14,0.001-0.238l11.845-20.307c0.057-0.098,0.143-0.117,0.205-0.117   s0.148,0.02,0.205,0.117l11.846,20.307C54.634,55.945,54.608,56.031,54.577,56.085z" />
+            <PathGeometry Figures="M42.611,40.205c-0.552,0-1,0.447-1,1v8c0,0.553,0.448,1,1,1s1-0.447,1-1v-8C43.611,40.652,43.163,40.205,42.611,40.205z" />
+            <PathGeometry Figures="M41.902,52.5c-0.19,0.18-0.29,0.439-0.29,0.71c0,0.26,0.1,0.51,0.29,0.7c0.19,0.189,0.45,0.3,0.71,0.3   c0.26,0,0.52-0.11,0.71-0.3c0.18-0.19,0.29-0.44,0.29-0.7c0-0.271-0.11-0.53-0.29-0.71C42.941,52.121,42.271,52.121,41.902,52.5z" />
+            <PathGeometry Figures="M24.227,29.965c0.326,0.009,0.651,0.018,0.982,0.023C25.666,29.996,26.126,30,26.592,30s0.926-0.004,1.383-0.011   c0.33-0.005,0.656-0.015,0.982-0.023c0.116-0.003,0.234-0.005,0.349-0.008c11.253-0.359,19.648-2.915,22.286-5.668V23v-0.5V22   v-7.111C46.724,18.232,36.436,20,26.592,20s-20.133-1.768-25-5.111V22v0.5V23v1.289c2.638,2.754,11.033,5.31,22.286,5.668   C23.994,29.96,24.111,29.962,24.227,29.965z" />
+            <PathGeometry Figures="M51.592,11.306V9.5V9c0-0.168-0.056-0.319-0.135-0.458C50.334,4.241,41.707,0,26.592,0C11.514,0,2.895,4.22,1.738,8.51   C1.653,8.657,1.592,8.818,1.592,9v0.5v1.806C4.428,14.267,13.908,17,26.592,17S48.756,14.267,51.592,11.306z" />
+            <PathGeometry Figures="M30.361,46.121c-1.216,0.049-2.466,0.08-3.769,0.08c-12.346,0-20.866-2.29-25-5.201v8.201c0,0.162,0.043,0.315,0.117,0.451   c1.161,4.814,11.407,8.42,24.241,8.538c-0.726-1.548-0.663-3.372,0.207-4.862L30.361,46.121z" />
+            <PathGeometry Figures="M32.231,42.915l5.771-9.894c0.159-0.272,0.348-0.52,0.55-0.755c-2.781,0.424-5.896,0.709-9.353,0.804   c-0.87,0.027-1.74,0.041-2.606,0.041c-0.869,0-1.742-0.014-2.614-0.042c-7.341-0.201-13.191-1.238-17.403-2.717   C4.596,29.685,2.9,28.899,1.592,28v7.111v0.5v0.5V37.4c2.846,2.971,12.394,5.711,25,5.711   C28.554,43.111,30.431,43.038,32.231,42.915z" />
+        </GeometryGroup>
+
+        <!--  Iconos del los Botones  -->
+        <Geometry x:Key="IconInicio">M21.71,11.29l-9-9a1,1,0,0,0-1.42,0l-9,9a1,1,0,0,0-.21,1.09A1,1,0,0,0,3,13H4v7.3A1.77,1.77,0,0,0,5.83,22H8.5a1,1,0,0,0,1-1V16.1a1,1,0,0,1,1-1h3a1,1,0,0,1,1,1V21a1,1,0,0,0,1,1h2.67A1.77,1.77,0,0,0,20,20.3V13h1a1,1,0,0,0,.92-.62A1,1,0,0,0,21.71,11.29Z</Geometry>
+        <Geometry x:Key="IconAdministracion">m489 117h-14c-.56 0-1-.45-1-1 0-.56.44-1 1-1h14c.55 0 1 .44 1 1 0 .55-.45 1-1 1zm0 5h-14c-.56 0-1-.45-1-1 0-.56.44-1 1-1h14c.55 0 1 .44 1 1 0 .55-.45 1-1 1zm0 5h-14c-.56 0-1-.45-1-1 0-.56.44-1 1-1h14c.55 0 1 .44 1 1 0 .55-.45 1-1 1zm-12-22h2.22c0-1.11 1.24-2 2.77-2s2.77.89 2.77 2h2.22v4h-10v-4zm15 0h-3v-2h-2.7c-.87-1.19-2.47-2-4.31-2-1.85 0-3.44.81-4.31 2h-2.7v2h-3c-2.21 0-4 1.79-4 4v20c0 2.2 1.79 4 4 4h20c2.2 0 4-1.8 4-4v-20c0-2.21-1.8-4-4-4z</Geometry>
+        <Geometry x:Key="IconPrestamosReservaciones">M21.09 15.367L23 16.495 12 23 1 16.493l1.91-1.128.983.582-.927.547L12 21.838l9.033-5.342-.927-.547zM19.5 11.5c0 .03-.007.056-.009.085l1.543.911-4.198 2.483a1.988 1.988 0 0 1-.68.402L12 17.838l-9.035-5.344L5.5 10.998V9.837L1 12.493 12 19l11-6.505-3.5-2.067zM14 7V6H9v1zm-4 1v1h3V8zM7 2.5C7 1.66 7.952 1 9.167 1H18v11h-2v2H9.5A2.502 2.502 0 0 1 7 11.5zm1 0c0 .177.443.5 1.167.5H16v8h1V2H9.167C8.443 2 8 2.323 8 2.5zm0 9A1.502 1.502 0 0 0 9.5 13H15V4H9.167A2.943 2.943 0 0 1 8 3.77z</Geometry>
+        <GeometryGroup x:Key="IconLibrosCatalogos">
+            <PathGeometry Figures="m63.4 96-53-28.8v2.6l53 28.7 59.3-31.4v-2.6zm0-15.7-50.4-26.1v2.6l50.4 26.1 59.3-31.4v-2.5zm0 20.9-53-28.7v2.6l53 28.7 59.3-31.3v-2.6zm0-26.1-50.4-26.1v2.6l50.4 26.1 59.3-31.4v-2.6z" />
+            <PathGeometry Figures="m10.4 59.4c-7.5-4.7-2.4-11.9 0-13.1 3.8-1.8 52.3 26.1 52.3 26.1l65.3-34s-53.3-21.8-57.5-23.5c-4.2-1.8-4.1-1.7-7.8 0-13.5 6.3-45.6 20.9-54.9 26.2-11 6.2-6.2 18.2-2.8 20.8-.5.1-.9.4-1.3.9-5.5 6.6-4 15.6-1.1 17.6 3.9 2.7 60.1 34 60.1 34l65.3-34v-5.2l-65.3 34s-47.4-26.7-54.9-31.4c-6.8-4.4-1.1-12.4 1.8-13.1 13.7 7.7 53 28.7 53 28.7l65.3-34v-5.2l-65.3 34c.1 0-44.7-24.1-52.2-28.8zm57.5-36.6 39.2 15.7-18.3 7.8-39.2-15.6z" />
+        </GeometryGroup>
+        <Geometry x:Key="IconReporteEstadistica">m527.79 288h-237.29l158.03 158.03c6.04 6.04 15.98 6.53 22.19.68 38.7-36.46 65.32-85.61 73.13-140.86 1.34-9.46-6.51-17.85-16.06-17.85zm-15.83-64.8c-8.24-119.46-103.7-214.92-223.16-223.16-9.12-.63-16.8 7.06-16.8 16.2v223.76h223.77c9.14 0 16.82-7.68 16.19-16.8zm-287.96 64.8v-237.29c0-9.55-8.39-17.4-17.84-16.06-119.17 16.84-210.26 120.95-206.02 245.72 4.36 128.14 114.69 233.22 242.89 231.61 50.4-.63 96.97-16.87 135.26-44.03 7.9-5.6 8.42-17.23 1.57-24.08z</Geometry>
+        <Geometry x:Key="IconAcercaSoftware">M213.333333,3.55271368e-14 C95.51296,3.55271368e-14 3.55271368e-14,95.51168 3.55271368e-14,213.333333 C3.55271368e-14,331.153707 95.51296,426.666667 213.333333,426.666667 C331.154987,426.666667 426.666667,331.153707 426.666667,213.333333 C426.666667,95.51168 331.154987,3.55271368e-14 213.333333,3.55271368e-14 Z M213.333333,384 C119.227947,384 42.6666667,307.43872 42.6666667,213.333333 C42.6666667,119.227947 119.227947,42.6666667 213.333333,42.6666667 C307.44,42.6666667 384,119.227947 384,213.333333 C384,307.43872 307.44,384 213.333333,384 Z M240.04672,128 C240.04672,143.46752 228.785067,154.666667 213.55008,154.666667 C197.698773,154.666667 186.713387,143.46752 186.713387,127.704107 C186.713387,112.5536 197.99616,101.333333 213.55008,101.333333 C228.785067,101.333333 240.04672,112.5536 240.04672,128 Z M192.04672,192 L234.713387,192 L234.713387,320 L192.04672,320 L192.04672,192 Z</Geometry>
+
+        <!--  Icono de la barra superior  -->
+        <Geometry x:Key="IconClose">M5.29289 5.29289C5.68342 4.90237 6.31658 4.90237 6.70711 5.29289L12 10.5858L17.2929 5.29289C17.6834 4.90237 18.3166 4.90237 18.7071 5.29289C19.0976 5.68342 19.0976 6.31658 18.7071 6.70711L13.4142 12L18.7071 17.2929C19.0976 17.6834 19.0976 18.3166 18.7071 18.7071C18.3166 19.0976 17.6834 19.0976 17.2929 18.7071L12 13.4142L6.70711 18.7071C6.31658 19.0976 5.68342 19.0976 5.29289 18.7071C4.90237 18.3166 4.90237 17.6834 5.29289 17.2929L10.5858 12L5.29289 6.70711C4.90237 6.31658 4.90237 5.68342 5.29289 5.29289Z</Geometry>
+        <Geometry x:Key="IconMax">M4.5 3C3.67157 3 3 3.67157 3 4.5V11.5C3 12.3284 3.67157 13 4.5 13H11.5C12.3284 13 13 12.3284 13 11.5V4.5C13 3.67157 12.3284 3 11.5 3H4.5ZM4.5 4H11.5C11.7761 4 12 4.22386 12 4.5V11.5C12 11.7761 11.7761 12 11.5 12H4.5C4.22386 12 4 11.7761 4 11.5V4.5C4 4.22386 4.22386 4 4.5 4Z</Geometry>
+        <Geometry x:Key="IconMin">M3,12 C3,11.4477 3.44772,11 4,11 L20,11 C20.5523,11 21,11.4477 21,12 C21,12.5523 20.5523,13 20,13 L4,13 C3.44772,13 3,12.5523 3,12 Z</Geometry>
+
+        <!--  Diseño en general para los botones  -->
+        <Style x:Key="DesignButton" TargetType="{x:Type RadioButton}">
             <Setter Property="BorderBrush" Value="Transparent" />
             <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Height" Value="50" />
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Margin" Value="5,0,0,0" />
+            <Setter Property="FontFamily" Value="Calibri" />
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
                         <Border
+                            x:Name="RButtonBorder"
                             Background="{TemplateBinding Background}"
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="5">
-                            <StackPanel Orientation="Vertical">
+                            CornerRadius="6">
+                            <StackPanel Orientation="Horizontal">
+                                <Line
+                                    X1="5"
+                                    X2="5"
+                                    Y1="35"
+                                    Y2="14"
+                                    StrokeThickness="4"
+                                    Stroke="White"
+                                    x:Name="lineaPrueba"
+                                    Visibility="Hidden" />
                                 <Path
                                     x:Name="Icon"
-                                    Width="50"
-                                    Height="50"
-                                    Margin="0 20 0 3"
-                                    Data="M21.71,11.29l-9-9a1,1,0,0,0-1.42,0l-9,9a1,1,0,0,0-.21,1.09A1,1,0,0,0,3,13H4v7.3A1.77,1.77,0,0,0,5.83,22H8.5a1,1,0,0,0,1-1V16.1a1,1,0,0,1,1-1h3a1,1,0,0,1,1,1V21a1,1,0,0,0,1,1h2.67A1.77,1.77,0,0,0,20,20.3V13h1a1,1,0,0,0,.92-.62A1,1,0,0,0,21.71,11.29Z"
-                                    Fill="#ffdece"
-                                    Stretch="Uniform" />
+                                    Width="20"
+                                    Height="20"
+                                    Margin="12,0,20,0"
+                                    Data="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Tag}"
+                                    Fill="#FFC5A9"
+                                    Stretch="Uniform"
+                                    VerticalAlignment="Center"
+                                    RenderTransformOrigin="0.5 0.5">
+                                    <Path.RenderTransform>
+                                        <ScaleTransform ScaleX="1" ScaleY="1" />
+                                    </Path.RenderTransform>
+                                </Path>
                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </StackPanel>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Icon" Property="Fill" Value="#840007"/>
-                                <!--Animate Scala Button-->
+                                <Setter Property="Background" Value="#15ffffff" />
+                                <Setter TargetName="Icon" Property="Fill" Value="#fcfcda" />
+                                <!--  Animate Scala Button  -->
                                 <Trigger.EnterActions>
                                     <BeginStoryboard>
                                         <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleX)"
-                                                             To="1.1"
-                                                             Duration="0:0:0.1" />
-                                            <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleY)"
-                                                             To="1.1"
-                                                             Duration="0:0:0.1"/>
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="Icon"
+                                                Storyboard.TargetProperty="(Path.RenderTransform).(ScaleTransform.ScaleX)"
+                                                To="1.2"
+                                                Duration="0:0:0.1" />
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="Icon"
+                                                Storyboard.TargetProperty="(Path.RenderTransform).(ScaleTransform.ScaleY)"
+                                                To="1.2"
+                                                Duration="0:0:0.1" />
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </Trigger.EnterActions>
                                 <Trigger.ExitActions>
                                     <BeginStoryboard>
                                         <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleX)"
-                                                             To="1"
-                                                             Duration="0:0:0.2" />
-                                            <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleY)"
-                                                             To="1"
-                                                             Duration="0:0:0.2"/>
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="Icon"
+                                                Storyboard.TargetProperty="(Path.RenderTransform).(ScaleTransform.ScaleX)"
+                                                To="1"
+                                                Duration="0:0:0.15" />
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="Icon"
+                                                Storyboard.TargetProperty="(Path.RenderTransform).(ScaleTransform.ScaleY)"
+                                                To="1"
+                                                Duration="0:0:0.15" />
                                         </Storyboard>
                                     </BeginStoryboard>
                                 </Trigger.ExitActions>
+                            </Trigger>
+                            <!--  Cambio de propiedad segun IsCheked  -->
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background" Value="#20ffffff" />
+                                <Setter TargetName="lineaPrueba" Property="Visibility" Value="Visible" />
+                                <Setter TargetName="Icon" Property="Fill" Value="#dd0007" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -116,129 +161,35 @@
             </Setter>
         </Style>
 
-        <!-- Boton de "Administracion" personalizado -->
-        <Style x:Key="StyleButtonAdministracion" TargetType="{x:Type Button}">
-            <Setter Property="Width" Value="110" />
-            <Setter Property="Height" Value="110" />
-            <Setter Property="Margin" Value="10" />
-            <Setter Property="FontSize" Value="15" />
-            <Setter Property="BorderBrush" Value="Transparent" />
-            <Setter Property="BorderThickness" Value="2" />
+        <!--  Botones de la barra superior  -->
+        <Style x:Key="StyleButtonBarUp" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Width" Value="43" />
+            <Setter Property="Height" Value="34" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="BorderBrush" Value="AliceBlue" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="10" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border
-                    Background="{TemplateBinding Background}"
-                    BorderBrush="{TemplateBinding BorderBrush}"
-                    BorderThickness="{TemplateBinding BorderThickness}"
-                    CornerRadius="5">
-                            <StackPanel Orientation="Vertical">
-                                <Path
-                            x:Name="Icon"
-                            Width="50"
-                            Height="50"
-                            Margin="0 20 0 3"
-                            Data="M25,7H23.82A3,3,0,0,0,21,5H20a3,3,0,0,0-3-3H15a3,3,0,0,0-3,3H11A3,3,0,0,0,8.18,7H7A2,2,0,0,0,5,9V28a2,2,0,0,0,2,2H25a2,2,0,0,0,2-2V9A2,2,0,0,0,25,7ZM11,7h1a2,2,0,0,0,2-2,1,1,0,0,1,1-1h2a1,1,0,0,1,1,1,2,2,0,0,0,2,2h1a1,1,0,0,1,1,1V9H10V8A1,1,0,0,1,11,7ZM25,28H7V9H8a2,2,0,0,0,2,2H22a2,2,0,0,0,2-2h1Z"
-                            Fill="#ffdece"
-                            Stretch="Uniform" />
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            </StackPanel>
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                            <Path
+                                x:Name="IconBar"
+                                Width="11"
+                                Height="11"
+                                Data="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Tag}"
+                                Fill="White"
+                                Stretch="Uniform"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center" />
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Icon" Property="Fill" Value="#840007"/>
-                                <!--Animate Scala Button-->
-                                <Trigger.EnterActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleX)"
-                                                     To="1.1"
-                                                     Duration="0:0:0.1" />
-                                            <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleY)"
-                                                     To="1.1"
-                                                     Duration="0:0:0.1"/>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.EnterActions>
-                                <Trigger.ExitActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleX)"
-                                                     To="1"
-                                                     Duration="0:0:0.2" />
-                                            <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleY)"
-                                                     To="1"
-                                                     Duration="0:0:0.2"/>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.ExitActions>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <!-- Boton "Prestamos y reservaciones" personalizado-->
-        <Style x:Key="StyleButtonprestaYreserva" TargetType="{x:Type Button}">
-            <Setter Property="Width" Value="110" />
-            <Setter Property="Height" Value="110" />
-            <Setter Property="Margin" Value="10" />
-            <Setter Property="FontSize" Value="15" />
-            <Setter Property="BorderBrush" Value="Transparent" />
-            <Setter Property="BorderThickness" Value="2" />
-            <Setter Property="Background" Value="Transparent" />
-            <Setter Property="Foreground" Value="White" />
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border
-            Background="{TemplateBinding Background}"
-            BorderBrush="{TemplateBinding BorderBrush}"
-            BorderThickness="{TemplateBinding BorderThickness}"
-            CornerRadius="5">
-                            <StackPanel Orientation="Vertical">
-                                <Path
-                    x:Name="Icon"
-                    Width="50"
-                    Height="50"
-                    Margin="0 14 0 0"
-                    Data="M21.09 15.367L23 16.495 12 23 1 16.493l1.91-1.128.983.582-.927.547L12 21.838l9.033-5.342-.927-.547zM19.5 11.5c0 .03-.007.056-.009.085l1.543.911-4.198 2.483a1.988 1.988 0 0 1-.68.402L12 17.838l-9.035-5.344L5.5 10.998V9.837L1 12.493 12 19l11-6.505-3.5-2.067zM14 7V6H9v1zm-4 1v1h3V8zM7 2.5C7 1.66 7.952 1 9.167 1H18v11h-2v2H9.5A2.502 2.502 0 0 1 7 11.5zm1 0c0 .177.443.5 1.167.5H16v8h1V2H9.167C8.443 2 8 2.323 8 2.5zm0 9A1.502 1.502 0 0 0 9.5 13H15V4H9.167A2.943 2.943 0 0 1 8 3.77z"
-                    Fill="#ffdece"
-                    Stretch="Uniform" />
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            </StackPanel>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Icon" Property="Fill" Value="#840007"/>
-                                <!--Animate Scala Button-->
-                                <Trigger.EnterActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleX)"
-                                             To="1.1"
-                                             Duration="0:0:0.1" />
-                                            <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleY)"
-                                             To="1.1"
-                                             Duration="0:0:0.1"/>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.EnterActions>
-                                <Trigger.ExitActions>
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleX)"
-                                             To="1"
-                                             Duration="0:0:0.2" />
-                                            <DoubleAnimation Storyboard.TargetProperty="(Button.RenderTransform).(ScaleTransform.ScaleY)"
-                                             To="1"
-                                             Duration="0:0:0.2"/>
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </Trigger.ExitActions>
+                                <Setter Property="Background" Value="#40ffffff" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -247,8 +198,10 @@
         </Style>
     </Window.Resources>
 
+
+    <!--  EDICION DE PANTALLA DEL MENU  -->
     <Border BorderThickness="2">
-        <!--  test  -->
+        <!--  Borde Gradiente para el Menu  -->
         <Border.Background>
             <LinearGradientBrush StartPoint="0.8, 0" EndPoint="1,0">
                 <GradientStop Offset="0" Color="#00ffe4e1" />
@@ -263,88 +216,199 @@
         </Border.BorderBrush>
 
         <Grid>
-            <Button
-                Grid.ColumnSpan="2"
-                Margin="10"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Background="Black"
-                BorderBrush="Transparent"
-                Click="btnMenuClose"
-                Content="X"
-                FontFamily="Arial"
-                Foreground="White" />
+            <!--  Grid de la barra superior  -->
+            <Grid
+                Name="movableGrid"
+                Grid.Row="0"
+                Background="#f5000000"
+                DataContext="{StaticResource BDVM}">
 
-            <Border Background="#20000000">
-                <StackPanel Grid.Column="0">
+                <Label
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    Content="Biblioteca"
+                    FontWeight="Light"
+                    Margin="10,0,0,0"
+                    Foreground="White"
+                    FontSize="16"
+                    FontFamily="Calibri" />
+
+                <Label
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Name="lbTimer"
+                    Foreground="White"
+                    FontFamily="Calibri"
+                    FontSize="16" />
+
+
+                <StackPanel
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    >
+                    <!--  Icono de conexion a la base de datos  -->
+                    <Path
+                        Margin="0 0 15 0"
+                        Width="24"
+                        Height="24"
+                        Fill="White"
+                        Stretch="Uniform">
+                        <Path.Style>
+                            <Style TargetType="{x:Type Path}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding EstaConectado}" Value="True">
+                                        <Setter Property="Data" Value="{StaticResource BDConectado}" />
+                                        <Setter Property="ToolTip" Value="Conectado a la Base de Datos"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding EstaConectado}" Value="False">
+                                        <Setter Property="Data" Value="{StaticResource BDDesconectado}" />
+                                        <Setter Property="ToolTip" Value="Error de Conexion"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Path.Style>
+                    </Path>
+
+                    <!--  Boton de cerrar  -->
                     <Button
-                        Margin="10,20,10,10"
-                        Click="btnInicio"
-                        Content="Inicio"
-                        Style="{StaticResource StyleButtonInicio}"
-                        RenderTransformOrigin="0.5, 0.5">
-                        <Button.RenderTransform>
-                            <ScaleTransform ScaleX="1" ScaleY="1"/>
-                        </Button.RenderTransform>
-                    </Button>
-
+                        Style="{StaticResource StyleButtonBarUp}"
+                        Tag="{StaticResource IconMin}"
+                        ToolTip="Minimizar" />
+                    <!--  boton de maximizar  -->
                     <Button
-                        Click="btnAdministracion"
-                        Content="Administracion"
-                        Style="{StaticResource StyleButtonAdministracion}"
-                        RenderTransformOrigin="0.5, 0.5">
-                        <Button.RenderTransform>
-                            <ScaleTransform ScaleX="1" ScaleY="1"/>
-                        </Button.RenderTransform>
-                    </Button>
-
-                    <Button Style="{StaticResource StyleButtonprestaYreserva}"
-                            RenderTransformOrigin="0.5, 0.5"
-                            Click="btnPrestamosYReservaciones">
-                        <TextBlock
-                            Text="Prestamos y Reservaciones"
-                            TextAlignment="Center"
-                            TextWrapping="Wrap" />
-                        <Button.RenderTransform>
-                            <ScaleTransform ScaleX="1" ScaleY="1"/>
-                        </Button.RenderTransform>
-                    </Button>
-                    <Button Style="{StaticResource StyleButtons}">
-                        <TextBlock
-                            Text="Libros y Catalogos"
-                            TextAlignment="Center"
-                            TextWrapping="Wrap" />
-                    </Button>
-
-                    <Button Style="{StaticResource StyleButtons}">
-                        <TextBlock
-                            Text="Reportes y Estaditicas"
-                            TextAlignment="Center"
-                            TextWrapping="Wrap" />
-                    </Button>
-
-                    <Button Content="Acerca de" Style="{StaticResource StyleButtons}" />
-
+                        Style="{StaticResource StyleButtonBarUp}"
+                        Tag="{StaticResource IconMax}"
+                        ToolTip="Maximizar" />
+                    <!--  boton de minimizar  -->
                     <Button
-                        Width="50"
-                        Height="50"
-                        Margin="20"
-                        Content="Extra"
-                        Style="{StaticResource StyleButtons}" />
+                        Style="{StaticResource StyleButtonBarUp}"
+                        Tag="{StaticResource IconClose}"
+                        Click="btnMenuClose"
+                        ToolTip="Cerrar" />
                 </StackPanel>
-            </Border>
 
-            <Grid Grid.Column="1">
-                <Frame
-                    x:Name="frPageInicio"
-                    Navigated="frPageInicio_Navigated"
-                    NavigationUIVisibility="Hidden" />
+                <Path
+                    Fill="White"
+                    Stretch="UniformToFill"
+                    Width="34"
+                    Height="34"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Right"
+                    Margin="0,-7,147,0" />
             </Grid>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+            <Grid Name="staticGrid" Grid.Row="1">
+                <!--  Contenedor de los botones  -->
+                <Grid Background="#d2000000">
+                    <Grid Grid.Row="0">
+                        <!--  Icono del usuario  -->
+                        <Ellipse
+                            Width="60"
+                            Height="60"
+                            StrokeThickness="2"
+                            Stroke="AliceBlue"
+                            Margin="0,0,0,0"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="/Recursos/avatar.jpg" />
+                            </Ellipse.Fill>
+                        </Ellipse>
+
+                        <!--  Nombre  -->
+                        <Label
+                            Grid.Column="1"
+                            Content="Administrador"
+                            Foreground="White"
+                            FontFamily="Calibri"
+                            FontSize="16"
+                            FontWeight="Bold"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                            Margin="0,0,0,18" />
+
+                        <!--  Cuenta  -->
+                        <Label
+                            Grid.Column="1"
+                            Content="admin@sistemas.edu.bo"
+                            Foreground="White"
+                            FontFamily="Calibri"
+                            FontSize="15"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                            Margin="0,18,0,0" />
+
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="90" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+
+                    <Border Grid.Row="1">
+                        <StackPanel Grid.Column="0">
+                            <!--  Prueba de nueva forma de boton  -->
+                            <RadioButton
+                                Style="{StaticResource DesignButton}"
+                                Content="Inicio"
+                                Tag="{StaticResource IconInicio}"
+                                Click="btnInicio"
+                                IsChecked="True" />
+
+                            <RadioButton
+                                Style="{StaticResource DesignButton}"
+                                Content="Admistracion"
+                                Tag="{StaticResource IconAdministracion}"
+                                Click="btnAdministracion" />
+
+                            <RadioButton
+                                Style="{StaticResource DesignButton}"
+                                Content="Prestamos y Reservaciones"
+                                Tag="{StaticResource IconPrestamosReservaciones}"
+                                Click="btnPrestamosYReservaciones" />
+
+                            <RadioButton
+                                Style="{StaticResource DesignButton}"
+                                Content="Libros y Catalogos"
+                                Tag="{StaticResource IconLibrosCatalogos}" />
+
+
+                            <RadioButton
+                                Style="{StaticResource DesignButton}"
+                                Content="Reportes y Estadisticas"
+                                Tag="{StaticResource IconReporteEstadistica}" />
+
+                            <RadioButton
+                                Style="{StaticResource DesignButton}"
+                                Content="Acerca del Software"
+                                Tag="{StaticResource IconAcercaSoftware}"
+                                Click="btnAcercaDe" />
+
+                        </StackPanel>
+                    </Border>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="110" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                </Grid>
+
+                <!--  ventana que contiene los submenu's  -->
+                <Grid Grid.Column="1" Background="#d0000000">
+                    <Frame x:Name="frPagePrincipal" NavigationUIVisibility="Hidden" />
+                </Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="270" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+            </Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
         </Grid>
     </Border>
 </Window>

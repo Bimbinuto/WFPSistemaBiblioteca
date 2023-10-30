@@ -9,8 +9,10 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Biblioteca.Ventanas
 {
@@ -22,7 +24,10 @@ namespace Biblioteca.Ventanas
     {
         private int intentos = 0;
 
-        public Login() => InitializeComponent();
+        public Login()
+        {
+            InitializeComponent();
+        }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -37,24 +42,42 @@ namespace Biblioteca.Ventanas
 
         private void BtnCerrarLogin(object sender, EventArgs e) => this.Close();
 
+        // TODO arreglar el error del boton que acceder que cuando se pulsa varias veces, repite la animacion varias veces y crear varios Menus
         private void btnLogin(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(txtUsername.Text) || String.IsNullOrEmpty(txtPassword.Text))
+            if (String.IsNullOrEmpty(txtUsername.Text) || String.IsNullOrEmpty(txtPassword.Password))
             {
                 lbTest.Content = "complete campos";
-                intentos++;
-                if (intentos >= 3)
-                    this.Close();
             }
             else
             {
-                if (txtUsername.Text == "@username" && txtPassword.Text == "@password")
+                if (txtUsername.Text == "@username" && txtPassword.Password == "@password")
                 {
-                    Menu nuevo = new Menu(this);
-                    nuevo.Show();
-                    this.Close();
+
+                    Storyboard sb = this.FindResource("animacionLogin") as Storyboard;
+                    if (sb != null)
+                    {
+                        sb.Begin();
+                    }
+                    DispatcherTimer timer = new DispatcherTimer();
+                    timer.Interval = TimeSpan.FromSeconds(1.5);
+                    timer.Tick += (s, args) =>
+                    {
+                        timer.Stop();
+                        Menu nuevo = new Menu();
+                        nuevo.Show();
+                        this.Close();
+                    };
+                    timer.Start();
+                }
+                else
+                {
+                    intentos++;
+                    if (intentos >= 3)
+                        this.Close();
                 }
             }
         }
+
     }
 }

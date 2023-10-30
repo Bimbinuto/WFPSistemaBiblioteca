@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Biblioteca.BDConexion;
+using Biblioteca.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,17 +14,51 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
+
+/*TODO se esta usando Mysql.Data Framework (el que pesa menos)*/
 
 namespace Biblioteca.Ventanas
 {
-    /// <summary>
-    /// Lógica de interacción para Menu.xaml
-    /// </summary>
     public partial class Menu : Window
     {
-        public Menu(Login login)
+        private DispatcherTimer timer;
+
+        BaseDeDatosVM dbvm;
+
+        public Menu()
         {
             InitializeComponent();
+            dbvm = (BaseDeDatosVM)FindResource("BDVM"); //nuevo
+            //dbvm.estadoDeLaConexion();
+            frPagePrincipal.Content = new PageInicio();
+            startclock();
+        }
+
+        private void startclock()
+        {
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += tickevent;
+            timer.Tick += Timer_TickAsync;
+            timer.Start();
+        }
+
+        private void tickevent(object sender, EventArgs e)
+        {
+            lbTimer.Content = DateTime.Now.ToString(@"HH:mm");
+        }
+
+        //respuestas continuas lenta
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            dbvm.estadoDeLaConexion();
+        }
+
+        //respuestas continuas optima
+        private async void Timer_TickAsync(object sender, EventArgs e)
+        {
+            await dbvm.estadoDeLaConexionAsync();
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -30,6 +67,50 @@ namespace Biblioteca.Ventanas
                 DragMove();
         }
 
+        #region [Test] movimiento en prueba
+        //movable Grid
+
+        //MouseLeftButtonDown="Ventana_MouseLeftButtonDown"
+        //        MouseLeftButtonUp="Ventana_MouseLeftButtonUp"
+        //        MouseMove="Ventana_MouseMove"
+
+        private bool isDragging = false;
+        private Point anchorPoint;
+
+        private void Ventana_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var mousePosition = e.GetPosition(this);
+            if (mousePosition.X < movableGrid.ActualWidth)
+            {
+                isDragging = true;
+                anchorPoint = mousePosition;
+                this.Cursor = Cursors.SizeAll;
+            }
+        }
+
+        private void Ventana_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (isDragging)
+            {
+                isDragging = false;
+                this.Cursor = Cursors.Arrow;
+            }
+        }
+
+        private void Ventana_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (isDragging)
+            {
+                var currentPoint = e.GetPosition(this);
+                var differenceX = currentPoint.X - anchorPoint.X;
+                var differenceY = currentPoint.Y - anchorPoint.Y;
+                this.Left += differenceX;
+                this.Top += differenceY;
+            }
+        }
+
+        #endregion
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             DataContext = new Efectos.WindowBlureffect(this, Efectos.AccentState.ACCENT_ENABLE_BLURBEHIND) { BlurOpacity = 100 };
@@ -37,18 +118,24 @@ namespace Biblioteca.Ventanas
 
         private void btnInicio(object sender, RoutedEventArgs e)
         {
-            frPageInicio.Content = new PageInicio();
+            frPagePrincipal.Content = new PageInicio();
         }
 
         private void btnAdministracion(object sender, RoutedEventArgs e)
         {
-            frPageInicio.Content = new PageAdministracion();
+            frPagePrincipal.Content = new PageAdministracion();
         }
 
 
         private void btnPrestamosYReservaciones(object sender, RoutedEventArgs e)
         {
-            frPageInicio.Content = new PrestamosYReservaciones();
+            frPagePrincipal.Content = new PrestamosYReservaciones();
+
+        }
+
+        private void btnAcercaDe(object sender, RoutedEventArgs e)
+        {
+            frPagePrincipal.Content = new PageAcerca();
         }
 
         private void btnMenuClose(object sender, RoutedEventArgs e)
@@ -58,10 +145,5 @@ namespace Biblioteca.Ventanas
             this.Close();
         }
 
-        //no se esta usando
-        private void frPageInicio_Navigated(object sender, System.Windows.Navigation.NavigationEventArgs e)
-        {
-
-        }
     }
 }
