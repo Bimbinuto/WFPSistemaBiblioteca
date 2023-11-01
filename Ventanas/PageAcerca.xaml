@@ -98,64 +98,68 @@
         </Geometry>
     </Page.Resources>
 
-    <Grid>
+    <Border Background="#08FFFFFF"
+            CornerRadius="10"
+            Margin="10">
+        <Grid>
 
-        <Path
-            x:Name="Icon"
-            Width="90"
-            Height="90"
-            Margin="0,0,0,200"
-            Data="{StaticResource Icono}"
-            Fill="#ffff"
-            Stretch="Uniform"
-            VerticalAlignment="Center" />
-
-        <StackPanel
-            Orientation="Vertical"
-            VerticalAlignment="Center"
-            HorizontalAlignment="Center">
-
-
-
-            <Label />
-
-            <Label
-                Content="This Library Software is"
-                FontSize="40"
-                Foreground="White" />
+            <Path
+                x:Name="Icon"
+                Width="90"
+                Height="90"
+                Margin="0,0,0,200"
+                Data="{StaticResource Icono}"
+                Fill="#ffff"
+                Stretch="Uniform"
+                VerticalAlignment="Center" />
 
             <StackPanel
-                Orientation="Horizontal"
+                Orientation="Vertical"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center">
-                <Label
-                    Content="Development by Team"
-                    Foreground="White"
-                    FontSize="17"
-                    FontWeight="Light" />
-                <Label
-                    Content="Mentes Brillantes*"
-                    FontWeight="Bold"
-                    Foreground="White"
-                    FontFamily="Calibri"
-                    FontSize="20" />
+
+
+
+                <Label />
 
                 <Label
-                    Content="©"
-                    FontWeight="Light"
+                    Content="This Library Software is"
+                    FontSize="40"
+                    Foreground="White" />
+
+                <StackPanel
+                    Orientation="Horizontal"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+                    <Label
+                        Content="Development by Team"
+                        Foreground="White"
+                        FontSize="17"
+                        FontWeight="Light" />
+                    <Label
+                        Content="Mentes Brillantes*"
+                        FontWeight="Bold"
+                        Foreground="White"
+                        FontFamily="Calibri"
+                        FontSize="20" />
+
+                    <Label
+                        Content="©"
+                        FontWeight="Light"
+                        Foreground="White"
+                        FontFamily="Calibri Ligth"
+                        FontSize="15" />
+                </StackPanel>
+
+                <Label
+                    Content="Coming soon for more..."
                     Foreground="White"
-                    FontFamily="Calibri Ligth"
-                    FontSize="15" />
+                    FontSize="12"
+                    FontWeight="Light"
+                    HorizontalAlignment="Center"
+                    FontStyle="Italic" />
             </StackPanel>
 
-            <Label
-                Content="Coming soon for more..."
-                Foreground="White"
-                FontSize="12"
-                FontWeight="Light"
-                HorizontalAlignment="Center"
-                FontStyle="Italic" />
-        </StackPanel>
-
-    </Grid>
+        </Grid>
+    </Border>
 </Page>
