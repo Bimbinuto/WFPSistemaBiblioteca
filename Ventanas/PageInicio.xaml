@@ -12,7 +12,7 @@
     Title="PageInicio"
     Background="Transparent">
     <Page.Resources>
-        <TEMP:BaseDeDatosVM x:Key="BDVM"/>
+        <TEMP:BaseDeDatosVM x:Key="BDVM" />
 
         <!--  ESTILO DEL CALENDARIO  -->
         <Style x:Key="CalendarStyle1" TargetType="{x:Type Calendar}">
@@ -710,57 +710,64 @@
 
     </Page.Resources>
 
-    <Grid>
-        <Label
-            Content="SIMPLE TEXTO"
-            FontFamily="CALIBRI"
-            FontSize="26"
-            Foreground="White"
-            Margin="1160,800,0,0" />
-
-        <Label
-            Content="Inicio"
-            FontSize="28"
-            FontFamily="Calibri"
-            FontWeight="Bold"
-            Margin="20"
-            Foreground="White"
-            VerticalAlignment="Top"
-            HorizontalAlignment="Left" />
-
-
-        <!--  TODO contruir modificar la interfaz  -->
-        <StackPanel Orientation="Horizontal" Margin="10"
-                    DataContext="{StaticResource BDVM}">
-            <Viewbox
-                Width="300"
-                Height="300"
-                VerticalAlignment="Top"
-                Margin="10,90,10,10">
-                <Calendar
-                    CalendarItemStyle="{DynamicResource CalendarItemStyle1}"
-                    CalendarDayButtonStyle="{DynamicResource CalendarDayButtonStyle1}"
-                    CalendarButtonStyle="{DynamicResource CalendarButtonStyle1}"
-                    Style="{DynamicResource CalendarStyle1}" />
-            </Viewbox>
-
+    <Border Background="#08ffffff"
+            CornerRadius="10"
+            Margin="10">
+        <Grid>
 
             <Label
-                Foreground="AliceBlue"
-                FontSize="20"
-                x:Name="lbmostrar"
-                Content="{Binding EstaConectado}"
-                Height="40" />
-        </StackPanel>
+                Content="SIMPLE TEXTO"
+                FontFamily="CALIBRI"
+                FontSize="26"
+                Foreground="White"
+                Margin="1160,800,0,0" />
 
-        <Button
-            Width="150"
-            Height="30"
-            Content="Conectar"
-            HorizontalAlignment="Left"
-            Margin="57,452,0,328"
-            Click="btnConectar" />
+            <Label
+                Content="Inicio"
+                FontSize="28"
+                FontFamily="Calibri"
+                FontWeight="Bold"
+                Margin="20"
+                Foreground="White"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Left" />
 
 
-    </Grid>
+            <!--  TODO contruir modificar la interfaz  -->
+            <StackPanel
+                Orientation="Horizontal"
+                Margin="10"
+                DataContext="{StaticResource BDVM}">
+                <Viewbox
+                    Width="300"
+                    Height="300"
+                    VerticalAlignment="Top"
+                    Margin="10,90,10,10">
+                    <Calendar
+                        CalendarItemStyle="{DynamicResource CalendarItemStyle1}"
+                        CalendarDayButtonStyle="{DynamicResource CalendarDayButtonStyle1}"
+                        CalendarButtonStyle="{DynamicResource CalendarButtonStyle1}"
+                        Style="{DynamicResource CalendarStyle1}" />
+                </Viewbox>
+
+
+                <Label
+                    Foreground="AliceBlue"
+                    FontSize="20"
+                    x:Name="lbmostrar"
+                    Content="{Binding EstaConectado}"
+                    Height="40" />
+            </StackPanel>
+
+            <Button
+                Width="150"
+                Height="30"
+                Content="Conectar"
+                HorizontalAlignment="Left"
+                Margin="57,452,0,328"
+                Click="btnConectar" />
+
+
+        </Grid>
+    </Border>
 </Page>

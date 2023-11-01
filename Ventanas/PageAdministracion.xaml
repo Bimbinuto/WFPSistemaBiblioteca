@@ -10,72 +10,75 @@
     d:DesignWidth="800"
     Title="PageAdministracion">
 
-    <Grid>
+    <Border Background="#08FFFFFF"
+            CornerRadius="10"
+            Margin="10">
+        <Grid>
 
-        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Vertical">
 
-
-            <Label
-                Content="Administracion"
-                FontSize="30"
-                Foreground="White"
-                FontFamily="Calibri"
-                FontWeight="Bold"
-                Margin="20"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Left" />
-
-
-            <WrapPanel Orientation="Horizontal">
-                <Button
-                    Width="150"
-                    Height="150"
+                <Label
                     Content="Administracion"
+                    FontSize="30"
                     Foreground="White"
-                    FontSize="15"
-                    VerticalContentAlignment="Bottom"
-                    Background="#30ffffff"
-                    Margin="20" />
-                <Button
-                    Width="150"
-                    Height="150"
-                    Content="Registro de usuarios"
-                    Foreground="White"
-                    FontSize="15"
-                    VerticalContentAlignment="Bottom"
-                    Background="#30ffffff"
-                    Margin="20" />
-                <Button
-                    Width="150"
-                    Height="150"
-                    Content="cantidad de usuarios"
-                    Foreground="White"
-                    FontSize="15"
-                    VerticalContentAlignment="Bottom"
-                    Background="#30ffffff"
-                    Margin="20" />
-                <Button
-                    Width="150"
-                    Height="150"
-                    Content="Docentes"
-                    Foreground="White"
-                    FontSize="15"
-                    VerticalContentAlignment="Bottom"
-                    Background="#30ffffff"
-                    Margin="20" />
-                <Button
-                    Width="150"
-                    Height="150"
-                    Content="Secciones"
-                    Foreground="White"
-                    FontSize="15"
-                    VerticalContentAlignment="Bottom"
-                    Background="#30ffffff"
-                    Margin="20" />
-
-            </WrapPanel>
+                    FontFamily="Calibri"
+                    FontWeight="Bold"
+                    Margin="20"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Left" />
 
 
-        </StackPanel>
-    </Grid>
+                <WrapPanel Orientation="Horizontal">
+                    <Button
+                        Width="150"
+                        Height="150"
+                        Content="Administracion"
+                        Foreground="White"
+                        FontSize="15"
+                        VerticalContentAlignment="Bottom"
+                        Background="#30ffffff"
+                        Margin="20" />
+                    <Button
+                        Width="150"
+                        Height="150"
+                        Content="Registro de usuarios"
+                        Foreground="White"
+                        FontSize="15"
+                        VerticalContentAlignment="Bottom"
+                        Background="#30ffffff"
+                        Margin="20" />
+                    <Button
+                        Width="150"
+                        Height="150"
+                        Content="cantidad de usuarios"
+                        Foreground="White"
+                        FontSize="15"
+                        VerticalContentAlignment="Bottom"
+                        Background="#30ffffff"
+                        Margin="20" />
+                    <Button
+                        Width="150"
+                        Height="150"
+                        Content="Docentes"
+                        Foreground="White"
+                        FontSize="15"
+                        VerticalContentAlignment="Bottom"
+                        Background="#30ffffff"
+                        Margin="20" />
+                    <Button
+                        Width="150"
+                        Height="150"
+                        Content="Secciones"
+                        Foreground="White"
+                        FontSize="15"
+                        VerticalContentAlignment="Bottom"
+                        Background="#30ffffff"
+                        Margin="20" />
+
+                </WrapPanel>
+
+
+            </StackPanel>
+        </Grid>
+    </Border>
 </Page>

@@ -23,8 +23,10 @@ namespace Biblioteca.Ventanas
     public partial class Menu : Window
     {
         private DispatcherTimer timer;
-
         BaseDeDatosVM dbvm;
+
+        //Paginas de servicio
+        //PageInicio pagIn = new PageInicio();
 
         public Menu()
         {
@@ -34,6 +36,8 @@ namespace Biblioteca.Ventanas
             frPagePrincipal.Content = new PageInicio();
             startclock();
         }
+
+        #region [base de datos y tiempo]eventos
 
         private void startclock()
         {
@@ -60,6 +64,8 @@ namespace Biblioteca.Ventanas
         {
             await dbvm.estadoDeLaConexionAsync();
         }
+
+        #endregion eventos
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
