@@ -60,7 +60,7 @@ namespace Biblioteca.Ventanas
                         sb.Begin();
                     }
                     DispatcherTimer timer = new DispatcherTimer();
-                    timer.Interval = TimeSpan.FromSeconds(1.5);
+                    timer.Interval = TimeSpan.FromSeconds(1.7);
                     timer.Tick += (s, args) =>
                     {
                         timer.Stop();

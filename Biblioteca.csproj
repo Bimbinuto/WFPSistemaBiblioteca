@@ -145,25 +145,25 @@
     <Compile Include="Efectos\AcrylicBlur.cs" />
     <Compile Include="Efectos\BlurEffect.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="Ventanas\Login.xaml.cs">
+    <Compile Include="Vistas\Ventanas\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ventanas\Menu.xaml.cs">
+    <Compile Include="Vistas\Ventanas\Menu.xaml.cs">
       <DependentUpon>Menu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ventanas\PageAcerca.xaml.cs">
+    <Compile Include="Vistas\Ventanas\PageAcerca.xaml.cs">
       <DependentUpon>PageAcerca.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ventanas\PageAdministracion.xaml.cs">
+    <Compile Include="Vistas\Ventanas\PageAdministracion.xaml.cs">
       <DependentUpon>PageAdministracion.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ventanas\PageInicio.xaml.cs">
+    <Compile Include="Vistas\Ventanas\PageInicio.xaml.cs">
       <DependentUpon>PageInicio.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ventanas\PrestamosYReservaciones.xaml.cs">
+    <Compile Include="Vistas\Ventanas\PrestamosYReservaciones.xaml.cs">
       <DependentUpon>PrestamosYReservaciones.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\BaseDeDatosVM.cs" />
+    <Compile Include="ModeloDeVista\BaseDeDatosVM.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -176,27 +176,39 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Ventanas\Login.xaml">
+    <Page Include="Recursos\Colores.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ventanas\Menu.xaml">
+    <Page Include="Recursos\Estilos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ventanas\PageAcerca.xaml">
+    <Page Include="Recursos\Iconos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ventanas\PageAdministracion.xaml">
+    <Page Include="Vistas\Ventanas\Login.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ventanas\PageInicio.xaml">
+    <Page Include="Vistas\Ventanas\Menu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ventanas\PrestamosYReservaciones.xaml">
+    <Page Include="Vistas\Ventanas\PageAcerca.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\Ventanas\PageAdministracion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\Ventanas\PageInicio.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\Ventanas\PrestamosYReservaciones.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -290,6 +302,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Modelos\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

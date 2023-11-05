@@ -30,9 +30,5 @@ namespace Biblioteca.Ventanas
             dbvm = (BaseDeDatosVM)FindResource("BDVM");
         }
 
-        private void btnConectar(object sender, RoutedEventArgs e)
-        {
-            dbvm.estadoDeLaConexion();
-        }
     }
 }

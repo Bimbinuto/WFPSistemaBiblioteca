@@ -1,0 +1,194 @@
+﻿<Window
+    x:Class="Biblioteca.Ventanas.Login"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Biblioteca.Ventanas"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Login"
+    Width="700"
+    Height="450"
+    AllowsTransparency="True"
+    Background="#01000000"
+    FontSize="20"
+    Loaded="Window_Loaded"
+    MouseDown="Window_MouseDown"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+
+    <Window.Resources>
+        <!--  Animacion del Login Successful  -->
+        <Storyboard x:Key="animacionLogin">
+            <DoubleAnimation
+                Storyboard.TargetName="border"
+                Storyboard.TargetProperty="Width"
+                From="0"
+                To="696"
+                Duration="0:0:0.5"
+                AccelerationRatio="0.3"
+                DecelerationRatio="0.7" />
+            <DoubleAnimation
+                Storyboard.TargetName="txtBienvenido"
+                Storyboard.TargetProperty="Opacity"
+                From="0"
+                To="1"
+                BeginTime="0:0:0.6"
+                Duration="0:0:0.5" />
+            <DoubleAnimation
+                Storyboard.TargetName="imgUsuario"
+                Storyboard.TargetProperty="Opacity"
+                From="0"
+                To="1"
+                BeginTime="0:0:0.6"
+                Duration="0:0:0.5" />
+            <DoubleAnimation
+                Storyboard.TargetName="txtUsuario"
+                Storyboard.TargetProperty="Opacity"
+                From="0"
+                To="1"
+                BeginTime="0:0:0.6"
+                Duration="0:0:0.5" />
+        </Storyboard>
+    </Window.Resources>
+
+    <Border BorderThickness="2" Style="{StaticResource BorderWindow}">
+        <Border.Background>
+            <StaticResource ResourceKey="brbg-Login-gradient" />
+        </Border.Background>
+
+        <Grid Background="{StaticResource Transparente}">
+            <!--  lienzo de bienvenida  -->
+            <Canvas Panel.ZIndex="1">
+                <Border
+                    x:Name="border"
+                    Width="0"
+                    Height="446"
+                    HorizontalAlignment="Left">
+                    <Border.Background>
+                        <StaticResource ResourceKey="bgcn-login-gradient" />
+                    </Border.Background>
+
+
+
+                    <StackPanel
+                        Orientation="Vertical"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                        <TextBlock
+                            x:Name="txtBienvenido"
+                            Text="Bienvenido!"
+                            HorizontalAlignment="Center"
+                            FontSize="39"
+                            Opacity="0"
+                            FontWeight="Light"
+                            FontFamily="Calibri"
+                            Foreground="{StaticResource ColorLetras}"
+                            Margin="0,0,0,25" />
+                        <Ellipse
+                            x:Name="imgUsuario"
+                            Width="150"
+                            Height="150"
+                            StrokeThickness="3"
+                            Stroke="{StaticResource ColorCremaClaro}"
+                            Margin="0,0,0,10"
+                            Opacity="0"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Panel.ZIndex="3">
+                            <Ellipse.Fill>
+                                <ImageBrush ImageSource="/Recursos/avatar.jpg" />
+                            </Ellipse.Fill>
+                        </Ellipse>
+
+                        <TextBlock
+                            x:Name="txtUsuario"
+                            HorizontalAlignment="Center"
+                            Text="Administrador"
+                            FontSize="24"
+                            Margin="0"
+                            Opacity="0"
+                            FontWeight="Light"
+                            FontFamily="Calibri"
+                            Foreground="{StaticResource ColorLetras}" />
+                    </StackPanel>
+                </Border>
+            </Canvas>
+
+            <Grid Grid.Column="0">
+                <Image
+                    Margin="0,0,-350,0"
+                    Source="/Recursos/Library02.jpg"
+                    Stretch="UniformToFill">
+                    <Image.OpacityMask>
+                        <StaticResource ResourceKey="Img-login-gradient" />
+                    </Image.OpacityMask>
+                </Image>
+            </Grid>
+
+            <Grid Grid.Column="1">
+                <StackPanel Grid.Column="1">
+                    <Button
+                        Margin="0,0,0,0"
+                        Style="{StaticResource StyleButtonIcons}"
+                        Tag="{StaticResource IconCloseLogin}"
+                        Click="BtnCerrarLogin" />
+
+                    <Label
+                        Margin="0,20,0,20"
+                        Padding="20"
+                        HorizontalAlignment="Center"
+                        Content="Iniciar Sesion"
+                        FontFamily="Calibri light"
+                        FontSize="36"
+                        Foreground="{StaticResource ColorLetras}" />
+
+                    <Label
+                        Margin="50,0,0,0"
+                        HorizontalAlignment="Left"
+                        Content="Username:"
+                        FontSize="16"
+                        Foreground="{StaticResource ColorLetras}"
+                        FontFamily="Calibri" />
+
+                    <TextBox
+                        Style="{StaticResource TextBoxStyleUsername}"
+                        Text="@username"
+                        x:Name="txtUsername" />
+
+                    <Label
+                        Margin="50,10,0,0"
+                        HorizontalAlignment="Left"
+                        Content="Password:"
+                        FontSize="16"
+                        Foreground="{StaticResource ColorLetras}"
+                        FontFamily="Calibri" />
+
+                    <PasswordBox
+                        Style="{StaticResource TextBoxStylePassword}"
+                        Password="@password"
+                        x:Name="txtPassword" />
+
+                    <Button
+                        Content="acceder"
+                        Style="{StaticResource ButtonLogin}"
+                        x:Name="btnAcceder"
+                        Click="btnLogin" />
+
+                    <Label
+                        x:Name="lbTest"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Margin="-10"
+                        Foreground="{StaticResource ColorBlanco}" />
+                </StackPanel>
+            </Grid>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+        </Grid>
+    </Border>
+</Window>

@@ -1,0 +1,103 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--  REVISAR LOS BORDES DE LAS ELIPSES QUE CONTIENE AL ICONO DE USUARIO, AUN TIENE EL 'ALICE BLUE'  -->
+
+    <!--  Color del borde interfaz general  -->
+    <SolidColorBrush x:Key="ColorBordePrincipal1" Color="#840007" />
+    <SolidColorBrush x:Key="ColorBordePrincipal2" Color="#FCFCDA" />
+
+    <!--#region COLORES DEL LOGIN-->
+
+    <!--  Control de colores principal para las interfaces  -->
+    <!--  Colores comunes de las interfaces  -->
+
+    <SolidColorBrush x:Key="OnAliceBlue" Color="AliceBlue" />
+    <SolidColorBrush x:Key="ColorBlanco" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="ColorNegro" Color="#000000" />
+    <SolidColorBrush x:Key="bg-Transpente" Color="#00000000" />
+    <SolidColorBrush x:Key="Transparente1" Color="#40FFFFFF" />
+
+    <!--  Colores TextBox general  -->
+    <SolidColorBrush x:Key="Transparente" Color="#00000000" />
+    <SolidColorBrush x:Key="ColorCursor" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="ColorCrema" Color="#FFDECE" />
+    <SolidColorBrush x:Key="ColorCremaOscuro" Color="#FFC5A9" />
+    <SolidColorBrush x:Key="ColorCremaClaro" Color="#FCFCDA" />
+    <SolidColorBrush x:Key="ColorBordeUsernameConCursor" Color="#7DBAFF" />
+
+    <!--  Colores Botones general  -->
+    <SolidColorBrush x:Key="ColorGrisSemiTransparente1" Color="#50868686" />
+    <SolidColorBrush x:Key="ColorGrisSemiTransparente2" Color="#80868686" />
+    <SolidColorBrush x:Key="btn-ColorBorde" Color="#90868686" />
+    <SolidColorBrush x:Key="bg-PressBtn" Color="#40868686" />
+    <SolidColorBrush x:Key="fg-PressBtn" Color="#C3C3C3" />
+
+    <!--  aplicado al foreground de las letras  -->
+    <SolidColorBrush x:Key="ColorLetras" Color="#FFFFFF" />
+
+    <!--  Gradient Border Login  -->
+    <SolidColorBrush x:Key="CremaSemiOscuro" Color="#FFBF75" />
+    <SolidColorBrush x:Key="NegroSemiOscuro" Color="#D0251111" />
+
+    <!--  Gradiente Canvas Login Welcome  -->
+    <SolidColorBrush x:Key="CremaSemiOscuroT1" Color="#F0FFBF75" />
+    <SolidColorBrush x:Key="NegroSemiOscuroT1" Color="#F0000000" />
+
+    <!--  gradiente del background del borde del Login  -->
+    <LinearGradientBrush x:Key="brbg-Login-gradient" StartPoint="0.6,0.3" EndPoint="0,0.7">
+        <GradientStop Color="{Binding Source={StaticResource CremaSemiOscuro}, Path=Color}" Offset="1" />
+        <GradientStop Color="{Binding Source={StaticResource NegroSemiOscuro}, Path=Color}" Offset="0" />
+    </LinearGradientBrush>
+
+    <!--  gradiente del background del canvas del Login de Bienvenida  -->
+    <LinearGradientBrush x:Key="bgcn-login-gradient" StartPoint="1,0.2" EndPoint="0,0.1">
+        <GradientStop Color="{Binding Source={StaticResource CremaSemiOscuroT1}, Path=Color}" Offset="0" />
+        <GradientStop Color="{Binding Source={StaticResource NegroSemiOscuroT1}, Path=Color}" Offset="1" />
+    </LinearGradientBrush>
+
+    <!--  gradiente de presentacion de la imagen del Login  -->
+    <LinearGradientBrush x:Key="Img-login-gradient" StartPoint="0.42, -0.12" EndPoint=" 0.12, -0.02">
+        <GradientStop Offset="0" Color="{Binding Source={StaticResource Transparente}, Path=Color}" />
+        <GradientStop Offset="1" Color="{Binding Source={StaticResource ColorNegro}, Path=Color}" />
+    </LinearGradientBrush>
+
+    <!--#endregion COLORES DEL LOGIN-->
+
+    <!--#region COLORES DEL MENU-->
+
+    <!--  Colores de los radiobuttons  -->
+    <SolidColorBrush x:Key="bg-ContentBt-color" Color="#d2000000" />
+    <SolidColorBrush x:Key="brsh-color" Color="#00000000" />
+    <SolidColorBrush x:Key="bg-color" Color="#00000000" />
+    <SolidColorBrush x:Key="st-line" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="iFill-default-color" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="iFill-color" Color="#FFC5A9" />
+    <SolidColorBrush x:Key="bg-overBt-color" Color="#15ffffff" />
+    <SolidColorBrush x:Key="iFill-over-color" Color="#fcfcda" />
+    <SolidColorBrush x:Key="bg-ck-color" Color="#20ffffff" />
+    <SolidColorBrush x:Key="iFill-ck-color" Color="#dd0007" />
+
+    <!--  Colores de la barra superior  -->
+    <SolidColorBrush x:Key="bg-bt-barColor" Color="#00000000" />
+    <SolidColorBrush x:Key="brsh-bt-barColor" Color="#FFF0F8FF" />
+    <SolidColorBrush x:Key="bg-bt-barColorTransparent" Color="#40ffffff" />
+    <SolidColorBrush x:Key="br-bar-color" Color="#F5000000" />
+
+    <!--  Menu gradiente leve  -->
+    <SolidColorBrush x:Key="bgbr-grad1-MenuColor" Color="#00ffe4e1" />
+    <SolidColorBrush x:Key="bgbr-grad2-MenuColor" Color="#00f9b7ff" />
+
+    <LinearGradientBrush x:Key="brsh-menu-Gradient" StartPoint="0, 1" EndPoint="1, 0">
+        <GradientStop Offset="0" Color="{Binding Source={StaticResource ColorBordePrincipal1}, Path=Color}" />
+        <GradientStop Offset="1" Color="{Binding Source={StaticResource ColorBordePrincipal2}, Path=Color}" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="br-menu-gradient" StartPoint="0.8, 0" EndPoint="1,0">
+        <GradientStop Offset="0" Color="{Binding Source={StaticResource bgbr-grad1-MenuColor}, Path=Color}" />
+        <GradientStop Offset="1" Color="{Binding Source={StaticResource bgbr-grad2-MenuColor}, Path=Color}" />
+    </LinearGradientBrush>
+
+    <!--  submenus  -->
+    <SolidColorBrush x:Key="bg-Content-subMenus-color" Color="#D2000000" />
+
+    <!--#endregion COLORES DEL MENU-->
+</ResourceDictionary>
