@@ -5,19 +5,24 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace Biblioteca.ViewModel
 {
 
     public class BaseDeDatosVM : INotifyPropertyChanged
     {
-        private bool _estaConectado = false;
+        private bool _estaConectado;
         public event PropertyChangedEventHandler PropertyChanged;
-        Conexion cnn;
+        private Conexion cnn;
 
         public BaseDeDatosVM()
         {
-            //cnn = new Conexion();
+            EstaConectado = false;
+            cnn = new Conexion();
+            var timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
+            timer.Tick += async (sender, e) => await estadoDeLaConexionAsync();
+            timer.Start();
         }
 
         public bool EstaConectado
@@ -33,18 +38,11 @@ namespace Biblioteca.ViewModel
             }
         }
 
-        //Prueba unica continua (Lento)
-        public void estadoDeLaConexion()
-        {
-            cnn = new Conexion();
-            EstaConectado = cnn.comprobarConexion();
-        }
-
         //Prueba continua permanente (Optima)
         public async Task estadoDeLaConexionAsync()
         {
-            cnn = new Conexion();
-            EstaConectado = await cnn.comprobarConexionAsync();
+            bool conectado = await cnn.comprobarConexionAsync();
+            EstaConectado = conectado ? true : false;
         }
 
         protected virtual void OnPropertyChanged(string property)

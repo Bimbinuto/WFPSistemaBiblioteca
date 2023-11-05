@@ -23,16 +23,9 @@ namespace Biblioteca.Ventanas
     public partial class Menu : Window
     {
         private DispatcherTimer timer;
-        BaseDeDatosVM dbvm;
-
-        //Paginas de servicio
-        //PageInicio pagIn = new PageInicio();
-
         public Menu()
         {
             InitializeComponent();
-            dbvm = (BaseDeDatosVM)FindResource("BDVM"); //nuevo
-            //dbvm.estadoDeLaConexion();
             frPagePrincipal.Content = new PageInicio();
             startclock();
         }
@@ -44,25 +37,12 @@ namespace Biblioteca.Ventanas
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += tickevent;
-            timer.Tick += Timer_TickAsync;
             timer.Start();
         }
 
         private void tickevent(object sender, EventArgs e)
         {
             lbTimer.Content = DateTime.Now.ToString(@"HH:mm");
-        }
-
-        //respuestas continuas lenta
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            dbvm.estadoDeLaConexion();
-        }
-
-        //respuestas continuas optima
-        private async void Timer_TickAsync(object sender, EventArgs e)
-        {
-            await dbvm.estadoDeLaConexionAsync();
         }
 
         #endregion eventos
@@ -73,7 +53,7 @@ namespace Biblioteca.Ventanas
                 DragMove();
         }
 
-        #region [Test] movimiento en prueba
+        #region [Test] movimiento de la ventana respecto a la barra superior
         //movable Grid
 
         //MouseLeftButtonDown="Ventana_MouseLeftButtonDown"
@@ -146,8 +126,8 @@ namespace Biblioteca.Ventanas
 
         private void btnMenuClose(object sender, RoutedEventArgs e)
         {
-            Login nuevo = new Login();
-            nuevo.Show();
+            //Login nuevo = new Login();
+            //nuevo.Show();
             this.Close();
         }
 
