@@ -57,6 +57,9 @@
         <Border.Background>
             <StaticResource ResourceKey="brbg-Login-gradient" />
         </Border.Background>
+        <Border.Effect>
+            <DropShadowEffect Color="Black" Direction="320" ShadowDepth="5" BlurRadius="10" Opacity="0.4"/>
+        </Border.Effect>
 
         <Grid Background="{StaticResource Transparente}">
             <!--  lienzo de bienvenida  -->
@@ -144,37 +147,34 @@
                         FontSize="36"
                         Foreground="{StaticResource ColorLetras}" />
 
-                    <Label
-                        Margin="50,0,0,0"
-                        HorizontalAlignment="Left"
-                        Content="Username:"
-                        FontSize="16"
-                        Foreground="{StaticResource ColorLetras}"
-                        FontFamily="Calibri" />
-
                     <TextBox
                         Style="{StaticResource TextBoxStyleUsername}"
-                        Text="@username"
-                        x:Name="txtUsername" />
+                        Text=""
+                        Margin="0,25,0,0"
+                        x:Name="txtUsername"
+                        Tag="usuario"
+                        />
 
-                    <Label
-                        Margin="50,10,0,0"
-                        HorizontalAlignment="Left"
-                        Content="Password:"
-                        FontSize="16"
-                        Foreground="{StaticResource ColorLetras}"
-                        FontFamily="Calibri" />
-
-                    <PasswordBox
-                        Style="{StaticResource TextBoxStylePassword}"
-                        Password="@password"
-                        x:Name="txtPassword" />
-
+                    <Grid Margin="0,40,0,0">
+                        <PasswordBox
+                            Style="{StaticResource TextBoxStylePassword}"
+                            Password=""
+                            x:Name="txtPassword"
+                            PasswordChanged="PasswordBox_PasswordChanged" />
+                        <TextBlock
+                            x:Name="watermarkTextBlock"
+                            Text="constraseña"
+                            Margin="82 5 0 0"
+                            FontSize="15"
+                            IsHitTestVisible="False"
+                            Foreground="#CC707070" />
+                    </Grid>
                     <Button
-                        Content="acceder"
+                        Content="Acceder"
                         Style="{StaticResource ButtonLogin}"
                         x:Name="btnAcceder"
-                        Click="btnLogin" />
+                        Click="btnLogin" 
+                        Margin="0,55,0,20"/>
 
                     <Label
                         x:Name="lbTest"

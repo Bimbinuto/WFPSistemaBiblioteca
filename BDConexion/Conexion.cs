@@ -14,10 +14,10 @@ namespace Biblioteca.BDConexion
     {
         MySqlConnection conn = new MySqlConnection();
         static string servidor = "localhost";
-        static string bd = "vehicles";
+        static string bd = "biblioteca";
         static string usuario = "root";
-        static string password = "";
-        static string puerto = "3307";
+        static string password = "@TensorFlowK3";
+        static string puerto = "3306";
 
         string cadenaConexion = "server=" + servidor + ";"
                               + "port=" + puerto + ";"

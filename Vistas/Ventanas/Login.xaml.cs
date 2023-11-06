@@ -42,6 +42,11 @@ namespace Biblioteca.Ventanas
 
         private void BtnCerrarLogin(object sender, EventArgs e) => this.Close();
 
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            watermarkTextBlock.Visibility = string.IsNullOrEmpty(txtPassword.Password) ? Visibility.Visible : Visibility.Collapsed;
+        }
+
         // TODO arreglar el error del boton que acceder que cuando se pulsa varias veces, repite la animacion varias veces y crear varios Menus
         private void btnLogin(object sender, EventArgs e)
         {
@@ -51,7 +56,7 @@ namespace Biblioteca.Ventanas
             }
             else
             {
-                if (txtUsername.Text == "@username" && txtPassword.Password == "@password")
+                if (txtUsername.Text == "admin" && txtPassword.Password == "admin")
                 {
 
                     Storyboard sb = this.FindResource("animacionLogin") as Storyboard;

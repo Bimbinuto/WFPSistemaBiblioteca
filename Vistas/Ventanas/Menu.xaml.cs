@@ -1,5 +1,6 @@
 ﻿using Biblioteca.BDConexion;
 using Biblioteca.ViewModel;
+using Biblioteca.Vistas.Ventanas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -131,5 +132,9 @@ namespace Biblioteca.Ventanas
             this.Close();
         }
 
+        private void btnNotasDesarrollo(object sender, RoutedEventArgs e)
+        {
+            frPagePrincipal.Content = new NotasDesarrollo();
+        }
     }
 }

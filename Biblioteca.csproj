@@ -151,6 +151,9 @@
     <Compile Include="Vistas\Ventanas\Menu.xaml.cs">
       <DependentUpon>Menu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Vistas\Ventanas\NotasDesarrollo.xaml.cs">
+      <DependentUpon>NotasDesarrollo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\Ventanas\PageAcerca.xaml.cs">
       <DependentUpon>PageAcerca.xaml</DependentUpon>
     </Compile>
@@ -193,6 +196,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vistas\Ventanas\Menu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\Ventanas\NotasDesarrollo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -272,6 +279,7 @@
     <Content Include="Recursos\Iconos\iLeftBtn.svg" />
     <Content Include="Recursos\Iconos\iMax.svg" />
     <Content Include="Recursos\Iconos\iMin.svg" />
+    <Content Include="Recursos\Iconos\iNotesDevelopment.svg" />
     <Content Include="Recursos\Iconos\iPrestamos.svg" />
     <Content Include="Recursos\Iconos\iPrestamos2.svg" />
     <Content Include="Recursos\Iconos\iReporte.svg" />

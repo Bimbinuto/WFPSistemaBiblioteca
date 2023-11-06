@@ -18,16 +18,18 @@
 
     <!--  Colores TextBox general  -->
     <SolidColorBrush x:Key="Transparente" Color="#00000000" />
+    <SolidColorBrush x:Key="Tranparencia-Textbox" Color="#0DFFFFFF"/>
     <SolidColorBrush x:Key="ColorCursor" Color="#FFFFFF" />
     <SolidColorBrush x:Key="ColorCrema" Color="#FFDECE" />
     <SolidColorBrush x:Key="ColorCremaOscuro" Color="#FFC5A9" />
     <SolidColorBrush x:Key="ColorCremaClaro" Color="#FCFCDA" />
     <SolidColorBrush x:Key="ColorBordeUsernameConCursor" Color="#7DBAFF" />
 
-    <!--  Colores Botones general  -->
-    <SolidColorBrush x:Key="ColorGrisSemiTransparente1" Color="#50868686" />
+    <!--  Color del Button general  -->
+    <SolidColorBrush x:Key="ColorGrisSemiTransparente1" Color="#90868686" />
     <SolidColorBrush x:Key="ColorGrisSemiTransparente2" Color="#80868686" />
-    <SolidColorBrush x:Key="btn-ColorBorde" Color="#90868686" />
+    <SolidColorBrush x:Key="bt-IsMouseOver-color" Color="#70808686"/>
+    <SolidColorBrush x:Key="btn-ColorBorde" Color="#f0868686" />
     <SolidColorBrush x:Key="bg-PressBtn" Color="#40868686" />
     <SolidColorBrush x:Key="fg-PressBtn" Color="#C3C3C3" />
 
