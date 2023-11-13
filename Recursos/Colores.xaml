@@ -17,6 +17,7 @@
     <SolidColorBrush x:Key="ColorNegro" Color="#000000" />
     <SolidColorBrush x:Key="bg-Transpente" Color="#00000000" />
     <SolidColorBrush x:Key="Transparente1" Color="#40FFFFFF" />
+    <SolidColorBrush x:Key="Transparente3" Color="#20FFFFFF" />
 
     <!--  Colores TextBox general  -->
     <SolidColorBrush x:Key="Transparente" Color="#00000000" />
@@ -79,7 +80,7 @@
     <SolidColorBrush x:Key="iFill-color" Color="#FFC5A9" />
     <SolidColorBrush x:Key="bg-overBt-color" Color="#15ffffff" />
     <SolidColorBrush x:Key="iFill-over-color" Color="#fcfcda" />
-    <SolidColorBrush x:Key="bg-ck-color" Color="#20ffffff" />
+    <SolidColorBrush x:Key="bg-ck-color" Color="#30ffffff" />
     <SolidColorBrush x:Key="iFill-ck-color" Color="#DB3D23" />
 
     <!--  Colores de la barra superior  -->

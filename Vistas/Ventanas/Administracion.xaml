@@ -1,0 +1,225 @@
+﻿<UserControl
+    x:Class="Biblioteca.Vistas.Ventanas.Administracion"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Biblioteca.Vistas.Ventanas"
+    mc:Ignorable="d"
+    d:DesignHeight="450"
+    d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <!--  Diseño en general para los radiobuttons de 'modo simple descriptivo'  -->
+        <Style
+            x:Key="rb-simple-multiInfo"
+            TargetType="{x:Type RadioButton}"
+            BasedOn="{StaticResource StyleLetras}">
+            <Setter Property="BorderBrush" Value="{StaticResource brsh-color}" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="Height" Value="70" />
+            <Setter Property="Margin" Value="0,3,0,3" />
+            <Setter Property="Background" Value="#20FFFFFF" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <Border
+                            x:Name="RButtonBorder"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="6">
+                            <DockPanel>
+                                <ContentPresenter
+                                    Grid.Column="0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center" />
+                                <Path
+                                    Grid.Column="1"
+                                    x:Name="Icon"
+                                    Width="15"
+                                    Height="15"
+                                    Margin="0,0,25,0"
+                                    Data="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Tag}"
+                                    Fill="{StaticResource iFill-default-color}"
+                                    Stretch="Uniform"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Right"
+                                    RenderTransformOrigin="0.5 0.5" />
+                            </DockPanel>
+
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource bg-overBt-color}" />
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter Property="Background" Value="{StaticResource bg-ck-color}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Label
+            Grid.Row="0"
+            Content="Administracion"
+            Style="{StaticResource StyleLabelTitle}" />
+
+        <ScrollViewer
+            Grid.Row="1"
+            VerticalScrollBarVisibility="Auto"
+            Margin="0 0 0 10"
+            Background="Transparent">
+            <StackPanel
+                Grid.Row="1"
+                Orientation="Vertical"
+                Margin="120,20,120,70">
+
+                <!--  GESTIONAR BIBLIOTECARIOS  -->
+                <Label
+                    Content="Gestionar Bibliotecarios"
+                    Style="{StaticResource StyleLabel}"
+                    Margin="-70,15,0,15"
+                    FontWeight="SemiBold" />
+
+                <RadioButton Style="{StaticResource rb-simple-multiInfo}" Tag="{StaticResource IconDerecha}"
+                             Click="btnAbrirRegistrarBibliotecario">
+                    <RadioButton.Content>
+                        <StackPanel Orientation="Vertical" Margin="20,0,20,0">
+                            <Label Content="Registrar Bibliotecarios" Style="{StaticResource StyleLabel}" />
+                            <Label
+                                Content="permite registrar nuevos bibliotecarios en el sistema"
+                                Margin="0,-10,0,0"
+                                FontSize="12"
+                                Foreground="#C0C0C0" />
+                        </StackPanel>
+                    </RadioButton.Content>
+                </RadioButton>
+
+                <RadioButton Style="{StaticResource rb-simple-multiInfo}" Tag="{StaticResource IconDerecha}">
+                    <RadioButton.Content>
+                        <StackPanel Orientation="Vertical" Margin="20,0,20,0">
+                            <Label Content="Modificar Bibliotecario" Style="{StaticResource StyleLabel}" />
+                            <Label
+                                Content="permite modificar los datos existentes de los bibliotecarios"
+                                Margin="0,-10,0,0"
+                                FontSize="12"
+                                Foreground="#C0C0C0" />
+                        </StackPanel>
+                    </RadioButton.Content>
+                </RadioButton>
+
+                <RadioButton Style="{StaticResource rb-simple-multiInfo}" Tag="{StaticResource IconDerecha}">
+                    <RadioButton.Content>
+                        <StackPanel Orientation="Vertical" Margin="20,0,20,0">
+                            <Label Content="Eliminar Bibliotecarios" Style="{StaticResource StyleLabel}" />
+                            <Label
+                                Content="permite eliminar bibliotecarios del sistema permanentemente"
+                                Margin="0,-10,0,0"
+                                FontSize="12"
+                                Foreground="#C0C0C0" />
+                        </StackPanel>
+                    </RadioButton.Content>
+                </RadioButton>
+
+                <!--  GESTIONAR DOCENTES  -->
+                <Label
+                    Content="Gestionar Docentes"
+                    Style="{StaticResource StyleLabel}"
+                    Margin="-70,15,0,15"
+                    FontWeight="SemiBold" />
+
+                <RadioButton Style="{StaticResource rb-simple-multiInfo}" Tag="{StaticResource IconDerecha}">
+                    <RadioButton.Content>
+                        <StackPanel Orientation="Vertical" Margin="20,0,20,0">
+                            <Label Content="Registrar Docente" Style="{StaticResource StyleLabel}" />
+                            <Label
+                                Content="permite registrar nuevos docentes en el sistema"
+                                Margin="0,-10,0,0"
+                                FontSize="12"
+                                Foreground="#C0C0C0" />
+                        </StackPanel>
+                    </RadioButton.Content>
+                </RadioButton>
+
+                <RadioButton Style="{StaticResource rb-simple-multiInfo}" Tag="{StaticResource IconDerecha}">
+                    <RadioButton.Content>
+                        <StackPanel Orientation="Vertical" Margin="20,0,20,0">
+                            <Label Content="Modificar Docentes" Style="{StaticResource StyleLabel}" />
+                            <Label
+                                Content="permite modificar los datos existentes de los docentes"
+                                Margin="0,-10,0,0"
+                                FontSize="12"
+                                Foreground="#C0C0C0" />
+                        </StackPanel>
+                    </RadioButton.Content>
+                </RadioButton>
+
+                <RadioButton Style="{StaticResource rb-simple-multiInfo}" Tag="{StaticResource IconDerecha}">
+                    <RadioButton.Content>
+                        <StackPanel Orientation="Vertical" Margin="20,0,20,0">
+                            <Label Content="Eliminar docentes" Style="{StaticResource StyleLabel}" />
+                            <Label
+                                Content="permite eliminar docentes del sistema permanentemente"
+                                Margin="0,-10,0,0"
+                                FontSize="12"
+                                Foreground="#C0C0C0" />
+                        </StackPanel>
+                    </RadioButton.Content>
+                </RadioButton>
+
+                <!--  GESTIONAR ESTUDIANTES  -->
+                <Label
+                    Content="Gestionar Estudiantes"
+                    Style="{StaticResource StyleLabel}"
+                    Margin="-70,15,0,15"
+                    FontWeight="SemiBold" />
+
+                <RadioButton Style="{StaticResource rb-simple-multiInfo}" Tag="{StaticResource IconDerecha}">
+                    <RadioButton.Content>
+                        <StackPanel Orientation="Vertical" Margin="20,0,20,0">
+                            <Label Content="Registrar Estudiantes" Style="{StaticResource StyleLabel}" />
+                            <Label
+                                Content="permite registrar nuevos estudiantes en el sistema"
+                                Margin="0,-10,0,0"
+                                FontSize="12"
+                                Foreground="#C0C0C0" />
+                        </StackPanel>
+                    </RadioButton.Content>
+                </RadioButton>
+
+                <RadioButton Style="{StaticResource rb-simple-multiInfo}" Tag="{StaticResource IconDerecha}">
+                    <RadioButton.Content>
+                        <StackPanel Orientation="Vertical" Margin="20,0,20,0">
+                            <Label Content="Modificar Estudiantes" Style="{StaticResource StyleLabel}" />
+                            <Label
+                                Content="permite modificar los datos existentes de los estudiantes"
+                                Margin="0,-10,0,0"
+                                FontSize="12"
+                                Foreground="#C0C0C0" />
+                        </StackPanel>
+                    </RadioButton.Content>
+                </RadioButton>
+
+                <RadioButton Style="{StaticResource rb-simple-multiInfo}" Tag="{StaticResource IconDerecha}">
+                    <RadioButton.Content>
+                        <StackPanel Orientation="Vertical" Margin="20,0,20,0">
+                            <Label Content="Eliminar Estudiantes" Style="{StaticResource StyleLabel}" />
+                            <Label
+                                Content="permite eliminar estudiantes del sistema permanentemente"
+                                Margin="0,-10,0,0"
+                                FontSize="12"
+                                Foreground="#C0C0C0" />
+                        </StackPanel>
+                    </RadioButton.Content>
+                </RadioButton>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+    </Grid>
+</UserControl>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Biblioteca.Vistas.Registros;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,13 +17,21 @@ using System.Windows.Shapes;
 namespace Biblioteca.Vistas.Ventanas
 {
     /// <summary>
-    /// Lógica de interacción para NotasDesarrollo.xaml
+    /// Lógica de interacción para Administracion.xaml
     /// </summary>
-    public partial class NotasDesarrollo : Page
+    public partial class Administracion : UserControl
     {
-        public NotasDesarrollo()
+        public ContentControl ContentControl;
+
+        public Administracion(ContentControl ccDelMenu)
         {
             InitializeComponent();
+            ContentControl = ccDelMenu;
+        }
+
+        private void btnAbrirRegistrarBibliotecario(object sender, RoutedEventArgs e)
+        {
+            ContentControl.Content = new RegistrarBibliotecario(ContentControl);
         }
     }
 }

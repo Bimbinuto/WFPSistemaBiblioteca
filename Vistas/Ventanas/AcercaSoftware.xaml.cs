@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Biblioteca.Ventanas
+namespace Biblioteca.Vistas.Ventanas
 {
     /// <summary>
-    /// Lógica de interacción para PageAdministracion.xaml
+    /// Lógica de interacción para AcercaSoftware.xaml
     /// </summary>
-    public partial class PageAdministracion : Page
+    public partial class AcercaSoftware : UserControl
     {
-        public PageAdministracion()
+        public AcercaSoftware()
         {
             InitializeComponent();
         }

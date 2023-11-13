@@ -1,0 +1,110 @@
+﻿<UserControl
+    x:Class="Biblioteca.Vistas.Ventanas.NotasDeDesarrollo"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Biblioteca.Vistas.Ventanas"
+    mc:Ignorable="d"
+    d:DesignHeight="450"
+    d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style x:Key="titulo_tbk" TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="{StaticResource ColorLetras}" />
+            <Setter Property="FontFamily" Value="Calibri" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="Margin" Value="0,20,0,5" />
+        </Style>
+
+        <Style x:Key="contenido_tbk" TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="{StaticResource ColorLetras}" />
+            <Setter Property="FontFamily" Value="Calibri Ligth" />
+            <Setter Property="FontWeight" Value="UltraLight" />
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="Margin" Value="15,5,0,0" />
+        </Style>
+
+    </UserControl.Resources>
+
+    <Grid>
+        <Label
+            Content="Notas de desarrollo"
+            Style="{StaticResource StyleLabelTitle}"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left" />
+
+        <!--
+    <StackPanel Orientation="Vertical">
+    <TextBlock Text="[]" Style="{StaticResource titulo_tbk}"/>
+    <TextBlock Text="- " Style="{StaticResource contenido_tbk}"/>
+    </StackPanel>
+        -->
+
+        <ScrollViewer
+            VerticalScrollBarVisibility="Auto"
+            Margin="0,60,0,0"
+            Background="Transparent">
+            <StackPanel Orientation="Vertical" Margin="25,0,0,0">
+                <ListBox Margin="0,10,0,10" Height="1" />
+
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="[05/11/2023]" Style="{StaticResource titulo_tbk}" />
+                    <TextBlock Text="- Se modifico los bloques de texto del Login para la coherencia del UI." Style="{StaticResource contenido_tbk}" />
+                    <TextBlock Text="- Se agrego una modificaciond e un ScrollBar de manera general para todas las interfaces." Style="{StaticResource contenido_tbk}" />
+                    <TextBlock Text="- Se agrego un 'DropShadowEffect' al Login.xaml y al Menu.xaml para no generar mucha transparencia" Style="{StaticResource contenido_tbk}" />
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="[04/11/2023]" Style="{StaticResource titulo_tbk}" />
+                    <TextBlock Text="- Se ha migrado el proyecto al patron de diseño MVVM(Modelo, Vista, Modelo de Vista) para una mejor organizacio del proyecto." Style="{StaticResource contenido_tbk}" />
+                    <TextBlock Text="- Se ha mejorado la conexion de muestra permanente a la base de datos, evitando que varias instancias y que la memoria incremente." Style="{StaticResource contenido_tbk}" />
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="[03/11/2023]" Style="{StaticResource titulo_tbk}" />
+                    <TextBlock Text="- Se ha diseñado la base de datos" Style="{StaticResource contenido_tbk}" />
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="[31/10/2023]" Style="{StaticResource titulo_tbk}" />
+                    <TextBlock Text="- Se redistribuyo el contenido de los botones del panel del Menu." Style="{StaticResource contenido_tbk}" />
+                    <TextBlock Text="- Se realizaron cambios minimos en el codigo." Style="{StaticResource contenido_tbk}" />
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="[29/10/2023]" Style="{StaticResource titulo_tbk}" />
+                    <TextBlock Text="- Se realizo la 'conexion' de la base de datos creada en MySQL (para su funcionamiento es necesario agregar el paquete NuGet de 'Mysql.Data' de oracle a Visual Studio), es la primera referencia externa de la que se depende para realiza una conexion" Style="{StaticResource contenido_tbk}" />
+                    <TextBlock Text="- Se agrego un icono de estado de conexion a la base de datos con funcionamiento en tiempo real." Style="{StaticResource contenido_tbk}" />
+                    <TextBlock Text="- Se corrigio un problema que hacia que se congelara la UI." Style="{StaticResource contenido_tbk}" />
+                    <TextBlock Text="- Se mejoro pequeños detalles con los botones de la UI relacionados con el Menu." Style="{StaticResource contenido_tbk}" />
+
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="[27/10/2023]" Style="{StaticResource titulo_tbk}" />
+                    <TextBlock Text="- Se agrego un Bienvenida despues de iniciar sesion." Style="{StaticResource contenido_tbk}" />
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="[23/10/2023]" Style="{StaticResource titulo_tbk}" />
+                    <TextBlock Text="- Se rediseño el sistema, en adelante usara una una UI moderna (disponible solo para sistemas operativos con Windows 10 o superior)." Style="{StaticResource contenido_tbk}" />
+                    <TextBlock Text="- Se ha rediseñado el Login, ahora se ajusta mas al estilo de un biblioteca." Style="{StaticResource contenido_tbk}" />
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="- Se optimizo el codigo behind de Login.xaml y Menu.xaml." Style="{StaticResource contenido_tbk}" />
+                </StackPanel>
+
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="[29/09/2023]" Style="{StaticResource titulo_tbk}" />
+                    <TextBlock Text="- COMIENZO DEL PROYECTO" Style="{StaticResource contenido_tbk}" />
+                    <TextBlock Text="- Se creo tres botones (inicio, prestamos y reservaciones, libros y catalogos) para el Menu." Style="{StaticResource contenido_tbk}" />
+                    <TextBlock Text="- Se creo la UI de Login y parte de Menu en WPF." Style="{StaticResource contenido_tbk}" />
+                </StackPanel>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

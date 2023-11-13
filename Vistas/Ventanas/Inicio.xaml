@@ -33,7 +33,7 @@
                         <GradientStop Color="#FF617584" Offset="1"/>
                     </LinearGradientBrush>-->
                     <LinearGradientBrush StartPoint="0, 0.1" EndPoint="2, 0">
-                        <GradientStop Offset="0" Color="#c40007" />
+                        <GradientStop Offset="0" Color="#BB3D23" />
                         <GradientStop Offset="1" Color="#fcfcda" />
                     </LinearGradientBrush>
                 </Setter.Value>
@@ -57,7 +57,7 @@
 
         <!--  ESTILO DE LOS BOTONES DEL CALENDARIO  -->
         <Style x:Key="CalendarButtonStyle1" TargetType="{x:Type CalendarButton}">
-            <Setter Property="Background" Value="#c40007" />
+            <Setter Property="Background" Value="#BB3D23" />
             <Setter Property="MinWidth" Value="40" />
             <Setter Property="MinHeight" Value="42" />
             <Setter Property="FontSize" Value="12" />
@@ -221,7 +221,7 @@
                             <!--  fondo del dia seleccionado  -->
                             <Rectangle
                                 x:Name="SelectedBackground"
-                                Fill="#ff0007"
+                                Fill="#BB3D23"
                                 Opacity="0"
                                 RadiusX="2"
                                 RadiusY="2" />
@@ -707,16 +707,18 @@
     </UserControl.Resources>
 
     <Grid Background="{StaticResource bg-userControl-color}">
+        <!-- Titulo -->
+        <Label Grid.Row="0"
+            Content="Inicio"
+            Style="{StaticResource StyleLabelTitle}" />
 
+        <!-- Contenido -->
+        <StackPanel
+            Grid.Row="1"
+            Orientation="Vertical"
+            Margin="10"
+            HorizontalAlignment="Left">
 
-        <StackPanel Orientation="Vertical" Margin="10" HorizontalAlignment="Left">
-            <Label
-                Content="Inicio"
-                Margin="20 0 0 10"
-                FontWeight="Bold"
-                FontFamily="Arial"
-                FontSize="25"
-                Foreground="{StaticResource ColorLetras}"/>
 
             <Viewbox
                 Width="300"
@@ -729,5 +731,10 @@
                     Style="{DynamicResource CalendarStyle1}" />
             </Viewbox>
         </StackPanel>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
     </Grid>
 </UserControl>

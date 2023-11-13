@@ -16,6 +16,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using Biblioteca.Vistas;
+using Biblioteca.Vistas.Registros;
+using System.Management.Instrumentation;
+using Biblioteca.Efectos;
 
 /*TODO se esta usando Mysql.Data Framework (el que pesa menos)*/
 
@@ -23,12 +27,13 @@ namespace Biblioteca.Ventanas
 {
     public partial class Menu : Window
     {
+
         private DispatcherTimer timer;
         public Menu()
         {
             InitializeComponent();
             //frPagePrincipal.Content = new PageInicio();
-            contentControlPrincipal.Content = new Inicio();
+            ccPrincipal.Content = new Inicio();
             startclock();
         }
 
@@ -107,24 +112,23 @@ namespace Biblioteca.Ventanas
         private void btnInicio(object sender, RoutedEventArgs e)
         {
             //frPagePrincipal.Content = new PageInicio();
-            contentControlPrincipal.Content = new Inicio();
+            //contentControlPrincipal.Content = new Inicio();
         }
 
         private void btnAdministracion(object sender, RoutedEventArgs e)
         {
             //frPagePrincipal.Content = new PageAdministracion();
+            ccPrincipal.Content = new Administracion(ccPrincipal);
         }
 
-
-        private void btnPrestamosYReservaciones(object sender, RoutedEventArgs e)
+        private void btnPrestamos(object sender, RoutedEventArgs e)
         {
-            //frPagePrincipal.Content = new PrestamosYReservaciones();
-
+            //contentControlPrincipal.Content = new RegistrarBibliotecario();
         }
 
         private void btnAcercaDe(object sender, RoutedEventArgs e)
         {
-            //frPagePrincipal.Content = new PageAcerca();
+            //contentControlPrincipal.Content = new AcercaSoftware();
         }
 
         private void btnMenuClose(object sender, RoutedEventArgs e)
@@ -135,6 +139,7 @@ namespace Biblioteca.Ventanas
         private void btnNotasDesarrollo(object sender, RoutedEventArgs e)
         {
             //frPagePrincipal.Content = new NotasDesarrollo();
+            ccPrincipal.Content = new NotasDeDesarrollo();
         }
 
         private void btnCerrarSesion(object sender, RoutedEventArgs e)

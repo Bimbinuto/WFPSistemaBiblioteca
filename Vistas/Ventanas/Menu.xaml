@@ -23,6 +23,7 @@
     <Window.Resources>
         <!--  x:locales  -->
         <VM:BaseDeDatosVM x:Key="BDVM" />
+
     </Window.Resources>
 
     <!--  EDICION DE PANTALLA DEL MENU  -->
@@ -164,7 +165,7 @@
                                 Style="{StaticResource DesignButton}"
                                 Content="Prestamos"
                                 Tag="{StaticResource IconPrestamos3}"
-                                Click="btnPrestamosYReservaciones" />
+                                Click="btnPrestamos" />
 
                             <RadioButton
                                 Style="{StaticResource DesignButton}"
@@ -229,8 +230,8 @@
 
                 <!--  ventana que contiene los submenu's  -->
                 <Grid Grid.Column="1" Background="{StaticResource bg-Content-subMenus-color}">
+                    <ContentControl x:Name="ccPrincipal"/>
                     <!--<Frame x:Name="frPagePrincipal" NavigationUIVisibility="Hidden" />-->
-                    <ContentControl x:Name="contentControlPrincipal" />
                 </Grid>
 
                 <Grid.ColumnDefinitions>

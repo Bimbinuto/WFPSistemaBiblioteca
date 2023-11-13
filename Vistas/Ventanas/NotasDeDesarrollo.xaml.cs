@@ -1,6 +1,4 @@
-﻿using Biblioteca.BDConexion;
-using Biblioteca.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,18 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Biblioteca.Ventanas
+namespace Biblioteca.Vistas.Ventanas
 {
     /// <summary>
-    /// Lógica de interacción para PageInicio.xaml
+    /// Lógica de interacción para NotasDeDesarrollo.xaml
     /// </summary>
-    public partial class PageInicio : Page
+    public partial class NotasDeDesarrollo : UserControl
     {
-
-        public PageInicio()
+        public NotasDeDesarrollo()
         {
             InitializeComponent();
         }
-
     }
 }
