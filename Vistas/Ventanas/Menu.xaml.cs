@@ -27,7 +27,8 @@ namespace Biblioteca.Ventanas
         public Menu()
         {
             InitializeComponent();
-            frPagePrincipal.Content = new PageInicio();
+            //frPagePrincipal.Content = new PageInicio();
+            contentControlPrincipal.Content = new Inicio();
             startclock();
         }
 
@@ -105,36 +106,42 @@ namespace Biblioteca.Ventanas
 
         private void btnInicio(object sender, RoutedEventArgs e)
         {
-            frPagePrincipal.Content = new PageInicio();
+            //frPagePrincipal.Content = new PageInicio();
+            contentControlPrincipal.Content = new Inicio();
         }
 
         private void btnAdministracion(object sender, RoutedEventArgs e)
         {
-            frPagePrincipal.Content = new PageAdministracion();
+            //frPagePrincipal.Content = new PageAdministracion();
         }
 
 
         private void btnPrestamosYReservaciones(object sender, RoutedEventArgs e)
         {
-            frPagePrincipal.Content = new PrestamosYReservaciones();
+            //frPagePrincipal.Content = new PrestamosYReservaciones();
 
         }
 
         private void btnAcercaDe(object sender, RoutedEventArgs e)
         {
-            frPagePrincipal.Content = new PageAcerca();
+            //frPagePrincipal.Content = new PageAcerca();
         }
 
         private void btnMenuClose(object sender, RoutedEventArgs e)
         {
-            //Login nuevo = new Login();
-            //nuevo.Show();
             this.Close();
         }
 
         private void btnNotasDesarrollo(object sender, RoutedEventArgs e)
         {
-            frPagePrincipal.Content = new NotasDesarrollo();
+            //frPagePrincipal.Content = new NotasDesarrollo();
+        }
+
+        private void btnCerrarSesion(object sender, RoutedEventArgs e)
+        {
+            Login nuevo = new Login();
+            nuevo.Show();
+            this.Close();
         }
     }
 }

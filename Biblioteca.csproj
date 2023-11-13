@@ -145,6 +145,9 @@
     <Compile Include="Efectos\AcrylicBlur.cs" />
     <Compile Include="Efectos\BlurEffect.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="Vistas\Ventanas\Inicio.xaml.cs">
+      <DependentUpon>Inicio.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\Ventanas\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
@@ -188,6 +191,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Recursos\Iconos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\Ventanas\Inicio.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -269,6 +276,8 @@
     <Resource Include="Recursos\avatar.jpg" />
     <Content Include="Recursos\Iconos\AcercaSoftware.svg" />
     <Content Include="Recursos\Iconos\Administracion2.svg" />
+    <Content Include="Recursos\Iconos\iCerrarSesion.svg" />
+    <Content Include="Recursos\Iconos\iCerrarSesion2.svg" />
     <Content Include="Recursos\Iconos\iClose.svg" />
     <Content Include="Recursos\Iconos\iClose2.svg" />
     <Content Include="Recursos\Iconos\iConfiguracion.svg" />

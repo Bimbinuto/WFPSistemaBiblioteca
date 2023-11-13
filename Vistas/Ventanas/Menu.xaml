@@ -35,8 +35,13 @@
             <StaticResource ResourceKey="brsh-menu-Gradient" />
         </Border.BorderBrush>
         <Border.Effect>
-            <!--Este efecto puede cambiar los colores 'Interntar agregar si hay la posibilidad'-->
-            <DropShadowEffect Color="Black" Direction="320" ShadowDepth="5" BlurRadius="10" Opacity="0.4"/>
+            <!--  Este efecto puede cambiar los colores 'Interntar agregar si hay la posibilidad'  -->
+            <DropShadowEffect
+                Color="Black"
+                Direction="320"
+                ShadowDepth="5"
+                BlurRadius="10"
+                Opacity="0.4" />
         </Border.Effect>
 
         <Grid>
@@ -51,19 +56,15 @@
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
                     Content="Biblioteca"
-                    FontWeight="Light"
                     Margin="10,0,0,0"
-                    Foreground="{StaticResource ColorLetras}"
-                    FontSize="16"
-                    FontFamily="Calibri" />
+                    Style="{StaticResource StyleLabel}" />
 
                 <Label
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
                     Name="lbTimer"
                     Foreground="{StaticResource ColorLetras}"
-                    FontFamily="Calibri"
-                    FontSize="16" />
+                    Style="{StaticResource StyleLabel}" />
 
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
@@ -132,9 +133,7 @@
                         <Label
                             Grid.Column="1"
                             Content="admin@sistemas.edu.bo"
-                            Foreground="{StaticResource ColorLetras}"
-                            FontFamily="Calibri"
-                            FontSize="15"
+                            Style="{StaticResource StyleLabel}"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Left"
                             Margin="0,18,0,0" />
@@ -205,21 +204,33 @@
                             <RadioButton
                                 Style="{StaticResource DesignButton}"
                                 Content="Notas de desarrollo"
-                                Tag="{StaticResource IconNotasDesarrollo}" 
-                                Click="btnNotasDesarrollo"/>
+                                Tag="{StaticResource IconNotasDesarrollo}"
+                                Click="btnNotasDesarrollo" />
 
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Row="2">
+                        <StackPanel Orientation="Vertical">
+                            <RadioButton
+                                Style="{StaticResource DesignButton}"
+                                Content="Cerrar sesion"
+                                Tag="{StaticResource IconCerrarSesion}"
+                                Click="btnCerrarSesion" />
                         </StackPanel>
                     </Border>
 
                     <Grid.RowDefinitions>
                         <RowDefinition Height="110" />
                         <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                 </Grid>
 
                 <!--  ventana que contiene los submenu's  -->
                 <Grid Grid.Column="1" Background="{StaticResource bg-Content-subMenus-color}">
-                    <Frame x:Name="frPagePrincipal" NavigationUIVisibility="Hidden" />
+                    <!--<Frame x:Name="frPagePrincipal" NavigationUIVisibility="Hidden" />-->
+                    <ContentControl x:Name="contentControlPrincipal" />
                 </Grid>
 
                 <Grid.ColumnDefinitions>
