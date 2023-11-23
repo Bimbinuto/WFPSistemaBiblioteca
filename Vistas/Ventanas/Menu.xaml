@@ -13,7 +13,6 @@
     MouseDown="Window_MouseDown"
     Background="#01000000"
     FontSize="20"
-    ResizeMode="NoResize"
     Loaded="Window_Loaded"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
@@ -185,7 +184,8 @@
                             <RadioButton
                                 Style="{StaticResource DesignButton}"
                                 Content="Reportes"
-                                Tag="{StaticResource IconReporte}" />
+                                Tag="{StaticResource IconReporte}" 
+                                Click="btnReporte"/>
 
                             <RadioButton
                                 Style="{StaticResource DesignButton}"

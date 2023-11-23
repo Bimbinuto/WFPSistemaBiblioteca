@@ -100,6 +100,7 @@
     <Reference Include="MySql.Data.EntityFramework, Version=8.2.0.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>packages\MySql.Data.EntityFramework.8.2.0\lib\net462\MySql.Data.EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework.Aero2" />
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -182,6 +183,9 @@
       <DependentUpon>NotasDeDesarrollo.xaml</DependentUpon>
     </Compile>
     <Compile Include="ModeloDeVista\BaseDeDatosVM.cs" />
+    <Compile Include="Vistas\Ventanas\Reporte.xaml.cs">
+      <DependentUpon>Reporte.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -231,6 +235,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vistas\Ventanas\NotasDeDesarrollo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\Ventanas\Reporte.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -284,6 +292,10 @@
     <Resource Include="Recursos\avatar.jpg" />
     <Content Include="Recursos\Iconos\AcercaSoftware.svg" />
     <Content Include="Recursos\Iconos\Administracion2.svg" />
+    <Content Include="Recursos\Iconos\iAbajo.svg" />
+    <Content Include="Recursos\Iconos\iAbajo2.svg" />
+    <Content Include="Recursos\Iconos\iCalendar.svg" />
+    <Content Include="Recursos\Iconos\iCalendar2.svg" />
     <Content Include="Recursos\Iconos\iCerrarSesion.svg" />
     <Content Include="Recursos\Iconos\iCerrarSesion2.svg" />
     <Content Include="Recursos\Iconos\iClose.svg" />

@@ -6,58 +6,326 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Biblioteca.Vistas.Registros"
     mc:Ignorable="d"
-    d:DesignHeight="450"
-    d:DesignWidth="800">
-
-    <!--<Setter Property="FontFamily" Value="Segoe UI" />
-        <Setter Property="FontSize" Value="15" />
-        <Setter Property="Foreground" Value="{StaticResource ColorLetras}" />
-        <Setter Property="FontSize" Value="24" />
-        <Setter Property="FontWeight" Value="SemiBold" />
-        <Setter Property="Margin" Value="20,0,0,10" />-->
+    d:DesignHeight="700"
+    d:DesignWidth="900"
+    xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
 
     <UserControl.Resources>
         <Style x:Key="btBarSuperior" TargetType="{x:Type Button}">
-            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderBrush" Value="Transparent" />
             <Setter Property="BorderThickness" Value="0" />
-            <Setter Property="Foreground" Value="{StaticResource ColorLetras}"/>
-            <Setter Property="FontFamily" Value="Segoe UI"/>
-            <Setter Property="FontWeight" Value="SemiBold"/>
-            <Setter Property="FontSize" Value="24"/>
-            <Setter Property="Margin" Value="25,0,0,10" />
+            <Setter Property="Foreground" Value="{StaticResource ColorLetras}" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="Margin" Value="25,10,0,10" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}">
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
                             <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" />
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Foreground" Value="#B0B0B0"/>
+                                <Setter Property="Foreground" Value="#B0B0B0" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <!--#region ESTILO DEL COMBOBOX-->
+
+        <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Border
+                    x:Name="Border"
+                    Grid.ColumnSpan="2"
+                    CornerRadius="5"
+                    BorderBrush="{StaticResource ColorCrema}"
+                    BorderThickness="0.3,0.3,0.3,1.8"
+                    SnapsToDevicePixels="True" />
+                <Border Grid.Column="1">
+                    <Path
+                        x:Name="Arrow"
+                        Data="{StaticResource IconAbajo2}"
+                        Fill="{StaticResource ColorCrema}"
+                        Margin="10,0,10,0"
+                        Stretch="UniformToFill"
+                        Height="8"
+                        Width="15"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center" />
+                </Border>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <!--<Setter Property="Background" Value="{StaticResource Tranparencia-TextboxGen-isMouseOver2}"/>-->
+                    <Setter Property="Fill" Value="{StaticResource ColorCremaOscuro}" TargetName="Arrow" />
+                </Trigger>
+                <Trigger Property="IsKeyboardFocused" Value="True">
+                    <Setter Property="BorderBrush" Value="{StaticResource ColorCremaOscuro}" TargetName="Border" />
+                    <Setter Property="BorderThickness" Value="0.3,0.3,0.3,0.3" TargetName="Border" />
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <ControlTemplate x:Key="ComboBoxTextBox" TargetType="{x:Type TextBox}">
+            <Border
+                x:Name="PART_ContentHost"
+                Focusable="False"
+                Background="{TemplateBinding Background}" />
+        </ControlTemplate>
+
+        <Style
+            x:Key="ComboBoxStyle1"
+            TargetType="{x:Type ComboBox}"
+            BasedOn="{StaticResource StyleLetras}">
+            <Setter Property="Height" Value="33" />
+            <Setter Property="Width" Value="250" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,7,0,3.95" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBox}">
+                        <Grid>
+                            <ToggleButton
+                                x:Name="ToggleButton"
+                                Template="{StaticResource ComboBoxToggleButton}"
+                                Grid.Column="2"
+                                Focusable="False"
+                                ClickMode="Press"
+                                IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" />
+                            <ContentPresenter
+                                x:Name="ContentSite"
+                                IsHitTestVisible="False"
+                                Content="{TemplateBinding SelectionBoxItem}"
+                                ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                Margin="11,0,25,0"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                IsEnabled="True" />
+                            <Label
+                                x:Name="Watermark"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                Foreground="{StaticResource ColorLetras}"
+                                Visibility="Collapsed"
+                                Padding="10,0,0,0"
+                                Content="{TemplateBinding Tag}"
+                                FontFamily="Segoe UI"
+                                FontSize="15" />
+                            <TextBox
+                                x:Name="PART_EditableTextBox"
+                                Template="{StaticResource ComboBoxTextBox}"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Focusable="True"
+                                Visibility="Hidden" />
+                            <Popup
+                                x:Name="Popup"
+                                Placement="Bottom"
+                                IsOpen="{TemplateBinding IsDropDownOpen}"
+                                AllowsTransparency="True"
+                                Focusable="False"
+                                PopupAnimation="Slide">
+                                <Grid
+                                    x:Name="DropDown"
+                                    SnapsToDevicePixels="True"
+                                    MinWidth="{TemplateBinding ActualWidth}"
+                                    MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border
+                                        x:Name="DropDownBorder"
+                                        BorderThickness="1"
+                                        BorderBrush="{StaticResource ColorCremaOscuro}"
+                                        Background="{StaticResource ColorNegro}" />
+                                    <ScrollViewer
+                                        Margin="4,6,4,6"
+                                        SnapsToDevicePixels="True"
+                                        OverridesDefaultStyle="True"
+                                        Foreground="{StaticResource ColorLetras}"
+                                        FontFamily="Segoe UI"
+                                        FontSize="15" />
+                                    <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Text" Value="" />
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Visibility" Value="Visible" TargetName="Watermark" />
+                            </MultiTrigger>
+                            <Trigger Property="HasItems" Value="False">
+                                <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95" />
+                            </Trigger>
+                            <Trigger Property="IsGrouping" Value="True">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="False" />
+                            </Trigger>
+                            <Trigger SourceName="Popup" Property="AllowsTransparency" Value="True">
+                                <Setter TargetName="DropDownBorder" Property="CornerRadius" Value="4" />
+                                <Setter TargetName="DropDownBorder" Property="Margin" Value="0,2,0,0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--#endregion ESTILO DEL COMBOBOX-->
+
+        <!--  ESTILO DEL DATEPICKER  -->
+
+        <Style x:Key="StyleCalendarButton" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="{StaticResource Transparente}" />
+            <Setter Property="Width" Value="35" />
+            <Setter Property="Height" Value="35" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="BorderBrush" Value="{StaticResource OnAliceBlue}" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Path
+                            x:Name="IconBar"
+                            Width="20"
+                            Height="20"
+                            Data="{StaticResource IconCalendario2}"
+                            Fill="{StaticResource iFill-default-color}"
+                            Stretch="UniformToFill"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center" />
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="IconBar" Property="Fill" Value="{StaticResource ColorCremaOscuro}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style
+            x:Key="DatePickerStyle"
+            TargetType="{x:Type DatePicker}"
+            BasedOn="{StaticResource StyleLetras}">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DatePicker}">
+                        <Grid>
+                            <Border
+                                x:Name="Border"
+                                Grid.ColumnSpan="2"
+                                Height="33"
+                                Width="250"
+                                BorderThickness="0,0,0,1.8"
+                                Padding="0 0 0 0"
+                                BorderBrush="{StaticResource ColorCrema}"
+                                CornerRadius="5"
+                                Background="{StaticResource Tranparencia-Textbox}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <DatePickerTextBox
+                                        x:Name="PART_TextBox"
+                                        Style="{StaticResource tbxStyleGeneral}"
+                                        Grid.Column="0"
+                                        VerticalAlignment="Center" />
+                                    <Button
+                                        x:Name="PART_Button"
+                                        Style="{StaticResource StyleCalendarButton}"
+                                        Grid.Column="1" />
+                                    <Popup
+                                        x:Name="PART_Popup"
+                                        AllowsTransparency="True"
+                                        Placement="Bottom"
+                                        PlacementTarget="{Binding ElementName=PART_TextBox}"
+                                        StaysOpen="False"
+                                        HorizontalOffset="17" />
+                                    <!--<Label
+                                        x:Name="Watermark"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Left"
+                                        Foreground="#90B0B0B0"
+                                        Visibility="Collapsed"
+                                        Padding="11,0,20,0"
+                                        Content="{TemplateBinding Tag}"
+                                        FontFamily="Segoe UI"
+                                        FontSize="15" />-->
+                                </Grid>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <!--<MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Text" Value="" />
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Visibility" Value="Visible" TargetName="Watermark" />
+                            </MultiTrigger>-->
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="LightBlue" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--ESTILO DEL CALENDARIO DEL DATEPICKER-->
+        <Style x:Key="DatePickerCalendarStyle" TargetType="{x:Type Calendar}">
+            <Setter Property="Foreground" Value="{StaticResource ColorLetras}"/>
+            <Setter Property="Background" Value="{StaticResource ColorBlanco}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ColorBordePrincipal1}"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Calendar}">
+                        <StackPanel x:Name="PART_Root"
+                            HorizontalAlignment="Center">
+                            <CalendarItem x:Name="PART_CalendarItem"
+                                  Background="{TemplateBinding Background}"
+                                  BorderBrush="{TemplateBinding BorderBrush}"
+                                  BorderThickness="{TemplateBinding BorderThickness}"
+                                  Style="{TemplateBinding CalendarItemStyle}"
+                                  Margin="0 5 0 0"/>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
     </UserControl.Resources>
 
     <Grid>
+        <!--  direccion barra superior  -->
         <StackPanel Orientation="Horizontal" Grid.Row="0">
             <Button
                 Content="Administracion"
                 Style="{StaticResource btBarSuperior}"
-                Click="btnVolverAdministracion"/>
+                Click="btnVolverAdministracion" />
 
             <Path
                 Grid.Column="1"
                 x:Name="Icon"
                 Width="15"
                 Height="15"
-                Margin="15 0 0 5"
+                Margin="10,0,-10,0"
                 Data="{StaticResource IconDerecha}"
                 Fill="{StaticResource iFill-default-color}"
                 Stretch="Uniform"
@@ -68,11 +336,131 @@
             <Label
                 Grid.Row="0"
                 Content="Registrar Bibliotecario"
-                Style="{StaticResource StyleLabelTitle}" Margin="10 0 0 10"/>
-
+                Style="{StaticResource StyleLabelTitle}" />
         </StackPanel>
 
+        <!--  contenido del menu de RegistrarBibliotecario  -->
+        <Grid Grid.Row="1" Margin="120,20,390,35">
+            <!--  Conentido de las TEXTO del textbox  -->
+            <StackPanel Orientation="Vertical" Grid.Column="0">
+                <Label
+                    Style="{StaticResource StyleLabel}"
+                    Content="Carnet de Identidad:  "
+                    HorizontalAlignment="Right"
+                    Margin="0,7,0,7" />
+
+                <Label
+                    Style="{StaticResource StyleLabel}"
+                    Content="Nombres:  "
+                    HorizontalAlignment="Right"
+                    Margin="0,7,0,7" />
+
+                <Label
+                    Style="{StaticResource StyleLabel}"
+                    Content="Apellido paterno:  "
+                    HorizontalAlignment="Right"
+                    Margin="0,7,0,7" />
+
+                <Label
+                    Style="{StaticResource StyleLabel}"
+                    Content="Apellido materno:  "
+                    HorizontalAlignment="Right"
+                    Margin="0,7,0,7" />
+
+                <Label
+                    Style="{StaticResource StyleLabel}"
+                    Content="Fecha de nacimiento:  "
+                    HorizontalAlignment="Right"
+                    Margin="0,7,0,7" />
+
+                <Label
+                    Style="{StaticResource StyleLabel}"
+                    Content="Direccion:  "
+                    HorizontalAlignment="Right"
+                    Margin="0,7,0,7" />
+
+                <Label
+                    Style="{StaticResource StyleLabel}"
+                    Content="Telefono:  "
+                    HorizontalAlignment="Right"
+                    Margin="0,7,0,7" />
+
+                <Label
+                    Style="{StaticResource StyleLabel}"
+                    Content="Correo:  "
+                    HorizontalAlignment="Right"
+                    Margin="0,7,0,7" />
+
+                <Label
+                    Style="{StaticResource StyleLabel}"
+                    Content="Cuenta:  "
+                    HorizontalAlignment="Right"
+                    Margin="0,7,0,7" />
+
+                <Label
+                    Style="{StaticResource StyleLabel}"
+                    Content="Contraseña:  "
+                    HorizontalAlignment="Right"
+                    Margin="0,7,0,7" />
+
+                <Label
+                    Style="{StaticResource StyleLabel}"
+                    Content="Sexo:  "
+                    HorizontalAlignment="Right"
+                    Margin="0,7,0,7" />
+
+                <Label
+                    Style="{StaticResource StyleLabel}"
+                    Content="Fecha de contrato:  "
+                    HorizontalAlignment="Right"
+                    Margin="0,7,0,7" />
+            </StackPanel>
+
+            <!--  Conentido de los TEXTBOX  -->
+            <StackPanel
+                Orientation="Vertical"
+                Grid.Column="1"
+                HorizontalAlignment="Left"
+                Margin="5,0,0,0">
+                <TextBox Style="{StaticResource tbxStyleGeneral}" x:Name="txtCI_Bo" />
+                <TextBox Style="{StaticResource tbxStyleGeneral}" x:Name="txtNombres_Bo" />
+                <TextBox Style="{StaticResource tbxStyleGeneral}" x:Name="txtApPaterno_Bo" />
+                <TextBox Style="{StaticResource tbxStyleGeneral}" x:Name="txtApMaterno_Bo" />
+                <DatePicker
+                    Style="{StaticResource DatePickerStyle}"
+                    CalendarStyle="{StaticResource DatePickerCalendarStyle}"
+                    Name="dpFechaNac_Bo"
+                    Tag="Fecha de nacimiento" 
+                    Margin="0 7 0 3.95"/>
+                <TextBox Style="{StaticResource tbxStyleGeneral}" x:Name="txtDireccion_Bo" />
+                <TextBox Style="{StaticResource tbxStyleGeneral}" x:Name="txtTelefono_Bo" />
+                <TextBox Style="{StaticResource tbxStyleGeneral}" x:Name="txtCorreo_Bo" />
+                <TextBox Style="{StaticResource tbxStyleGeneral}" x:Name="txtCuenta_Bo" />
+                <TextBox Style="{StaticResource tbxStyleGeneral}" x:Name="txtPassword_Bo" />
+                <ComboBox Style="{StaticResource ComboBoxStyle1}" x:Name="cbxSexo_Bo">
+                    <ComboBoxItem Content="Elemento 1" />
+                    <ComboBoxItem Content="Elemento 2" />
+                    <ComboBoxItem Content="Elemento 3" />
+                </ComboBox>
+                <TextBox Style="{StaticResource tbxStyleGeneral}" x:Name="txtFecContrato_Bo" />
+            </StackPanel>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+        </Grid>
+
+        <Button
+            Grid.Row="2"
+            Style="{StaticResource ButtonLogin}"
+            Content="Registrar"
+            VerticalAlignment="Top"
+            Width="150"
+            Margin="0,0,110,0" />
+
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>

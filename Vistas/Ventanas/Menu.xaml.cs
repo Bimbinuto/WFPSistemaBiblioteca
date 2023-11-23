@@ -111,19 +111,22 @@ namespace Biblioteca.Ventanas
 
         private void btnInicio(object sender, RoutedEventArgs e)
         {
-            //frPagePrincipal.Content = new PageInicio();
-            //contentControlPrincipal.Content = new Inicio();
+            ccPrincipal.Content = new Inicio();
         }
 
         private void btnAdministracion(object sender, RoutedEventArgs e)
         {
-            //frPagePrincipal.Content = new PageAdministracion();
             ccPrincipal.Content = new Administracion(ccPrincipal);
         }
 
         private void btnPrestamos(object sender, RoutedEventArgs e)
         {
             //contentControlPrincipal.Content = new RegistrarBibliotecario();
+        }
+
+        private void btnReporte(object sender, RoutedEventArgs e)
+        {
+            ccPrincipal.Content = new Reporte();
         }
 
         private void btnAcercaDe(object sender, RoutedEventArgs e)

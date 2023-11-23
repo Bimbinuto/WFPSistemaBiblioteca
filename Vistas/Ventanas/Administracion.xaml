@@ -60,6 +60,7 @@
             </Setter>
         </Style>
     </UserControl.Resources>
+
     <Grid>
         <Label
             Grid.Row="0"

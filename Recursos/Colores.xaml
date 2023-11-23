@@ -23,6 +23,7 @@
     <SolidColorBrush x:Key="Transparente" Color="#00000000" />
     <SolidColorBrush x:Key="Tranparencia-Textbox" Color="#0DFFFFFF" />
     <SolidColorBrush x:Key="Tranparencia-Textbox-isMouseOver" Color="#12FFFFFF" />
+    <SolidColorBrush x:Key="Tranparencia-TextboxGen-isMouseOver2" Color="#22FFFFFF" />
     <SolidColorBrush x:Key="Tranparencia-Textbox-isFocused" Color="#0AFFFFFF" />
     <SolidColorBrush x:Key="ColorCursor" Color="#FFFFFF" />
     <SolidColorBrush x:Key="ColorCrema" Color="#FFDECE" />
