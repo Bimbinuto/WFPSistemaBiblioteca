@@ -160,6 +160,9 @@
     <Compile Include="BDConexion\Conexion.cs" />
     <Compile Include="Efectos\AcrylicBlur.cs" />
     <Compile Include="Efectos\BlurEffect.cs" />
+    <Compile Include="ModeloDeVista\BibliotecarioVM.cs" />
+    <Compile Include="ModeloDeVista\RelayCommand.cs" />
+    <Compile Include="Modelos\BibliotecarioM.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Vistas\Registros\RegistrarBibliotecario.xaml.cs">
       <DependentUpon>RegistrarBibliotecario.xaml</DependentUpon>
@@ -340,9 +343,7 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Modelos\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

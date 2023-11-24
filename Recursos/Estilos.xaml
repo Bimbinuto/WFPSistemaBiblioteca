@@ -77,6 +77,12 @@
                             <Setter Property="Foreground" Value="{DynamicResource fg-PressBtn}" />
                             <Setter Property="BorderThickness" Value="0" />
                         </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <!--  aproximacion a los buscado, pero sirve  -->
+                            <Setter Property="Background" Value="{StaticResource bt-IsMouseOver-color}" />
+                            <Setter Property="Foreground" Value="#808080" />
+                            <Setter Property="BorderBrush" Value="#90A0A0A0" />
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -1359,6 +1365,48 @@
                             x:Name="PART_ContentHost"
                             HorizontalScrollBarVisibility="Hidden"
                             VerticalScrollBarVisibility="Hidden" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{StaticResource Tranparencia-TextboxGen-isMouseOver2}" />
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="BorderThickness" Value="0.3,0.3,0.3,2" />
+                            <Setter Property="BorderBrush" Value="LightBlue" />
+                            <Setter Property="Background" Value="{StaticResource Tranparencia-Textbox-isFocused}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--  PasswordBox Contraseñas  -->
+    <Style
+     x:Key="PassStyleGeneral"
+     TargetType="{x:Type PasswordBox}"
+     BasedOn="{StaticResource StyleLetras}">
+        <Setter Property="Width" Value="250" />
+        <Setter Property="Height" Value="33" />
+        <Setter Property="Margin" Value="0,7,0,3.95" />
+        <Setter Property="Background" Value="{StaticResource Tranparencia-Textbox}" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="BorderBrush" Value="{StaticResource ColorCrema}" />
+        <Setter Property="BorderThickness" Value="0,0,0,1.7" />
+        <Setter Property="CaretBrush" Value="{StaticResource ColorCursor}" />
+        <Setter Property="Stylus.IsFlicksEnabled" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type PasswordBox}">
+                    <Border
+                     Background="{TemplateBinding Background}"
+                     BorderThickness="{TemplateBinding BorderThickness}"
+                     BorderBrush="{TemplateBinding BorderBrush}"
+                     CornerRadius="2">
+                        <ScrollViewer
+                         x:Name="PART_ContentHost"
+                         HorizontalScrollBarVisibility="Hidden"
+                         VerticalScrollBarVisibility="Hidden" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">

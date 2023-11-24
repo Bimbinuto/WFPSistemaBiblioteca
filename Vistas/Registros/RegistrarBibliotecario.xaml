@@ -11,6 +11,7 @@
     xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
 
     <UserControl.Resources>
+
         <Style x:Key="btBarSuperior" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderBrush" Value="Transparent" />
@@ -233,7 +234,7 @@
                                 Height="33"
                                 Width="250"
                                 BorderThickness="0,0,0,1.8"
-                                Padding="0 0 0 0"
+                                Padding="0,0,0,0"
                                 BorderBrush="{StaticResource ColorCrema}"
                                 CornerRadius="5"
                                 Background="{StaticResource Tranparencia-Textbox}">
@@ -287,23 +288,23 @@
             </Setter>
         </Style>
 
-        <!--ESTILO DEL CALENDARIO DEL DATEPICKER-->
+        <!--  ESTILO DEL CALENDARIO DEL DATEPICKER  -->
         <Style x:Key="DatePickerCalendarStyle" TargetType="{x:Type Calendar}">
-            <Setter Property="Foreground" Value="{StaticResource ColorLetras}"/>
-            <Setter Property="Background" Value="{StaticResource ColorBlanco}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource ColorBordePrincipal1}"/>
-            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Foreground" Value="{StaticResource ColorLetras}" />
+            <Setter Property="Background" Value="{StaticResource ColorBlanco}" />
+            <Setter Property="BorderBrush" Value="{StaticResource ColorBordePrincipal1}" />
+            <Setter Property="BorderThickness" Value="2" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Calendar}">
-                        <StackPanel x:Name="PART_Root"
-                            HorizontalAlignment="Center">
-                            <CalendarItem x:Name="PART_CalendarItem"
-                                  Background="{TemplateBinding Background}"
-                                  BorderBrush="{TemplateBinding BorderBrush}"
-                                  BorderThickness="{TemplateBinding BorderThickness}"
-                                  Style="{TemplateBinding CalendarItemStyle}"
-                                  Margin="0 5 0 0"/>
+                        <StackPanel x:Name="PART_Root" HorizontalAlignment="Center">
+                            <CalendarItem
+                                x:Name="PART_CalendarItem"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Style="{TemplateBinding CalendarItemStyle}"
+                                Margin="0,5,0,0" />
                         </StackPanel>
                     </ControlTemplate>
                 </Setter.Value>
@@ -383,7 +384,7 @@
                     Style="{StaticResource StyleLabel}"
                     Content="Telefono:  "
                     HorizontalAlignment="Right"
-                    Margin="0,7,0,7" />
+                    Margin="0,43,0,7" />
 
                 <Label
                     Style="{StaticResource StyleLabel}"
@@ -422,27 +423,71 @@
                 Grid.Column="1"
                 HorizontalAlignment="Left"
                 Margin="5,0,0,0">
-                <TextBox Style="{StaticResource tbxStyleGeneral}" x:Name="txtCI_Bo" />
-                <TextBox Style="{StaticResource tbxStyleGeneral}" x:Name="txtNombres_Bo" />
-                <TextBox Style="{StaticResource tbxStyleGeneral}" x:Name="txtApPaterno_Bo" />
-                <TextBox Style="{StaticResource tbxStyleGeneral}" x:Name="txtApMaterno_Bo" />
-                <DatePicker
+                <TextBox
+                    Style="{StaticResource tbxStyleGeneral}"
+                    x:Name="txtCI_Bo"
+                    Text="{Binding CI, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox
+                    Style="{StaticResource tbxStyleGeneral}"
+                    x:Name="txtNombres_Bo"
+                    Text="{Binding Nombres, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox
+                    Style="{StaticResource tbxStyleGeneral}"
+                    x:Name="txtApPaterno_Bo"
+                    Text="{Binding ApPaterno, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox
+                    Style="{StaticResource tbxStyleGeneral}"
+                    x:Name="txtApMaterno_Bo"
+                    Text="{Binding ApMaterno, UpdateSourceTrigger=PropertyChanged}" />
+                <DatePicker 
                     Style="{StaticResource DatePickerStyle}"
                     CalendarStyle="{StaticResource DatePickerCalendarStyle}"
                     Name="dpFechaNac_Bo"
-                    Tag="Fecha de nacimiento" 
-                    Margin="0 7 0 3.95"/>
-                <TextBox Style="{StaticResource tbxStyleGeneral}" x:Name="txtDireccion_Bo" />
-                <TextBox Style="{StaticResource tbxStyleGeneral}" x:Name="txtTelefono_Bo" />
-                <TextBox Style="{StaticResource tbxStyleGeneral}" x:Name="txtCorreo_Bo" />
-                <TextBox Style="{StaticResource tbxStyleGeneral}" x:Name="txtCuenta_Bo" />
-                <TextBox Style="{StaticResource tbxStyleGeneral}" x:Name="txtPassword_Bo" />
-                <ComboBox Style="{StaticResource ComboBoxStyle1}" x:Name="cbxSexo_Bo">
-                    <ComboBoxItem Content="Elemento 1" />
-                    <ComboBoxItem Content="Elemento 2" />
-                    <ComboBoxItem Content="Elemento 3" />
+                    Tag="Fecha de nacimiento"
+                    Margin="0,7,0,3.95"
+                    
+                    SelectedDate="{Binding FechaNacimiento, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox
+                    Style="{StaticResource tbxStyleGeneral}"
+                    x:Name="txtDireccion_Bo"
+                    Height="70"
+                    VerticalContentAlignment="Top"
+                    TextWrapping="Wrap"
+                    Text="{Binding Direccion, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox
+                    Style="{StaticResource tbxStyleGeneral}"
+                    x:Name="txtTelefono_Bo"
+                    Text="{Binding Telefono, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox
+                    Style="{StaticResource tbxStyleGeneral}"
+                    x:Name="txtCorreo_Bo"
+                    Text="{Binding Correo, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox
+                    Style="{StaticResource tbxStyleGeneral}"
+                    x:Name="txtCuenta_Bo"
+                    Text="{Binding Cuenta, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox
+                    Style="{StaticResource tbxStyleGeneral}"
+                    x:Name="txtPassword_Bo"
+                    Text="{Binding Contrasena, UpdateSourceTrigger=PropertyChanged}" />
+                <!--<PasswordBox Style="{StaticResource PassStyleGeneral}" x:Name="PassBx_Bo" PasswordChanged="OnPasswordChanged"/>-->
+                <ComboBox
+                    Style="{StaticResource ComboBoxStyle1}"
+                    x:Name="cbxSexo_Bo"
+                    Text="{Binding Sexo, UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBoxItem Content="masculino" />
+                    <ComboBoxItem Content="femenino" />
+                    <ComboBoxItem Content="otro" />
                 </ComboBox>
-                <TextBox Style="{StaticResource tbxStyleGeneral}" x:Name="txtFecContrato_Bo" />
+                <DatePicker
+                    Style="{StaticResource DatePickerStyle}"
+                    CalendarStyle="{StaticResource DatePickerCalendarStyle}"
+                    Name="dpFechaContrato_Bo"
+                    Tag="Fecha de contrato"
+                    Margin="0,7,0,3.95"
+                    PreviewTextInput="DatePicker_PreviewTextInput"
+                    PreviewKeyDown="DatePicker_PreviewKeyDown"
+                    SelectedDate="{Binding FechaContrato, UpdateSourceTrigger=PropertyChanged}" />
             </StackPanel>
 
             <Grid.ColumnDefinitions>
@@ -457,7 +502,8 @@
             Content="Registrar"
             VerticalAlignment="Top"
             Width="150"
-            Margin="0,0,110,0" />
+            Margin="0,0,110,0"
+            Command="{Binding RegistrarCommand}" />
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

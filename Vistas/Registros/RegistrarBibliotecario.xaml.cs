@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Biblioteca.Vistas;
 using Biblioteca.Vistas.Ventanas;
+using Biblioteca.ModeloDeVista;
+using System.Security.Cryptography;
 
 namespace Biblioteca.Vistas.Registros
 {
@@ -28,11 +30,44 @@ namespace Biblioteca.Vistas.Registros
         {
             InitializeComponent();
             ContentControl = DeAdministracion;
+            DataContext = new BibliotecarioVM();
         }
 
         private void btnVolverAdministracion(object sender, RoutedEventArgs e)
         {
             ContentControl.Content = new Administracion(ContentControl);
         }
+
+        private void DatePicker_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = true;
+        }
+
+        private void DatePicker_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Back || e.Key == Key.Delete)
+            {
+                e.Handled = true;
+            }
+        }
+
+
+
+        //private void OnDatePickerLostFocus(object sender, RoutedEventArgs e)
+        //{
+        //    var datePicker = sender as DatePicker;
+        //    if (datePicker != null && string.IsNullOrEmpty(datePicker.Text))
+        //    {
+        //        if (datePicker.Name == "dpFechaNac_Bo")
+        //        {
+        //            ((dynamic)this.DataContext).FechaNacimiento = null;
+        //        }
+        //        else if (datePicker.Name == "dpFechaContrato")
+        //        {
+        //            ((dynamic)this.DataContext).FechaContrato = null;
+        //        }
+        //    }
+        //}
+
     }
 }

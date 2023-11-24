@@ -37,10 +37,10 @@
         <Border.Effect>
             <!--  Este efecto puede cambiar los colores 'Interntar agregar si hay la posibilidad'  -->
             <DropShadowEffect
-                Color="Black"
+                Color="Gray"
                 Direction="320"
                 ShadowDepth="5"
-                BlurRadius="10"
+                BlurRadius="20"
                 Opacity="0.4" />
         </Border.Effect>
 
@@ -145,7 +145,7 @@
                     </Grid>
 
                     <Border Grid.Row="1">
-                        <StackPanel Grid.Column="0">
+                        <StackPanel Grid.Column="0" Margin="10 0 0 0">
                             <!--  Prueba de nueva forma de boton  -->
                             <RadioButton
                                 Style="{StaticResource DesignButton}"
@@ -235,7 +235,7 @@
                 </Grid>
 
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="270" />
+                    <ColumnDefinition Width="290" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
             </Grid>
