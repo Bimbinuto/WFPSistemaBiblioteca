@@ -160,6 +160,7 @@
     <Compile Include="BDConexion\Conexion.cs" />
     <Compile Include="Efectos\AcrylicBlur.cs" />
     <Compile Include="Efectos\BlurEffect.cs" />
+    <Compile Include="ModeloDeVista\AsyncRelayCommand.cs" />
     <Compile Include="ModeloDeVista\BibliotecarioVM.cs" />
     <Compile Include="ModeloDeVista\RelayCommand.cs" />
     <Compile Include="Modelos\BibliotecarioM.cs" />

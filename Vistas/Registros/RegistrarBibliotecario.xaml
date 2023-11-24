@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Biblioteca.Vistas.Registros"
     mc:Ignorable="d"
-    d:DesignHeight="700"
+    d:DesignHeight="800"
     d:DesignWidth="900"
     xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
 
@@ -439,13 +439,12 @@
                     Style="{StaticResource tbxStyleGeneral}"
                     x:Name="txtApMaterno_Bo"
                     Text="{Binding ApMaterno, UpdateSourceTrigger=PropertyChanged}" />
-                <DatePicker 
+                <DatePicker
                     Style="{StaticResource DatePickerStyle}"
                     CalendarStyle="{StaticResource DatePickerCalendarStyle}"
                     Name="dpFechaNac_Bo"
                     Tag="Fecha de nacimiento"
                     Margin="0,7,0,3.95"
-                    
                     SelectedDate="{Binding FechaNacimiento, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBox
                     Style="{StaticResource tbxStyleGeneral}"
@@ -488,6 +487,12 @@
                     PreviewTextInput="DatePicker_PreviewTextInput"
                     PreviewKeyDown="DatePicker_PreviewKeyDown"
                     SelectedDate="{Binding FechaContrato, UpdateSourceTrigger=PropertyChanged}" />
+
+                <Label
+                    Content="{Binding Resultado, UpdateSourceTrigger=PropertyChanged}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource StyleLetras}" />
             </StackPanel>
 
             <Grid.ColumnDefinitions>
@@ -504,6 +509,8 @@
             Width="150"
             Margin="0,0,110,0"
             Command="{Binding RegistrarCommand}" />
+
+
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

@@ -22,7 +22,7 @@
         <!-- Contenido -->
         <StackPanel
             Grid.Row="1"
-            Orientation="Vertical"
+            Orientation="Horizontal"
             Margin="10"
             HorizontalAlignment="Left">
 
@@ -37,6 +37,13 @@
                     CalendarButtonStyle="{DynamicResource CalendarButtonStyle1}"
                     Style="{DynamicResource CalendarStyle1}" />
             </Viewbox>
+
+            <ListView Height="auto" Width="350" Background="Transparent">
+                <ListViewItem Content="Elemanto 1" Style="{StaticResource StyleLetras}" Height="50"/>
+                <ListViewItem Content="Elemanto 2" Style="{StaticResource StyleLetras}" Height="50"/>
+                <ListViewItem Content="Elemanto 3" Style="{StaticResource StyleLetras}" Height="50"/>
+                <ListViewItem Content="Elemanto 4" Style="{StaticResource StyleLetras}" Height="50"/>
+            </ListView>
         </StackPanel>
 
         <Grid.RowDefinitions>

@@ -503,7 +503,15 @@
                         <Trigger Property="IsChecked" Value="True">
                             <Setter Property="Background" Value="{StaticResource bg-ck-color}" />
                             <Setter TargetName="lineaPrueba" Property="Visibility" Value="Visible" />
-                            <Setter TargetName="Icon" Property="Fill" Value="{StaticResource iFill-default-color}" />
+                            <!--<Setter TargetName="Icon" Property="Fill" Value="{StaticResource iFill-default-color}" />-->
+                            <Setter TargetName="Icon" Property="Fill">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0.2,0.2" EndPoint="0.9,1">
+                                        <GradientStop Color="#BB3D23" Offset="0.09" />
+                                        <GradientStop Color="#FFDECE" Offset="0.9" />
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.SqlClient;
+using System.IO.Packaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Biblioteca.BDConexion;
 using Biblioteca.Modelos;
+using MySql.Data.MySqlClient;
 
 namespace Biblioteca.ModeloDeVista
 {
@@ -15,6 +19,9 @@ namespace Biblioteca.ModeloDeVista
         private BibliotecarioM _biblibiotecario = new BibliotecarioM();
         public ICommand RegistrarCommand { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public Conexion conexion = new Conexion();
+        public string _resultado;
 
         private bool _isNombresEmpty;
 
@@ -27,7 +34,13 @@ namespace Biblioteca.ModeloDeVista
                 _biblibiotecario.ci = value;
                 OnPropertyChanged(nameof(CI));
 
-                Contrasena = _biblibiotecario.nombres + _biblibiotecario.ci.ToString();
+                if (!string.IsNullOrEmpty(_biblibiotecario.nombres))
+                {
+                    // Obtiene el primer nombre y lo convierte a minúsculas
+                    string primerNombre = _biblibiotecario.nombres.Split(' ')[0].ToLower();
+
+                    Contrasena = primerNombre + _biblibiotecario.ci.ToString();
+                }
             }
         }
 
@@ -40,8 +53,15 @@ namespace Biblioteca.ModeloDeVista
                 //IsNombresEmpty = String.IsNullOrEmpty(value);
                 OnPropertyChanged(nameof(Nombres));
 
-                Cuenta = _biblibiotecario.nombres + "." + _biblibiotecario.apPaterno + "@sistenas.edu.bo";
-                Contrasena = _biblibiotecario.nombres + _biblibiotecario.ci.ToString();
+                string primerNombre = _biblibiotecario.nombres.Split(' ')[0].ToLower();
+
+                if (!string.IsNullOrEmpty(_biblibiotecario.apPaterno))
+                {
+                    string primerApellido = _biblibiotecario.apPaterno.ToLower();
+                    Cuenta = primerNombre + "." + primerApellido + "@sistemas.edu.bo";
+                }
+                //Cuenta = _biblibiotecario.nombres + "." + _biblibiotecario.apPaterno + "@sistenas.edu.bo";
+                Contrasena = primerNombre + _biblibiotecario.ci.ToString();
             }
         }
 
@@ -53,7 +73,9 @@ namespace Biblioteca.ModeloDeVista
                 _biblibiotecario.apPaterno = value;
                 OnPropertyChanged(nameof(ApPaterno));
 
-                Cuenta = _biblibiotecario.nombres + "." + _biblibiotecario.apPaterno + "@sistenas.edu.bo";
+                string primerNombre = _biblibiotecario.nombres.Split(' ')[0].ToLower();
+                string primerApellido = _biblibiotecario.apPaterno.ToLower();
+                Cuenta = primerNombre + "." + primerApellido + "@sistemas.edu.bo";
             }
         }
 
@@ -147,6 +169,15 @@ namespace Biblioteca.ModeloDeVista
             }
         }
 
+        public string Resultado
+        {
+            get => _resultado;
+            set
+            {
+                _resultado = value;
+                OnPropertyChanged(nameof(Resultado));
+            }
+        }
 
         #region control de contenido del TextBox
 
@@ -167,15 +198,58 @@ namespace Biblioteca.ModeloDeVista
         {
             FechaNacimiento = new DateTime(2000, 1, 1);
             FechaContrato = new DateTime(2000, 1, 1);
-            RegistrarCommand = new RelayCommand(Registrar, PuedeRegistrar);
+            RegistrarCommand = new AsyncRelayCommand(Registrar, PuedeRegistrar);
         }
 
-        private void Registrar(object parameter)
+        private async Task Registrar(object parameter)
         {
-            if (Nombres == "user")
+            //string cadena = "server=localhost;database=biblioteca2;userid=root;password=@TensorFlowK3";
+            try
             {
-                MessageBox.Show("Bienvenido");
+                using (MySqlConnection cnx = new MySqlConnection(conexion.cadenaConexion))
+                {
+                    await cnx.OpenAsync();
+
+                    using (MySqlCommand cmd = new MySqlCommand("registrar_bibliotecario", cnx))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@pci", CI);
+                        cmd.Parameters.AddWithValue("@pnombres", Nombres);
+                        cmd.Parameters.AddWithValue("@pap_paterno", ApPaterno);
+                        cmd.Parameters.AddWithValue("@pap_materno", ApMaterno);
+                        cmd.Parameters.AddWithValue("@pfecha_nacimiento", FechaNacimiento);
+                        cmd.Parameters.AddWithValue("@pdireccion", Direccion);
+                        cmd.Parameters.AddWithValue("@ptelefono", Telefono);
+                        cmd.Parameters.AddWithValue("@pcorreo", Correo);
+                        cmd.Parameters.AddWithValue("@pcuenta", Cuenta);
+                        cmd.Parameters.AddWithValue("@pcontrasena", Contrasena);
+                        cmd.Parameters.AddWithValue("@psexo", Sexo);
+                        cmd.Parameters.AddWithValue("@pfecha_contrato", FechaContrato);
+
+                        cmd.Parameters.Add("@resultado", MySqlDbType.VarChar, 200);
+                        cmd.Parameters["@resultado"].Direction = System.Data.ParameterDirection.Output;
+
+                        int res = await cmd.ExecuteNonQueryAsync();
+
+                        if (res == 0)
+                        {
+                            Resultado = (string)cmd.Parameters["@resultado"].Value;
+                        }
+                        else
+                        {
+                            Resultado = (string)cmd.Parameters["@resultado"].Value;
+                        }
+
+                        await cnx.CloseAsync();
+
+
+                    }
+                }
             }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+
+            //MessageBox.Show($"nombres: {Nombres} \n Apellido paterno: {ApPaterno} \n Apellido materno: {ApMaterno} \n Fechde nacimiento: {FechaNacimiento} \n Direccion: {Direccion} \n Telefono: {Telefono} \n Correo: {Correo} \n Cuenta: {Cuenta} \n Contraseña: {Contrasena} \n Sexo: {Sexo} \n Fecha de contrato: {FechaContrato}");
         }
 
         private bool PuedeRegistrar(object parameter)
