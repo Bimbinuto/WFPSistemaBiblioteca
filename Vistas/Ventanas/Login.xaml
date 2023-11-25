@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Biblioteca.Ventanas"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:log="clr-namespace:Biblioteca.ModeloDeVista"
     Title="Login"
     Width="700"
     Height="450"
@@ -19,6 +20,8 @@
     mc:Ignorable="d">
 
     <Window.Resources>
+
+
         <!--  Animacion del Login Successful  -->
         <Storyboard x:Key="animacionLogin">
             <DoubleAnimation
@@ -44,7 +47,7 @@
                 BeginTime="0:0:0.6"
                 Duration="0:0:0.5" />
             <DoubleAnimation
-                Storyboard.TargetName="txtUsuario"
+                Storyboard.TargetName="txtTipoUsuario"
                 Storyboard.TargetProperty="Opacity"
                 From="0"
                 To="1"
@@ -84,7 +87,7 @@
                         VerticalAlignment="Center">
                         <Label
                             x:Name="txtBienvenido"
-                            Content="Bienvenido"
+                            Content="{Binding NombreUsuario, UpdateSourceTrigger=PropertyChanged}"
                             HorizontalAlignment="Center"
                             FontSize="39"
                             Opacity="0"
@@ -107,10 +110,12 @@
                             </Ellipse.Fill>
                         </Ellipse>
 
+
+
                         <Label
-                            x:Name="txtUsuario"
+                            x:Name="txtTipoUsuario"
                             HorizontalAlignment="Center"
-                            Content="Administrador"
+                            Content="{Binding TipoUsuario, UpdateSourceTrigger=PropertyChanged}"
                             FontSize="24"
                             Margin="0"
                             Opacity="0"
@@ -150,7 +155,7 @@
 
                     <TextBox
                         Style="{StaticResource TextBoxStyleUsername}"
-                        Text=""
+                        Text="{Binding Usuario, UpdateSourceTrigger=PropertyChanged}"
                         Margin="0,25,0,0"
                         x:Name="txtUsername"
                         Tag="usuario" />
@@ -174,10 +179,19 @@
                         Style="{StaticResource ButtonLogin}"
                         x:Name="btnAcceder"
                         Click="btnLogin"
-                        Margin="0,55,0,20" />
+                        Margin="0,55,0,20"
+                        Command="{Binding AccederCommand}" />
 
                     <Label
                         x:Name="lbTest"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Margin="-10"
+                        Style="{StaticResource StyleLetras}" />
+
+                    <Label
+                        x:Name="lbResultado"
+                        Content="{Binding Resultado}"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center"
                         Margin="-10"

@@ -8,13 +8,13 @@ namespace Biblioteca.Modelos
 {
     public class BibliotecarioM
     {
-        public long? ci { get; set; }
+        public string ci { get; set; }
         public string nombres { get; set; }
         public string apPaterno { get; set; }
         public string apMaterno { get; set; }
         public DateTime fechaNacimiento { get; set; }
         public string direccion { get; set; }
-        public long? telefono { get; set; }
+        public string telefono { get; set; }
         public string correo { get; set; }
         public string cuenta { get; set; }
         public string contrasena { get; set; }

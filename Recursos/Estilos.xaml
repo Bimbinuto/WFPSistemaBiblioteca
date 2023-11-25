@@ -12,6 +12,15 @@
         TargetType="{x:Type Label}"
         BasedOn="{StaticResource StyleLetras}" />
 
+    <!--Style de letra para errores-->
+    <Style
+        x:Key="StyleLabelAviso"
+        TargetType="{x:Type Label}">
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="FontSize" Value="13" />
+        <Setter Property="Foreground" Value="Red" />
+    </Style>
+
     <!--  tipo de letra para TextBlock  -->
     <Style
         x:Key="StyleTextBlock"
@@ -1383,6 +1392,9 @@
                             <Setter Property="BorderBrush" Value="LightBlue" />
                             <Setter Property="Background" Value="{StaticResource Tranparencia-Textbox-isFocused}" />
                         </Trigger>
+                        <!--<DataTrigger Binding="{Binding PuedeRegistrar}" Value="False">
+                            <Setter Property="BorderBrush" Value="Red"/>
+                        </DataTrigger>-->
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -1391,9 +1403,9 @@
 
     <!--  PasswordBox Contraseñas  -->
     <Style
-     x:Key="PassStyleGeneral"
-     TargetType="{x:Type PasswordBox}"
-     BasedOn="{StaticResource StyleLetras}">
+        x:Key="PassStyleGeneral"
+        TargetType="{x:Type PasswordBox}"
+        BasedOn="{StaticResource StyleLetras}">
         <Setter Property="Width" Value="250" />
         <Setter Property="Height" Value="33" />
         <Setter Property="Margin" Value="0,7,0,3.95" />
@@ -1407,14 +1419,14 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type PasswordBox}">
                     <Border
-                     Background="{TemplateBinding Background}"
-                     BorderThickness="{TemplateBinding BorderThickness}"
-                     BorderBrush="{TemplateBinding BorderBrush}"
-                     CornerRadius="2">
+                        Background="{TemplateBinding Background}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        CornerRadius="2">
                         <ScrollViewer
-                         x:Name="PART_ContentHost"
-                         HorizontalScrollBarVisibility="Hidden"
-                         VerticalScrollBarVisibility="Hidden" />
+                            x:Name="PART_ContentHost"
+                            HorizontalScrollBarVisibility="Hidden"
+                            VerticalScrollBarVisibility="Hidden" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">

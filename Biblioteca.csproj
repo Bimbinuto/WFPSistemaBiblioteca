@@ -162,9 +162,14 @@
     <Compile Include="Efectos\BlurEffect.cs" />
     <Compile Include="ModeloDeVista\AsyncRelayCommand.cs" />
     <Compile Include="ModeloDeVista\BibliotecarioVM.cs" />
+    <Compile Include="ModeloDeVista\LoginVM.cs" />
     <Compile Include="ModeloDeVista\RelayCommand.cs" />
     <Compile Include="Modelos\BibliotecarioM.cs" />
+    <Compile Include="Modelos\LoginM.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="Vistas\Registros\ModificarBibliotecario.xaml.cs">
+      <DependentUpon>ModificarBibliotecario.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\Registros\RegistrarBibliotecario.xaml.cs">
       <DependentUpon>RegistrarBibliotecario.xaml</DependentUpon>
     </Compile>
@@ -211,6 +216,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Recursos\Iconos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\Registros\ModificarBibliotecario.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

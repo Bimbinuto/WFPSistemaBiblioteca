@@ -50,24 +50,5 @@ namespace Biblioteca.Vistas.Registros
                 e.Handled = true;
             }
         }
-
-
-
-        //private void OnDatePickerLostFocus(object sender, RoutedEventArgs e)
-        //{
-        //    var datePicker = sender as DatePicker;
-        //    if (datePicker != null && string.IsNullOrEmpty(datePicker.Text))
-        //    {
-        //        if (datePicker.Name == "dpFechaNac_Bo")
-        //        {
-        //            ((dynamic)this.DataContext).FechaNacimiento = null;
-        //        }
-        //        else if (datePicker.Name == "dpFechaContrato")
-        //        {
-        //            ((dynamic)this.DataContext).FechaContrato = null;
-        //        }
-        //    }
-        //}
-
     }
 }
