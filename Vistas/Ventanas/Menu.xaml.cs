@@ -20,6 +20,7 @@ using Biblioteca.Vistas;
 using Biblioteca.Vistas.Registros;
 using System.Management.Instrumentation;
 using Biblioteca.Efectos;
+using Biblioteca.ModeloDeVista;
 
 /*TODO se esta usando Mysql.Data Framework (el que pesa menos)*/
 
@@ -31,10 +32,12 @@ namespace Biblioteca.Ventanas
         private DispatcherTimer timer;
         public Menu()
         {
+            BaseDeDatosVM bvm = new BaseDeDatosVM();
             InitializeComponent();
             //frPagePrincipal.Content = new PageInicio();
             ccPrincipal.Content = new Inicio();
             startclock();
+            //movableGrid = bvm.EstaConectado;
         }
 
         #region [base de datos y tiempo]eventos
@@ -121,7 +124,7 @@ namespace Biblioteca.Ventanas
 
         private void btnPrestamos(object sender, RoutedEventArgs e)
         {
-            //contentControlPrincipal.Content = new RegistrarBibliotecario();
+            ccPrincipal.Content = new Prestamos(ccPrincipal);
         }
 
         private void btnReporte(object sender, RoutedEventArgs e)
@@ -141,7 +144,6 @@ namespace Biblioteca.Ventanas
 
         private void btnNotasDesarrollo(object sender, RoutedEventArgs e)
         {
-            //frPagePrincipal.Content = new NotasDesarrollo();
             ccPrincipal.Content = new NotasDeDesarrollo();
         }
 

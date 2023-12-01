@@ -23,7 +23,7 @@ namespace Biblioteca.Ventanas
 
     public partial class Login : Window
     {
-        //private int intentos = 0;
+        private int intentos = 0;
 
         public Login()
         {
@@ -64,39 +64,26 @@ namespace Biblioteca.Ventanas
         // TODO arreglar el error del boton que acceder que cuando se pulsa varias veces, repite la animacion varias veces y crear varios Menus
         public void btnLogin(object sender, EventArgs e)
         {
-            /* if (String.IsNullOrEmpty(txtUsername.Text) || String.IsNullOrEmpty(txtPassword.Password))
-             {
-                 lbTest.Content = "complete campos";
-             }
-             else
-             {
-                 if (txtUsername.Text == "admin" && txtPassword.Password == "admin")
-                 {*/
-
-
             Storyboard sb = this.FindResource("animacionLogin") as Storyboard;
             if (sb != null)
             {
                 sb.Begin();
             }
             DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1.7);
+            timer.Interval = TimeSpan.FromSeconds(2);
             timer.Tick += (s, args) =>
             {
                 timer.Stop();
-                Menu nuevo = new Menu();
-                nuevo.Show();
+                //Menu nuevo = new Menu();
+                //nuevo.Show();
                 this.Close();
             };
             timer.Start();
-            /* }
-             else
-             {
-                 intentos++;
-                 if (intentos >= 3)
-                     this.Close();
-             }
-         }*/
+
+            intentos++;
+            if (intentos >= 3)
+                this.Close();
+
         }
 
     }

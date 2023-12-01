@@ -162,13 +162,28 @@
     <Compile Include="Efectos\BlurEffect.cs" />
     <Compile Include="ModeloDeVista\AsyncRelayCommand.cs" />
     <Compile Include="ModeloDeVista\BibliotecarioVM.cs" />
+    <Compile Include="ModeloDeVista\DocenteVM.cs" />
     <Compile Include="ModeloDeVista\LoginVM.cs" />
+    <Compile Include="ModeloDeVista\PrestamosVM.cs" />
     <Compile Include="ModeloDeVista\RelayCommand.cs" />
     <Compile Include="Modelos\BibliotecarioM.cs" />
+    <Compile Include="Modelos\DocenteM.cs" />
     <Compile Include="Modelos\LoginM.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="Vistas\Registros\EliminarBibliotecario.xaml.cs">
+      <DependentUpon>EliminarBibliotecario.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\Registros\GestionarBibliotecario.xaml.cs">
+      <DependentUpon>GestionarBibliotecario.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\Registros\GestionarDocente.xaml.cs">
+      <DependentUpon>GestionarDocente.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\Registros\ModificarBibliotecario.xaml.cs">
       <DependentUpon>ModificarBibliotecario.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\Registros\ModificarPrestamo.xaml.cs">
+      <DependentUpon>ModificarPrestamo.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\Registros\RegistrarBibliotecario.xaml.cs">
       <DependentUpon>RegistrarBibliotecario.xaml</DependentUpon>
@@ -192,6 +207,9 @@
       <DependentUpon>NotasDeDesarrollo.xaml</DependentUpon>
     </Compile>
     <Compile Include="ModeloDeVista\BaseDeDatosVM.cs" />
+    <Compile Include="Vistas\Ventanas\Prestamos.xaml.cs">
+      <DependentUpon>Prestamos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\Ventanas\Reporte.xaml.cs">
       <DependentUpon>Reporte.xaml</DependentUpon>
     </Compile>
@@ -219,7 +237,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Vistas\Registros\EliminarBibliotecario.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\Registros\GestionarBibliotecario.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\Registros\GestionarDocente.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Vistas\Registros\ModificarBibliotecario.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\Registros\ModificarPrestamo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -248,6 +282,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vistas\Ventanas\NotasDeDesarrollo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\Ventanas\Prestamos.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -316,14 +354,18 @@
     <Content Include="Recursos\Iconos\iConfiguracion.svg" />
     <Content Include="Recursos\Iconos\iConfiguracion2.svg" />
     <Content Include="Recursos\Iconos\iConnect.svg" />
+    <Content Include="Recursos\Iconos\iDelete.svg" />
+    <Content Include="Recursos\Iconos\iDelete2.svg" />
     <Content Include="Recursos\Iconos\iDisconnect.svg" />
     <Content Include="Recursos\Iconos\iDisconnect2.svg" />
+    <Content Include="Recursos\Iconos\iEdit.svg" />
     <Content Include="Recursos\Iconos\iLeftBtn.svg" />
     <Content Include="Recursos\Iconos\iMax.svg" />
     <Content Include="Recursos\Iconos\iMin.svg" />
     <Content Include="Recursos\Iconos\iNotesDevelopment.svg" />
     <Content Include="Recursos\Iconos\iPrestamos.svg" />
     <Content Include="Recursos\Iconos\iPrestamos2.svg" />
+    <Content Include="Recursos\Iconos\iPrestar.svg" />
     <Content Include="Recursos\Iconos\iReporte.svg" />
     <Content Include="Recursos\Iconos\iReservation.svg" />
     <Content Include="Recursos\Iconos\iRightBtn.svg" />

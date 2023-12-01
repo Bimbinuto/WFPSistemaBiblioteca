@@ -16,6 +16,7 @@ using Biblioteca.Vistas;
 using Biblioteca.Vistas.Ventanas;
 using Biblioteca.ModeloDeVista;
 using System.Security.Cryptography;
+using System.Windows.Threading;
 
 namespace Biblioteca.Vistas.Registros
 {
@@ -36,6 +37,24 @@ namespace Biblioteca.Vistas.Registros
         private void btnVolverAdministracion(object sender, RoutedEventArgs e)
         {
             ContentControl.Content = new Administracion(ContentControl);
+        }
+
+        private void btnVolverGestionarBibliotecario(object sender, RoutedEventArgs e)
+        {
+            ContentControl.Content = new GestionarBibliotecario(ContentControl);
+        }
+
+        private void btnRegistrarNuevoB(object sender, RoutedEventArgs e)
+        {
+            registrarNuevoB.IsEnabled = false;
+            DispatcherTimer localTimer = new DispatcherTimer();
+            localTimer.Interval = TimeSpan.FromSeconds(2);
+            localTimer.Tick += (s, args) =>
+            {
+                ContentControl.Content = new GestionarBibliotecario(ContentControl);
+                localTimer.Stop();
+            };
+            localTimer.Start();
         }
 
         private void DatePicker_PreviewTextInput(object sender, TextCompositionEventArgs e)

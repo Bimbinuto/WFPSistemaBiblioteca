@@ -108,4 +108,11 @@
     <SolidColorBrush x:Key="bg-Content-subMenus-color" Color="#D2000000" />
 
     <!--#endregion COLORES DEL MENU-->
+
+
+    <LinearGradientBrush x:Key="dg-gradiente" StartPoint="0.8, 0" EndPoint="1,0">
+        <GradientStop Offset="0" Color="{Binding Source={StaticResource bgbr-grad1-MenuColor}, Path=Color}" />
+        <GradientStop Offset="1" Color="{Binding Source={StaticResource bgbr-grad2-MenuColor}, Path=Color}" />
+    </LinearGradientBrush>
+
 </ResourceDictionary>

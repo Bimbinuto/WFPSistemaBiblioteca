@@ -37,11 +37,11 @@
         <Border.Effect>
             <!--  Este efecto puede cambiar los colores 'Interntar agregar si hay la posibilidad'  -->
             <DropShadowEffect
-                Color="Gray"
+                Color="LightGray"
                 Direction="320"
-                ShadowDepth="5"
+                ShadowDepth="3"
                 BlurRadius="20"
-                Opacity="0.4" />
+                Opacity="0.3" />
         </Border.Effect>
 
         <Grid>
@@ -51,7 +51,7 @@
                 Grid.Row="0"
                 Background="{StaticResource br-bar-color}"
                 DataContext="{StaticResource BDVM}">
-
+                <!--DataContext="{StaticResource BDVM}"-->
                 <Label
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"

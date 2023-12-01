@@ -1,0 +1,242 @@
+﻿<UserControl
+    x:Class="Biblioteca.Vistas.Registros.ModificarPrestamo"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Biblioteca.Vistas.Registros"
+    mc:Ignorable="d"
+    d:DesignHeight="800"
+    d:DesignWidth="1000">
+
+    <Grid>
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
+            <Button
+                Content="Prestamo"
+                Style="{StaticResource btBarSuperior}"
+                Click="btnVolverPrestamo" />
+
+            <Path
+                Grid.Column="1"
+                x:Name="Icon"
+                Width="15"
+                Height="15"
+                Margin="10,0,-10,0"
+                Data="{StaticResource IconDerecha}"
+                Fill="{StaticResource iFill-default-color}"
+                Stretch="Uniform"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right"
+                RenderTransformOrigin="0.5 0.5" />
+
+            <Label
+                Grid.Row="0"
+                Content="Modificar Prestamo"
+                Style="{StaticResource StyleLabelTitle}" />
+        </StackPanel>
+
+        <!--  BUSQUEDA DE USUARIO  -->
+        <Grid Grid.Row="1">
+
+            <StackPanel Grid.Column="0">
+                <Label
+                    Content="Buscar al Lector:"
+                    Style="{StaticResource StyleLabel}"
+                    Margin="20,30,0,0"
+                    FontSize="19"
+                    FontWeight="SemiBold" />
+                <StackPanel
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Margin="0,0,0,10">
+
+                    <Label
+                        Style="{StaticResource StyleLabel}"
+                        Content="Filtrar por: "
+                        Margin="0,8,0,0" />
+                    <ComboBox
+                        Style="{StaticResource ComboBoxStyle1}"
+                        Text="{Binding FiltrarLectorM, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedIndex="0">
+                        <ComboBoxItem Content="Carnet de identidad" />
+                        <ComboBoxItem Content="Nombres" />
+                        <ComboBoxItem Content="Apellido Paterno" />
+                        <ComboBoxItem Content="Apellido Materno" />
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Margin="0,0,0,0">
+                    <Label
+                        Style="{StaticResource StyleLabel}"
+                        Content="Buscar: "
+                        Margin="0,0,0,0" />
+                    <TextBox
+                        Style="{StaticResource tbxStyleGeneral}"
+                        Margin="23,0,0,0"
+                        Text="{Binding BuscarLectorM, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+                <DataGrid
+                    Grid.Row="1"
+                    Style="{DynamicResource DataGridStyle1}"
+                    ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
+                    RowStyle="{DynamicResource DataGridRowStyle1}"
+                    CellStyle="{DynamicResource DataGridCellStyle1}"
+                    AlternationCount="2"
+                    Margin="30,20,30,20"
+                    IsReadOnly="True"
+                    AutoGenerateColumns="False"
+                    FontSize="15"
+                    ItemsSource="{Binding Lectores, UpdateSourceTrigger=PropertyChanged}"
+                    Height="290">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Header="id_usuario"
+                            Width="*"
+                            Binding="{Binding Path=id_usuario}"
+                            Visibility="Hidden" />
+                        <DataGridTextColumn
+                            Header="carnet de indentidad"
+                            Width="*"
+                            Binding="{Binding Path=ci}" />
+                        <DataGridTextColumn
+                            Header="Nombres"
+                            Width="*"
+                            Binding="{Binding Path=nombres}" />
+                        <DataGridTextColumn
+                            Header="Apellido Paterno"
+                            Width="*"
+                            Binding="{Binding ap_paterno}" />
+                        <DataGridTextColumn
+                            Header="Apellido Materno"
+                            Width="*"
+                            Binding="{Binding ap_materno}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <Label
+                    Content="Buscar el Libro:"
+                    Style="{StaticResource StyleLabel}"
+                    Margin="20,10,0,0"
+                    FontSize="19"
+                    FontWeight="SemiBold" />
+                <StackPanel
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Margin="0,00,0,10">
+
+                    <Label
+                        Style="{StaticResource StyleLabel}"
+                        Content="Filtrar por: "
+                        Margin="0,8,0,0" />
+                    <ComboBox
+                        Margin="10,0,0,0"
+                        Style="{StaticResource ComboBoxStyle1}"
+                        Text="{Binding Filtro, UpdateSourceTrigger=PropertyChanged}">
+                        <ComboBoxItem Content="Libro" />
+                        <ComboBoxItem Content="Tesis" />
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    Margin="0,0,0,0">
+                    <Label
+                        Style="{StaticResource StyleLabel}"
+                        Content="Buscar: "
+                        Margin="0,0,0,0" />
+                    <TextBox
+                        Style="{StaticResource tbxStyleGeneral}"
+                        Margin="30,0,0,0"
+                        Text="{Binding Busqueda, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+
+                <DataGrid
+                    Style="{DynamicResource DataGridStyle1}"
+                    ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
+                    RowStyle="{DynamicResource DataGridRowStyle1}"
+                    CellStyle="{DynamicResource DataGridCellStyle1}"
+                    AlternationCount="2"
+                    Grid.Row="2"
+                    Margin="30 20 30 20"
+                    AutoGenerateColumns="False"
+                    FontSize="15"
+                    IsReadOnly="True"
+                    ItemsSource="{Binding Ejemplares}"
+                    SelectedItem="{Binding FilaSeleccionada}"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                    Height="290">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn
+                            Width="100"
+                            Binding="{Binding Path=codigo}"
+                            Header="Código" />
+                        <DataGridTextColumn
+                            Width="2*"
+                            Binding="{Binding Path=titulo}"
+                            Header="Título" />
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding Path=autores}"
+                            Header="Autores" />
+                        <DataGridTextColumn
+                            Width="*"
+                            Binding="{Binding Path=disponibilidad}"
+                            Header="Disponibilidad" />
+                        <DataGridTemplateColumn
+                            Header="Operacion"
+                            IsReadOnly="True"
+                            Width="130" />
+                        <DataGridTextColumn Binding="{Binding id_ejemplar}" Visibility="Hidden" />
+                    </DataGrid.Columns>
+                </DataGrid>
+
+            </StackPanel>
+
+
+
+            <Grid Grid.Column="1">
+                <StackPanel Orientation="Vertical">
+                    <Label
+                        Content="ID prestamo"
+                        Style="{StaticResource StyleLabel}"
+                        Margin="0,0,0,0" />
+                    <Label
+                        Content="ID Usuario"
+                        Style="{StaticResource StyleLabel}"
+                        Margin="0,0,0,0" />
+                    <Label
+                        Content="ID ejemplar"
+                        Style="{StaticResource StyleLabel}"
+                        Margin="0,0,0,0" />
+                    <Label
+                        Content="Fecha del prestamo"
+                        Style="{StaticResource StyleLabel}"
+                        Margin="0,0,0,0" />
+                    <Label
+                        Content="Fecha de devolucion"
+                        Style="{StaticResource StyleLabel}"
+                        Margin="0,0,0,0" />
+                    <Label
+                        Content="Tipo de prestamo"
+                        Style="{StaticResource StyleLabel}"
+                        Margin="0,0,0,0" />
+                </StackPanel>
+            </Grid>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+        </Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+    </Grid>
+</UserControl>

@@ -1,5 +1,4 @@
-﻿using Biblioteca.Vistas.Registros;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,25 +12,38 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Biblioteca.ModeloDeVista;
+using Biblioteca.Vistas.Registros;
 
 namespace Biblioteca.Vistas.Ventanas
 {
     /// <summary>
-    /// Lógica de interacción para Administracion.xaml
+    /// Lógica de interacción para Prestamos.xaml
     /// </summary>
-    public partial class Administracion : UserControl
+    public partial class Prestamos : UserControl
     {
         public ContentControl ContentControl;
 
-        public Administracion(ContentControl ccDelMenu)
+        public Prestamos(ContentControl ccDelMenu)
         {
             InitializeComponent();
+            DataContext = new PrestamosVM();
             ContentControl = ccDelMenu;
         }
 
-        private void btnAbrirRegistrarBibliotecario(object sender, RoutedEventArgs e)
+        private void btnEditarClick(object sender, RoutedEventArgs e)
         {
-            ContentControl.Content = new GestionarBibliotecario(ContentControl);
+            ContentControl.Content = new ModificarPrestamo(ContentControl);
+        }
+
+        private void btnEliminarClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnPrestarClick(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

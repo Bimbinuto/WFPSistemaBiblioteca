@@ -27,7 +27,7 @@ namespace Biblioteca.ModeloDeVista
         public string nombreUsuario;
         public string tipoUsuario;
         public string resultado;
-        private object sender;
+        private object sender = null;
 
         public string Usuario
         {
@@ -38,7 +38,6 @@ namespace Biblioteca.ModeloDeVista
                 OnPropertyChanged(nameof(Usuario));
             }
         }
-
         public string Password
         {
             get => _login.password;
@@ -48,7 +47,6 @@ namespace Biblioteca.ModeloDeVista
                 OnPropertyChanged(nameof(Password));
             }
         }
-
         public string NombreUsuario
         {
             get => "Bienvenido, " + nombreUsuario;
@@ -58,7 +56,6 @@ namespace Biblioteca.ModeloDeVista
                 OnPropertyChanged(nameof(NombreUsuario));
             }
         }
-
         public string TipoUsuario
         {
             get => tipoUsuario;
@@ -68,7 +65,6 @@ namespace Biblioteca.ModeloDeVista
                 OnPropertyChanged(nameof(TipoUsuario));
             }
         }
-
         public string Resultado
         {
             get => resultado;
@@ -78,7 +74,6 @@ namespace Biblioteca.ModeloDeVista
                 OnPropertyChanged(nameof(Resultado));
             }
         }
-
 
         public LoginVM()
         {
@@ -120,6 +115,17 @@ namespace Biblioteca.ModeloDeVista
                         {
                             Login log = new Login();
                             log.btnLogin(sender, null);
+
+                            DispatcherTimer dispatcherTimer = new DispatcherTimer();
+                            DispatcherTimer timer1 = dispatcherTimer;
+                            timer1.Interval = TimeSpan.FromSeconds(1.7);
+                            timer1.Tick += (s, args) =>
+                            {
+                                timer1.Stop();
+                                Menu nuevo = new Menu();
+                                nuevo.Show();
+                            };
+                            timer1.Start();
                         }
                         else
                         {

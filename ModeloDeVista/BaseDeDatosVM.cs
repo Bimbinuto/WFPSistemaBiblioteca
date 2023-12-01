@@ -20,7 +20,7 @@ namespace Biblioteca.ViewModel
         {
             EstaConectado = false;
             cnn = new Conexion();
-            var timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
+            var timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(5) };
             timer.Tick += async (sender, e) => await estadoDeLaConexionAsync();
             timer.Start();
         }
