@@ -13,24 +13,24 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Biblioteca.Vistas.Ventanas;
-using Biblioteca.Vistas.Registros;
 using Biblioteca.ModeloDeVista;
+
 
 namespace Biblioteca.Vistas.Registros
 {
     /// <summary>
-    /// Lógica de interacción para GestionarDocente.xaml
+    /// Lógica de interacción para GestionarEstudiante.xaml
     /// </summary>
-    public partial class GestionarDocente : UserControl
+    public partial class GestionarEstudiante : UserControl
     {
         ContentControl contentControl;
-        DocenteVM docenteVM = new DocenteVM();
+        EstudianteVM evm = new EstudianteVM();
 
-        public GestionarDocente(ContentControl ccDeAdministracion)
+        public GestionarEstudiante(ContentControl ccDeAdministracion)
         {
             InitializeComponent();
-            DataContext = docenteVM;
             contentControl = ccDeAdministracion;
+            DataContext = evm;
         }
 
         private void btnVolverAdministracion(object sender, RoutedEventArgs e)
@@ -38,19 +38,19 @@ namespace Biblioteca.Vistas.Registros
             contentControl.Content = new Administracion(contentControl);
         }
 
-        private void btnEditarDocente(object sender, RoutedEventArgs e)
+        private void btnEditarBibliotecario(object sender, RoutedEventArgs e)
         {
-            contentControl.Content = new ModificarDocente(contentControl, docenteVM);
+            contentControl.Content = new ModificarEstudiante(contentControl, evm);
         }
 
-        private void btnEliminarDocente(object sender, RoutedEventArgs e)
+        private void btnEliminarBibliotecario(object sender, RoutedEventArgs e)
         {
-            contentControl.Content = new EliminarDocente(contentControl, docenteVM);
+            contentControl.Content = new EliminarEstudiante(contentControl, evm);
         }
 
-        private void btnRegistrarNuevoDocente(object sender, RoutedEventArgs e)
+        private void btnRegistrarNuevoEstudiante(object sender, RoutedEventArgs e)
         {
-            contentControl.Content = new RegistrarDocente(contentControl);
+            contentControl.Content = new RegistrarEstudiante(contentControl);
         }
     }
 }

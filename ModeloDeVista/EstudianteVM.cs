@@ -1,27 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
-using System.IO.Packaging;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
 using System.Timers;
 using Biblioteca.BDConexion;
 using Biblioteca.Modelos;
 using MySql.Data.MySqlClient;
 using Biblioteca.Vistas.Registros;
+using System.Windows.Input;
+using System.Data;
+using Microsoft.Win32;
+using System.Text.RegularExpressions;
+using System.Windows;
+using System.Collections.ObjectModel;
 
 namespace Biblioteca.ModeloDeVista
 {
-    //CLASE PRINCIPAL
-    public partial class BibliotecarioVM : INotifyPropertyChanged
+    public partial class EstudianteVM : INotifyPropertyChanged
     {
-        private BibliotecarioM _biblibiotecario = new BibliotecarioM();
+        private EstudianteM _estudiante = new EstudianteM();
         public ICommand RegistrarCommand { get; set; }
         public ICommand ModificarCommand { get; set; }
         public ICommand EliminarCommand { get; set; }
@@ -33,52 +32,76 @@ namespace Biblioteca.ModeloDeVista
         private Conexion conexion = new Conexion();
         public string _resultado;
 
-        private string _filtroB = "Nombres";
-        private string _busquedaB;
-        private DataTable _bibliotecarioT;
-        private DataRowView _filaSeleccionadaB;
-        private string _elementosSeleccionadosB;
+        private string _filtroE = "Nombres";
+        private string _busquedaE;
+        private DataTable _estudianteT;
+        private ObservableCollection<CarreraM> _items;
+        private CarreraM _elementoItem;
 
-        public string FiltroB
+        public ObservableCollection<CarreraM> Items
         {
-            get => _filtroB;
+            get => _items;
             set
             {
-                _filtroB = value;
-                OnPropertyChanged(nameof(FiltroB));
+                _items = value;
+                OnPropertyChanged(nameof(Items));
             }
         }
-        public string BusquedaB
+        public CarreraM ElementoItem
         {
-            get => _busquedaB;
+            get => _elementoItem;
             set
             {
-                _busquedaB = value;
-                OnPropertyChanged(nameof(BusquedaB));
+                _elementoItem = value;
+                OnPropertyChanged(nameof(ElementoItem));
+
+                _id_carrera = value.id_carrera;
+            }
+        }
+        private DataRowView _filaSeleccionadaE;
+        private string _elementosSeleccionadosE;
+
+        public string FiltroE
+        {
+            get => _filtroE;
+            set
+            {
+                _filtroE = value;
+                OnPropertyChanged(nameof(FiltroE));
+            }
+        }
+        public string BusquedaE
+        {
+            get => _busquedaE;
+            set
+            {
+                _busquedaE = value;
+                OnPropertyChanged(nameof(BusquedaE));
                 //CargarTablaBibliotecariosAsync();
                 _timerBusqueda.Stop();
                 _timerBusqueda.Start();
             }
         }
-        public DataTable BibliotecarioT
+        public DataTable EstudianteT
         {
-            get => _bibliotecarioT;
+            get => _estudianteT;
             set
             {
-                _bibliotecarioT = value;
-                OnPropertyChanged(nameof(BibliotecarioT));
+                _estudianteT = value;
+                OnPropertyChanged(nameof(EstudianteT));
             }
         }
-        public DataRowView FilaSeleccionadaB
+        public DataRowView FilaSeleccionadaE
         {
-            get => _filaSeleccionadaB;
+            get => _filaSeleccionadaE;
             set
             {
-                _filaSeleccionadaB = value;
-                OnPropertyChanged(nameof(FilaSeleccionadaB));
+                _filaSeleccionadaE = value;
+                OnPropertyChanged(nameof(FilaSeleccionadaE));
 
                 if (value != null)
                 {
+                    _idEstudianteSel = value["id_estudiante"].ToString();
                     _isCISel = value["ci"].ToString();
                     _isNombreSel = value["nombres"].ToString();
                     _isApPaternoSel = value["ap_paterno"].ToString();
@@ -90,14 +113,13 @@ namespace Biblioteca.ModeloDeVista
                     _isCuentaSel = value["cuenta"].ToString();
                     _isContrasenaSel = value["constrasena"].ToString();
                     _isSexoSel = value["sexo"].ToString();
-                    _isActivoSel = value["activo"].ToString();
-                    _isIdBibliotecarioSel = value["id_bibliotecario"].ToString();
-                    _isIdUsuarioSel = value["id_usuario"].ToString();
-                    _isFecConSel = Convert.ToDateTime(value["fecha_contrato"]);
+                    _isCarreraSel = value["codigo"].ToString();
+                    _isSemetreIngresoSel = value["semestre_ingreso"].ToString();
 
                     _anteriorPass = _isContrasenaSel;
 
-                    ElementosSeleccionadosB = $"Elementos seleccionados: \n" +
+                    ElementosSeleccionadosE = $"Elementos seleccionados: \n" +
+                                              $"ID: {_idEstudianteSel} \n" +
                                               $"CI: {_isCISel} \n" +
                                               $"Nombres: {_isNombreSel} \n" +
                                               $"Apellido Paterno: {_isApPaternoSel} \n" +
@@ -109,28 +131,27 @@ namespace Biblioteca.ModeloDeVista
                                               $"Cuenta: {_isCuentaSel} \n" +
                                               $"Contraseña: {_isContrasenaSel} \n" +
                                               $"Sexo: {_isSexoSel} \n" +
-                                              $"Activo: {_isActivoSel} \n" +
-                                              $"ID Bibliotecario: {_isIdBibliotecarioSel} \n" +
-                                              $"ID Usuario: {_isIdUsuarioSel} \n" +
-                                              $"Fecha de Contrato: {_isFecConSel}";
+                                              $"Carrera: {_isCarreraSel}\n" +
+                                              $"ID carrera: {value["id_carrera"].ToString()}\n" +
+                                              $"Nombre carrera: {value["nombre"].ToString()}\n" +
+                                              $"Semestre Ingreso: {value["semestre_ingreso"].ToString()}\n";
                 }
             }
         }
-        public string ElementosSeleccionadosB
+        public string ElementosSeleccionadosE
         {
-            get => _elementosSeleccionadosB;
+            get => _elementosSeleccionadosE;
             set
             {
-                _elementosSeleccionadosB = value;
-                OnPropertyChanged("ElementosSeleccionadosB");
+                _elementosSeleccionadosE = value;
+                OnPropertyChanged("ElementosSeleccionadosE");
             }
         }
 
         // CONSTRUCTOR
-        public BibliotecarioVM()
+        public EstudianteVM()
         {
             FechaNacimiento = new DateTime(2000, 1, 1);
-            FechaContrato = new DateTime(2000, 1, 1);
 
             RegistrarCommand = new AsyncRelayCommand(Registrar, PuedeRegistrar);
             ModificarCommand = new AsyncRelayCommand(Modificar, PuedeModificar);
@@ -141,6 +162,7 @@ namespace Biblioteca.ModeloDeVista
             _timerBusqueda.AutoReset = false;
 
             CargarTablaBibliotecariosAsync();
+            CargarListaCarrera();
         }
 
         private async void CargarTablaBibliotecariosAsync()
@@ -149,52 +171,76 @@ namespace Biblioteca.ModeloDeVista
             {
                 await cnx.OpenAsync();
 
-                //string consulta = "SELECT u.ci, u.nombres, u.ap_paterno, u.ap_materno, u.fecha_nacimiento, u.direccion, u.telefono, u.correo, u.cuenta, u.constrasena, u.sexo, u.activo, b.id_bibliotecario, b.id_usuario, b.fecha_contrato\r\n" +
-                //                  "FROM bibliotecario b\r\n" +
-                //                  "JOIN usuario u ON b.id_usuario = u.id_usuario\r\n";
+                string consulta = "SELECT e.id_estudiante, u.ci, u.nombres, u.ap_paterno, u.ap_materno, u.fecha_nacimiento, u.direccion, u.telefono, u.correo, u.cuenta, u.constrasena, u.sexo, e.semestre_ingreso , l.id_carrera, c.codigo, c.nombre\r\n" +
+                                  "FROM estudiante e\r\n" +
+                                  "JOIN lector l ON e.id_lector = l.id_lector\r\n" +
+                                  "JOIN usuario u ON l.id_usuario = u.id_usuario\r\n" +
+                                  "JOIN carrera c ON l.id_carrera = c.id_carrera\r\n";
 
-                string consulta = "SELECT u.ci , u.nombres, u.ap_paterno, u.ap_materno, CONCAT(u.nombres, ' ', u.ap_paterno, ' ', u.ap_materno) AS nombre_completo, u.fecha_nacimiento, u.direccion, u.telefono, u.correo, u.cuenta, u.constrasena, u.sexo, u.activo, b.id_bibliotecario, b.id_usuario, b.fecha_contrato\r\n" +
-                                  "FROM bibliotecario b\r\n" +
-                                  "JOIN usuario u ON b.id_usuario = u.id_usuario\r\n";
-
-                if (FiltroB == "Carnet de identidad")
+                if (FiltroE == "Carnet de identidad")
                 {
                     consulta += "WHERE u.ci LIKE @busquedaB ";
                 }
-                else if (FiltroB == "Nombres")
+                else if (FiltroE == "Nombres")
                 {
                     consulta += "WHERE u.nombres LIKE @busquedaB ";
                 }
-                else if (FiltroB == "Apellido paterno")
+                else if (FiltroE == "Apellido paterno")
                 {
                     consulta += "WHERE u.ap_paterno LIKE @busquedaB ";
                 }
-                else if (FiltroB == "Apellido materno")
+                else if (FiltroE == "Apellido materno")
                 {
                     consulta += "WHERE u.ap_materno LIKE @busquedaB ";
                 }
-                else if (FiltroB == "Cuenta")
+                else if (FiltroE == "Cuenta")
                 {
                     consulta += "WHERE u.cuenta LIKE @busquedaB ";
                 }
-                else if (FiltroB == "Nombre completo")
-                {
-                    consulta += "WHERE CONCAT(u.nombres, ' ', u.ap_paterno, ' ', u.ap_materno) LIKE @busquedaB ";
-                }
-
-                consulta += "GROUP BY u.ci , u.nombres, u.ap_paterno, u.ap_materno, nombre_completo, u.fecha_nacimiento, u.direccion, u.telefono, u.correo, u.cuenta, u.constrasena, u.sexo, u.activo, b.id_bibliotecario, b.id_usuario, b.fecha_contrato";
 
                 MySqlCommand cmd = new MySqlCommand(consulta, cnx);
-                cmd.Parameters.AddWithValue("@busquedaB", $"%{BusquedaB}%");
+                cmd.Parameters.AddWithValue("@busquedaB", $"%{BusquedaE}%");
 
                 MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
 
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
 
-                BibliotecarioT = dt;
+                EstudianteT = dt;
                 await cnx.CloseAsync();
             }
+        }
+
+        public async void CargarListaCarrera()
+        {
+            try
+            {
+                using (MySqlConnection cnx = new MySqlConnection(conexion.cadenaConexion))
+                {
+                    await cnx.OpenAsync();
+
+                    string query = "SELECT id_carrera, codigo, nombre FROM carrera";
+                    MySqlCommand cmd = new MySqlCommand(query, cnx);
+
+                    using (var reader = await cmd.ExecuteReaderAsync())
+                    {
+                        Items = new ObservableCollection<CarreraM>();
+                        while (await reader.ReadAsync())
+                        {
+                            var carreraM = new CarreraM
+                            {
+                                id_carrera = reader.GetInt32(0),
+                                codigo = reader.GetString(1),
+                                nombre = reader.GetString(2)
+                            };
+                            Items.Add(carreraM);
+                        }
+                    }
+
+                    await cnx.CloseAsync();
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
         protected virtual void OnPropertyChanged(string propertyName)
@@ -203,9 +249,12 @@ namespace Biblioteca.ModeloDeVista
         }
     }
 
-    //MODIFICAR UN BIBLIOTECARIO
-    public partial class BibliotecarioVM
+
+
+    //MODIFICAR ESTUDIANTE
+    public partial class EstudianteVM
     {
+        private string _idEstudianteSel = "";
         private string _isCISel = "";
         private string _isNombreSel = "";
         private string _isApPaternoSel = "";
@@ -216,11 +265,12 @@ namespace Biblioteca.ModeloDeVista
         private string _isCorreoSel = "";
         private string _isCuentaSel = "";
         private string _isContrasenaSel = "";
-        private string _isActivoSel = "";
+        //private string _isActivoSel = "";
         private string _isSexoSel = "";
-        private string _isIdBibliotecarioSel = "";
-        private string _isIdUsuarioSel = "";
-        private DateTime _isFecConSel;
+        //private string _isIdBibliotecarioSel = "";
+        //private string _isIdUsuarioSel = "";
+        private string _isCarreraSel = "";
+        private string _isSemetreIngresoSel = "";
 
         private string _isCIMod = "";
         private string _isNombreMod = "";
@@ -236,7 +286,8 @@ namespace Biblioteca.ModeloDeVista
         private string _isSexoMod = "";
         //private string _isIdBibliotecarioMod = "";
         //private string _isIdUsuarioMod = "";
-        private string _isFecConMod = "";
+        private string _isCarreraMod = "";
+        private string _isSemestreIngresoMod = "";
         private string _isResultadoMod = "";
 
         //control de texto correcto; para MODIFICAR
@@ -251,7 +302,8 @@ namespace Biblioteca.ModeloDeVista
         private bool cuentaCorrectoMod = true;
         private bool contrasenaCorrectoMod = true;
         private bool sexoCorrectoMod = true;
-        private bool fechaContratoCorrectoMod = true;
+        private bool carreraCorrectoMod = true;
+        private bool semestreIngresoCorrectoMod = true;
 
         //control de los textBox enlazados; para MODIFICAR
         public string IsCIVacioMod
@@ -353,13 +405,22 @@ namespace Biblioteca.ModeloDeVista
                 OnPropertyChanged(nameof(IsSexoVacioMod));
             }
         }
-        public string IsFecConVacioMod
+        public string IsCarreraVacioMod
         {
-            get => _isFecConMod;
+            get => _isCarreraMod;
             set
             {
-                _isFecConMod = value;
-                OnPropertyChanged(nameof(IsFecConVacioMod));
+                _isCarreraMod = value;
+                OnPropertyChanged(nameof(IsCarreraVacioMod));
+            }
+        }
+        public string IsSemestreIngresoVacioMod
+        {
+            get => _isSemestreIngresoMod;
+            set
+            {
+                _isSemestreIngresoMod = value;
+                OnPropertyChanged(nameof(IsSemestreIngresoVacioMod));
             }
         }
         public string IsResultadoMod
@@ -673,26 +734,65 @@ namespace Biblioteca.ModeloDeVista
                     IsSexoVacioMod = "";
                     sexoCorrectoMod = true;
                 }
-
             }
         }
-        public DateTime FechaContratoMod
+        public string CarreraMod
         {
-            get => _isFecConSel;
+            get => _isCarreraSel;
             set
             {
-                _isFecConSel = value;
-                OnPropertyChanged(nameof(FechaContratoMod));
+                _isCarreraSel = value;
+                OnPropertyChanged(nameof(CarreraMod));
 
-                if (value > DateTime.Now)
+                if (String.IsNullOrWhiteSpace(value))
                 {
-                    IsFecConVacioMod = "La fecha no puede ser mayor a la actual";
-                    fechaContratoCorrectoMod = false;
+                    IsCarreraVacioMod = "El código no puede estar vacío";
+                    carreraCorrectoMod = false;
+                }
+                else if (value.Length > 3)
+                {
+                    IsCarreraVacioMod = "El código no puede tener más de 3 letras";
+                    carreraCorrectoMod = false;
+                }
+                else if (!Items.Any(item => item.codigo == value))
+                {
+                    IsCarreraVacioMod = "El código ingresado no existe";
+                    carreraCorrectoMod = false;
                 }
                 else
                 {
-                    IsFecConVacioMod = "";
-                    fechaContratoCorrectoMod = true;
+                    IsCarreraVacioMod = "";
+                    carreraCorrectoMod = true;
+                }
+            }
+        }
+        public string SemestreIngresoMod
+        {
+            get => _isSemetreIngresoSel;
+            set
+            {
+                _isSemetreIngresoSel = value;
+                OnPropertyChanged(nameof(SemestreIngresoMod));
+
+                if (String.IsNullOrEmpty(value))
+                {
+                    IsSemestreIngresoVacioMod = "no puede estar vacio";
+                    semestreIngresoCorrectoMod = false;
+                }
+                else
+                {
+                    string pattern = @"^(I{1,2}/\d{4})$";
+                    if (!Regex.IsMatch(value, pattern))
+                    {
+                        IsSemestreIngresoVacioMod = "Ingrese en Formato II/####";
+                        semestreIngresoCorrectoMod = false;
+                    }
+                    else
+                    {
+                        IsSemestreIngresoVacioMod = "";
+                        semestreIngresoCorrectoMod = true;
+
+                    }
                 }
             }
         }
@@ -714,11 +814,11 @@ namespace Biblioteca.ModeloDeVista
                 {
                     await cnx.OpenAsync();
 
-                    using (MySqlCommand cmd = new MySqlCommand("modificar_bibliotecario", cnx))
+                    using (MySqlCommand cmd = new MySqlCommand("modificar_estudiante", cnx))
                     {
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                        cmd.Parameters.AddWithValue("@pid_bibliotecario", Int64.Parse(_isIdBibliotecarioSel));
+                        cmd.Parameters.AddWithValue("@pid_estudiante", Int64.Parse(_idEstudianteSel));
                         cmd.Parameters.AddWithValue("@pci", Int64.Parse(CIMod));
                         cmd.Parameters.AddWithValue("@pnombres", NombresMod);
                         cmd.Parameters.AddWithValue("@pap_paterno", ApPaternoMod);
@@ -728,7 +828,6 @@ namespace Biblioteca.ModeloDeVista
                         cmd.Parameters.AddWithValue("@ptelefono", Int64.Parse(TelefonoMod));
                         cmd.Parameters.AddWithValue("@pcorreo", CorreoMod);
                         cmd.Parameters.AddWithValue("@pcuenta", CuentaMod);
-
                         if (ContrasenaMod == _anteriorPass)
                         {
                             cmd.Parameters.AddWithValue("@pcontrasena", ContrasenaMod);
@@ -739,21 +838,16 @@ namespace Biblioteca.ModeloDeVista
                         }
                         cmd.Parameters.AddWithValue("@psexo", SexoMod);
                         cmd.Parameters.AddWithValue("@pactivo", true);
-                        cmd.Parameters.AddWithValue("@pfecha_contrato", FechaContratoMod);
+                        cmd.Parameters.AddWithValue("@pc_codigo", CarreraMod);
+                        cmd.Parameters.AddWithValue("@psemestre_ingreso", SemestreIngresoMod);
 
                         cmd.Parameters.Add("@resultado", MySqlDbType.VarChar, 200);
                         cmd.Parameters["@resultado"].Direction = System.Data.ParameterDirection.Output;
 
                         int res = await cmd.ExecuteNonQueryAsync();
 
-                        if (res != 0)
-                        {
-                            ResultadoMod = (string)cmd.Parameters["@resultado"].Value;
-                        }
-                        else
-                        {
-                            ResultadoMod = (string)cmd.Parameters["@resultado"].Value;
-                        }
+                        ResultadoMod = (string)cmd.Parameters["@resultado"].Value;
+
                         await cnx.CloseAsync();
                     }
                 }
@@ -776,15 +870,18 @@ namespace Biblioteca.ModeloDeVista
                    cuentaCorrectoMod &&
                    contrasenaCorrectoMod &&
                    sexoCorrectoMod &&
-                   fechaContratoCorrectoMod;
+                   carreraCorrectoMod &&
+                   semestreIngresoCorrectoMod;
         }
-
     }
 
 
-    //REGISTRAR NUEVO BIBLIOTECARIO
-    public partial class BibliotecarioVM
+    //REGISTRAR ESTUDIANTE
+    public partial class EstudianteVM
     {
+        private int _id_carrera;
+
+        //Notify de os Binding del alerta del textbox
         private string _isCIVacio = "";
         private string _isNombreVacio = "";
         private string _isApPaternoVacio = "";
@@ -796,9 +893,10 @@ namespace Biblioteca.ModeloDeVista
         private string _isCuentaVacio = "";
         private string _isContrasenaVacio = "";
         private string _isSexoVacio = "";
-        private string _isFecConVacio = "";
+        private string _isCarreraVacio = "";
+        private string _isSemestreIngresoVacio = "";
 
-        //control de texto correcto; para registrar
+        //control de texto del textbox correcto; para registrar
         private bool ciCorrecto;
         private bool nombreCorrecto;
         private bool apPaternoCorrecto;
@@ -810,9 +908,10 @@ namespace Biblioteca.ModeloDeVista
         private bool cuentaCorrecto;
         private bool contrasenaCorrecto;
         private bool sexoCorrecto;
-        private bool fechaContratoCorrecto;
+        private bool carreraCorrecto;
+        private bool semestreIngresoCorrecto;
 
-        //control de los textBox enlazados; para registrar
+        //Binding para el control de los textBox; para registrar
         public string IsCIVacio
         {
             get => _isCIVacio;
@@ -912,23 +1011,33 @@ namespace Biblioteca.ModeloDeVista
                 OnPropertyChanged(nameof(IsSexoVacio));
             }
         }
-        public string IsFecConVacio
+        public string IsCarreraVacio
         {
-            get => _isFecConVacio;
+            get => _isCarreraVacio;
             set
             {
-                _isFecConVacio = value;
-                OnPropertyChanged(nameof(IsFecConVacio));
+                _isCarreraVacio = value;
+                OnPropertyChanged(nameof(IsCarreraVacio));
             }
         }
+        public string IsSemestreIngresoVacio
+        {
+            get => _isSemestreIngresoVacio;
+            set
+            {
+                _isSemestreIngresoVacio = value;
+                OnPropertyChanged(nameof(IsSemestreIngresoVacio));
+            }
+        }
+
 
         // control de atributos de Bibliotecario; para registrar
         public string CI
         {
-            get => _biblibiotecario.ci;
+            get => _estudiante.ci;
             set
             {
-                _biblibiotecario.ci = value;
+                _estudiante.ci = value;
                 OnPropertyChanged(nameof(CI));
 
                 if (string.IsNullOrEmpty(value))
@@ -967,12 +1076,12 @@ namespace Biblioteca.ModeloDeVista
                         IsCIVacio = "";
                         ciCorrecto = true;
 
-                        if (!string.IsNullOrEmpty(_biblibiotecario.nombres))
+                        if (!string.IsNullOrEmpty(_estudiante.nombres))
                         {
                             // Obtiene el primer nombre y lo convierte a minúsculas
-                            string primerNombre = _biblibiotecario.nombres.Split(' ')[0].ToLower();
+                            string primerNombre = _estudiante.nombres.Split(' ')[0].ToLower();
 
-                            Contrasena = primerNombre + _biblibiotecario.ci;
+                            Contrasena = primerNombre + _estudiante.ci;
                         }
                     }
                 }
@@ -980,10 +1089,10 @@ namespace Biblioteca.ModeloDeVista
         }
         public string Nombres
         {
-            get => _biblibiotecario.nombres;
+            get => _estudiante.nombres;
             set
             {
-                _biblibiotecario.nombres = value;
+                _estudiante.nombres = value;
                 OnPropertyChanged(nameof(Nombres));
 
                 if (string.IsNullOrEmpty(value))
@@ -1004,15 +1113,15 @@ namespace Biblioteca.ModeloDeVista
                         IsNombreVacio = "";
                         nombreCorrecto = true;
 
-                        string primerNombre = _biblibiotecario.nombres.Split(' ')[0].ToLower();
+                        string primerNombre = _estudiante.nombres.Split(' ')[0].ToLower();
 
-                        if (!string.IsNullOrEmpty(_biblibiotecario.apPaterno))
+                        if (!string.IsNullOrEmpty(_estudiante.apPaterno))
                         {
-                            string primerApellido = _biblibiotecario.apPaterno.ToLower();
+                            string primerApellido = _estudiante.apPaterno.ToLower();
                             Cuenta = primerNombre + "." + primerApellido + "@sistemas.edu.bo";
                         }
 
-                        Contrasena = primerNombre + _biblibiotecario.ci;
+                        Contrasena = primerNombre + _estudiante.ci;
                     }
                 }
 
@@ -1022,10 +1131,10 @@ namespace Biblioteca.ModeloDeVista
         public string ApPaterno
         {
 
-            get => _biblibiotecario.apPaterno;
+            get => _estudiante.apPaterno;
             set
             {
-                _biblibiotecario.apPaterno = value;
+                _estudiante.apPaterno = value;
                 OnPropertyChanged(nameof(ApPaterno));
 
                 if (string.IsNullOrWhiteSpace(value))
@@ -1046,9 +1155,9 @@ namespace Biblioteca.ModeloDeVista
                         IsApPaternoVacio = "";
                         apPaternoCorrecto = true;
 
-                        if (_biblibiotecario.nombres != null && _biblibiotecario.apPaterno != null)
+                        if (_estudiante.nombres != null && _estudiante.apPaterno != null)
                         {
-                            Cuenta = _biblibiotecario.nombres.Split(' ')[0].ToLower() + "." + _biblibiotecario.apPaterno.ToLower() + "@sistemas.edu.bo";
+                            Cuenta = _estudiante.nombres.Split(' ')[0].ToLower() + "." + _estudiante.apPaterno.ToLower() + "@sistemas.edu.bo";
                         }
                     }
                 }
@@ -1056,10 +1165,10 @@ namespace Biblioteca.ModeloDeVista
         }
         public string ApMaterno
         {
-            get => _biblibiotecario.apMaterno;
+            get => _estudiante.apMaterno;
             set
             {
-                _biblibiotecario.apMaterno = value;
+                _estudiante.apMaterno = value;
                 OnPropertyChanged(nameof(ApMaterno));
 
                 if (string.IsNullOrWhiteSpace(value))
@@ -1085,10 +1194,10 @@ namespace Biblioteca.ModeloDeVista
         }
         public DateTime FechaNacimiento
         {
-            get => _biblibiotecario.fechaNacimiento;
+            get => _estudiante.fechaNacimiento;
             set
             {
-                _biblibiotecario.fechaNacimiento = value;
+                _estudiante.fechaNacimiento = value;
                 OnPropertyChanged(nameof(FechaNacimiento));
 
                 if (value > DateTime.Now)
@@ -1105,10 +1214,10 @@ namespace Biblioteca.ModeloDeVista
         }
         public string Direccion
         {
-            get => _biblibiotecario.direccion;
+            get => _estudiante.direccion;
             set
             {
-                _biblibiotecario.direccion = value;
+                _estudiante.direccion = value;
                 OnPropertyChanged(nameof(Direccion));
 
                 if (String.IsNullOrWhiteSpace(Direccion))
@@ -1125,10 +1234,10 @@ namespace Biblioteca.ModeloDeVista
         }
         public string Telefono
         {
-            get => _biblibiotecario.telefono;
+            get => _estudiante.telefono;
             set
             {
-                _biblibiotecario.telefono = value;
+                _estudiante.telefono = value;
                 OnPropertyChanged(nameof(Telefono));
 
                 if (string.IsNullOrEmpty(value))
@@ -1172,10 +1281,10 @@ namespace Biblioteca.ModeloDeVista
         }
         public string Correo
         {
-            get => _biblibiotecario.correo;
+            get => _estudiante.correo;
             set
             {
-                _biblibiotecario.correo = value;
+                _estudiante.correo = value;
                 OnPropertyChanged(nameof(Correo));
 
                 if (String.IsNullOrWhiteSpace(value))
@@ -1192,10 +1301,10 @@ namespace Biblioteca.ModeloDeVista
         }
         public string Cuenta
         {
-            get => _biblibiotecario.cuenta;
+            get => _estudiante.cuenta;
             set
             {
-                _biblibiotecario.cuenta = value;
+                _estudiante.cuenta = value;
                 OnPropertyChanged(nameof(Cuenta));
 
                 if (!String.IsNullOrEmpty(value))
@@ -1212,10 +1321,10 @@ namespace Biblioteca.ModeloDeVista
         }
         public string Contrasena
         {
-            get => _biblibiotecario.contrasena;
+            get => _estudiante.contrasena;
             set
             {
-                _biblibiotecario.contrasena = value;
+                _estudiante.contrasena = value;
                 OnPropertyChanged(nameof(Contrasena));
 
                 if (!String.IsNullOrEmpty(value))
@@ -1232,10 +1341,10 @@ namespace Biblioteca.ModeloDeVista
         }
         public string Sexo
         {
-            get => _biblibiotecario.sexo;
+            get => _estudiante.sexo;
             set
             {
-                _biblibiotecario.sexo = value;
+                _estudiante.sexo = value;
                 OnPropertyChanged(nameof(Sexo));
 
                 if (String.IsNullOrEmpty(value))
@@ -1248,26 +1357,54 @@ namespace Biblioteca.ModeloDeVista
                     IsSexoVacio = "";
                     sexoCorrecto = true;
                 }
-
             }
         }
-        public DateTime FechaContrato
+        public string Carrera
         {
-            get => _biblibiotecario.fechaContrato;
+            get => _estudiante.carrera;
             set
             {
-                _biblibiotecario.fechaContrato = value;
-                OnPropertyChanged(nameof(FechaContrato));
-
-                if (value > DateTime.Now)
+                _estudiante.carrera = value;
+                OnPropertyChanged(nameof(Carrera));
+                if (String.IsNullOrEmpty(value))
                 {
-                    IsFecConVacio = "La fecha no puede ser mayor a la actual";
-                    fechaContratoCorrecto = false;
+                    IsCarreraVacio = "seleccionar";
+                    carreraCorrecto = false;
                 }
                 else
                 {
-                    IsFecConVacio = "";
-                    fechaContratoCorrecto = true;
+                    IsCarreraVacio = "";
+                    carreraCorrecto = true;
+                }
+            }
+        }
+        public string SemestreIngreso
+        {
+            get => _estudiante.ingreso;
+            set
+            {
+                _estudiante.ingreso = value;
+                OnPropertyChanged(nameof(SemestreIngreso));
+                if (String.IsNullOrEmpty(value))
+                {
+                    IsSemestreIngresoVacio = "no puede estar vacio";
+                    semestreIngresoCorrecto = false;
+                }
+                else
+                {
+                    string pattern = @"^(I{1,2}/\d{4})$";
+                    if (!Regex.IsMatch(value, pattern))
+                    {
+                        IsSemestreIngresoVacio = "Ingrese en Formato II/####";
+                        semestreIngresoCorrecto = false;
+                    }
+                    else
+                    {
+
+                        IsSemestreIngresoVacio = "";
+                        semestreIngresoCorrecto = true;
+
+                    }
                 }
             }
         }
@@ -1281,7 +1418,6 @@ namespace Biblioteca.ModeloDeVista
             }
         }
 
-
         private async Task Registrar(object parameter)
         {
             try
@@ -1290,7 +1426,7 @@ namespace Biblioteca.ModeloDeVista
                 {
                     await cnx.OpenAsync();
 
-                    using (MySqlCommand cmd = new MySqlCommand("registrar_bibliotecario", cnx))
+                    using (MySqlCommand cmd = new MySqlCommand("registrar_estudiante", cnx))
                     {
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
@@ -1305,21 +1441,16 @@ namespace Biblioteca.ModeloDeVista
                         cmd.Parameters.AddWithValue("@pcuenta", Cuenta);
                         cmd.Parameters.AddWithValue("@pcontrasena", encriptar.ComputeSha256Hash(Contrasena));
                         cmd.Parameters.AddWithValue("@psexo", Sexo);
-                        cmd.Parameters.AddWithValue("@pfecha_contrato", FechaContrato);
+                        cmd.Parameters.AddWithValue("@psemestre_ingreso", SemestreIngreso);
+                        cmd.Parameters.AddWithValue("@pid_carrera", _id_carrera);
 
                         cmd.Parameters.Add("@resultado", MySqlDbType.VarChar, 200);
                         cmd.Parameters["@resultado"].Direction = System.Data.ParameterDirection.Output;
 
-                        int res = await cmd.ExecuteNonQueryAsync();
+                        await cmd.ExecuteNonQueryAsync();
 
-                        if (res == 0)
-                        {
-                            Resultado = (string)cmd.Parameters["@resultado"].Value;
-                        }
-                        else
-                        {
-                            Resultado = (string)cmd.Parameters["@resultado"].Value;
-                        }
+                        Resultado = (string)cmd.Parameters["@resultado"].Value;
+
                         await cnx.CloseAsync();
                     }
                 }
@@ -1342,25 +1473,26 @@ namespace Biblioteca.ModeloDeVista
                    cuentaCorrecto &&
                    contrasenaCorrecto &&
                    sexoCorrecto &&
-                   fechaContratoCorrecto;
+                   carreraCorrecto &&
+                   semestreIngresoCorrecto;
         }
+
     }
 
 
-    //ELIMINAR BIBLIOTECARIO
-    public partial class BibliotecarioVM
+    //ELIMINAR ESTUDIANTE
+    public partial class EstudianteVM
     {
-        //private string _elementoSelEliminarB;
         private bool elementoElimCorrecto;
         private string _resultadoEliminacion;
 
-        public string ElementoSelEliminarB
+        public string ElementoSelEliminarE
         {
-            get => _isIdBibliotecarioSel;
+            get => _idEstudianteSel;
             set
             {
-                _isIdBibliotecarioSel = value;
-                OnPropertyChanged(nameof(ElementoSelEliminarB));
+                _idEstudianteSel = value;
+                OnPropertyChanged(nameof(ElementoSelEliminarE));
 
                 if (value != null)
                 {
@@ -1372,13 +1504,13 @@ namespace Biblioteca.ModeloDeVista
                 }
             }
         }
-        public string ResultadoEliminacion
+        public string ResultadoEliminacionE
         {
             get => _resultadoEliminacion;
             set
             {
                 _resultadoEliminacion = value;
-                OnPropertyChanged(nameof(ResultadoEliminacion));
+                OnPropertyChanged(nameof(ResultadoEliminacionE));
             }
         }
 
@@ -1391,18 +1523,18 @@ namespace Biblioteca.ModeloDeVista
                 {
                     await cnx.OpenAsync();
 
-                    using (MySqlCommand cmd = new MySqlCommand("eliminar_bibliotecario", cnx))
+                    using (MySqlCommand cmd = new MySqlCommand("eliminar_estudiante", cnx))
                     {
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                        cmd.Parameters.AddWithValue("@pid_bibliotecario", Int64.Parse(ElementoSelEliminarB));
+                        cmd.Parameters.AddWithValue("@pid_estudiante", Int64.Parse(ElementoSelEliminarE));
 
                         cmd.Parameters.Add("@resultado", MySqlDbType.VarChar, 200);
                         cmd.Parameters["@resultado"].Direction = System.Data.ParameterDirection.Output;
 
-                        int res = await cmd.ExecuteNonQueryAsync();
+                        await cmd.ExecuteNonQueryAsync();
 
-                        ResultadoEliminacion = (string)cmd.Parameters["@resultado"].Value;
+                        ResultadoEliminacionE = (string)cmd.Parameters["@resultado"].Value;
 
                         await cnx.CloseAsync();
                     }

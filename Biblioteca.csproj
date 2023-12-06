@@ -163,15 +163,32 @@
     <Compile Include="ModeloDeVista\AsyncRelayCommand.cs" />
     <Compile Include="ModeloDeVista\BibliotecarioVM.cs" />
     <Compile Include="ModeloDeVista\DocenteVM.cs" />
+    <Compile Include="ModeloDeVista\EncriptadoUnico.cs" />
+    <Compile Include="ModeloDeVista\EstudianteVM.cs" />
+    <Compile Include="ModeloDeVista\LibroVM.cs" />
     <Compile Include="ModeloDeVista\LoginVM.cs" />
     <Compile Include="ModeloDeVista\PrestamosVM.cs" />
     <Compile Include="ModeloDeVista\RelayCommand.cs" />
     <Compile Include="Modelos\BibliotecarioM.cs" />
+    <Compile Include="Modelos\CarreraM.cs" />
+    <Compile Include="Modelos\CategoriaM.cs" />
     <Compile Include="Modelos\DocenteM.cs" />
+    <Compile Include="Modelos\EstanteriaM.cs" />
+    <Compile Include="Modelos\EstudianteM.cs" />
+    <Compile Include="Modelos\LibroM.cs" />
     <Compile Include="Modelos\LoginM.cs" />
+    <Compile Include="Modelos\MateriaM.cs" />
+    <Compile Include="Modelos\Proveedor.cs" />
+    <Compile Include="Modelos\UsuarioGlobal.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Vistas\Registros\EliminarBibliotecario.xaml.cs">
       <DependentUpon>EliminarBibliotecario.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\Registros\EliminarDocente.xaml.cs">
+      <DependentUpon>EliminarDocente.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\Registros\EliminarEstudiante.xaml.cs">
+      <DependentUpon>EliminarEstudiante.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\Registros\GestionarBibliotecario.xaml.cs">
       <DependentUpon>GestionarBibliotecario.xaml</DependentUpon>
@@ -179,14 +196,35 @@
     <Compile Include="Vistas\Registros\GestionarDocente.xaml.cs">
       <DependentUpon>GestionarDocente.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Vistas\Registros\GestionarEstudiante.xaml.cs">
+      <DependentUpon>GestionarEstudiante.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\Registros\GestionarLibro.xaml.cs">
+      <DependentUpon>GestionarLibro.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\Registros\ModificarBibliotecario.xaml.cs">
       <DependentUpon>ModificarBibliotecario.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\Registros\ModificarDocente.xaml.cs">
+      <DependentUpon>ModificarDocente.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\Registros\ModificarEstudiante.xaml.cs">
+      <DependentUpon>ModificarEstudiante.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\Registros\ModificarPrestamo.xaml.cs">
       <DependentUpon>ModificarPrestamo.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\Registros\RegistrarBibliotecario.xaml.cs">
       <DependentUpon>RegistrarBibliotecario.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\Registros\RegistrarDocente.xaml.cs">
+      <DependentUpon>RegistrarDocente.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\Registros\RegistrarEstudiante.xaml.cs">
+      <DependentUpon>RegistrarEstudiante.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\Registros\RegistrarLibro.xaml.cs">
+      <DependentUpon>RegistrarLibro.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\Ventanas\AcercaSoftware.xaml.cs">
       <DependentUpon>AcercaSoftware.xaml</DependentUpon>
@@ -212,6 +250,9 @@
     </Compile>
     <Compile Include="Vistas\Ventanas\Reporte.xaml.cs">
       <DependentUpon>Reporte.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\Ventanas\UserControlTest.xaml.cs">
+      <DependentUpon>UserControlTest.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -241,6 +282,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Vistas\Registros\EliminarDocente.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\Registros\EliminarEstudiante.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Vistas\Registros\GestionarBibliotecario.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -249,7 +298,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Vistas\Registros\GestionarEstudiante.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\Registros\GestionarLibro.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Vistas\Registros\ModificarBibliotecario.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\Registros\ModificarDocente.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\Registros\ModificarEstudiante.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -258,6 +323,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vistas\Registros\RegistrarBibliotecario.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\Registros\RegistrarDocente.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\Registros\RegistrarEstudiante.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\Registros\RegistrarLibro.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -290,6 +367,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vistas\Ventanas\Reporte.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\Ventanas\UserControlTest.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -340,11 +421,15 @@
     <Resource Include="Recursos\Library02.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Recursos\imgCalendar2.png" />
+    <Resource Include="Recursos\imgAbajo.png" />
+    <Resource Include="Recursos\imgCalendar.png" />
     <Resource Include="Recursos\avatar.jpg" />
     <Content Include="Recursos\Iconos\AcercaSoftware.svg" />
     <Content Include="Recursos\Iconos\Administracion2.svg" />
     <Content Include="Recursos\Iconos\iAbajo.svg" />
     <Content Include="Recursos\Iconos\iAbajo2.svg" />
+    <Content Include="Recursos\Iconos\iAdvertencia.svg" />
     <Content Include="Recursos\Iconos\iCalendar.svg" />
     <Content Include="Recursos\Iconos\iCalendar2.svg" />
     <Content Include="Recursos\Iconos\iCerrarSesion.svg" />
@@ -359,6 +444,7 @@
     <Content Include="Recursos\Iconos\iDisconnect.svg" />
     <Content Include="Recursos\Iconos\iDisconnect2.svg" />
     <Content Include="Recursos\Iconos\iEdit.svg" />
+    <Content Include="Recursos\Iconos\iInfo2.svg" />
     <Content Include="Recursos\Iconos\iLeftBtn.svg" />
     <Content Include="Recursos\Iconos\iMax.svg" />
     <Content Include="Recursos\Iconos\iMin.svg" />

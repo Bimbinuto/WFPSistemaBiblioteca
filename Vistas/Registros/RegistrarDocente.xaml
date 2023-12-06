@@ -1,0 +1,330 @@
+﻿<UserControl
+    x:Class="Biblioteca.Vistas.Registros.RegistrarDocente"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Biblioteca.Vistas.Registros"
+    mc:Ignorable="d"
+    d:DesignHeight="800"
+    d:DesignWidth="1000">
+    <Grid>
+        <!--  direccion barra superior  -->
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
+            <Button
+                Content="Administracion"
+                Style="{StaticResource btBarSuperior}"
+                Click="btnVolverAdministracion" />
+
+            <Path
+                Grid.Column="1"
+                x:Name="Icon1"
+                Width="11"
+                Height="11"
+                Margin="10,0,-10,0"
+                Data="{StaticResource IconDerecha}"
+                Fill="{StaticResource iFill-default-color}"
+                Stretch="Uniform"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right"
+                RenderTransformOrigin="0.5 0.5" />
+
+            <Button
+                Content="Gestionar Docente"
+                Style="{StaticResource btBarSuperior}"
+                Click="btnVolverGestionarDocente" />
+
+            <Path
+                Grid.Column="1"
+                x:Name="Icon2"
+                Width="11"
+                Height="11"
+                Margin="10,0,-10,0"
+                Data="{StaticResource IconDerecha}"
+                Fill="{StaticResource iFill-default-color}"
+                Stretch="Uniform"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right"
+                RenderTransformOrigin="0.5 0.5" />
+
+            <Label
+                Grid.Row="0"
+                Content="Registrar Docente"
+                Style="{StaticResource StyleLabelTitle}" />
+        </StackPanel>
+
+
+        <!--  contenido del menu de RegistrarBibliotecario  -->
+        <Grid Grid.Row="1" Margin="120,20,300,35">
+            <!--  Conentido de las TEXTO del textbox  -->
+            <StackPanel Orientation="Vertical" Grid.Column="0">
+                <Label
+                    Style="{StaticResource StyleLabel}"
+                    Content="Carnet de Identidad:  "
+                    HorizontalAlignment="Right"
+                    Margin="0,7,0,7" />
+
+                <Label
+                    Style="{StaticResource StyleLabel}"
+                    Content="Nombres:  "
+                    HorizontalAlignment="Right"
+                    Margin="0,7,0,7" />
+
+                <Label
+                    Style="{StaticResource StyleLabel}"
+                    Content="Apellido paterno:  "
+                    HorizontalAlignment="Right"
+                    Margin="0,7,0,7" />
+
+                <Label
+                    Style="{StaticResource StyleLabel}"
+                    Content="Apellido materno:  "
+                    HorizontalAlignment="Right"
+                    Margin="0,7,0,7" />
+
+                <Label
+                    Style="{StaticResource StyleLabel}"
+                    Content="Fecha de nacimiento:  "
+                    HorizontalAlignment="Right"
+                    Margin="0,7,0,7" />
+
+                <Label
+                    Style="{StaticResource StyleLabel}"
+                    Content="Direccion:  "
+                    HorizontalAlignment="Right"
+                    Margin="0,7,0,7" />
+
+                <Label
+                    Style="{StaticResource StyleLabel}"
+                    Content="Telefono:  "
+                    HorizontalAlignment="Right"
+                    Margin="0,43,0,7" />
+
+                <Label
+                    Style="{StaticResource StyleLabel}"
+                    Content="Correo:  "
+                    HorizontalAlignment="Right"
+                    Margin="0,7,0,7" />
+
+                <Label
+                    Style="{StaticResource StyleLabel}"
+                    Content="Cuenta:  "
+                    HorizontalAlignment="Right"
+                    Margin="0,7,0,7" />
+
+                <Label
+                    Style="{StaticResource StyleLabel}"
+                    Content="Contraseña:  "
+                    HorizontalAlignment="Right"
+                    Margin="0,7,0,7" />
+
+                <Label
+                    Style="{StaticResource StyleLabel}"
+                    Content="Sexo:  "
+                    HorizontalAlignment="Right"
+                    Margin="0,7,0,7" />
+
+                <Label
+                    Style="{StaticResource StyleLabel}"
+                    Content="Grado academico:  "
+                    HorizontalAlignment="Right"
+                    Margin="0,7,0,7" />
+
+                <Label
+                    Style="{StaticResource StyleLabel}"
+                    Content="Carrera:  "
+                    HorizontalAlignment="Right"
+                    Margin="0,7,0,7" />
+            </StackPanel>
+
+            <!--  Conentido de los TEXTBOX  -->
+            <StackPanel
+                Orientation="Vertical"
+                Grid.Column="1"
+                HorizontalAlignment="Left"
+                Margin="5,0,0,0">
+                <TextBox
+                    Style="{StaticResource tbxStyleGeneral}"
+                    x:Name="txtCI_Do"
+                    Text="{Binding CI, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox
+                    Style="{StaticResource tbxStyleGeneral}"
+                    x:Name="txtNombres_De"
+                    Text="{Binding Nombres, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox
+                    Style="{StaticResource tbxStyleGeneral}"
+                    x:Name="txtApPaterno_De"
+                    Text="{Binding ApPaterno, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox
+                    Style="{StaticResource tbxStyleGeneral}"
+                    x:Name="txtApMaterno_De"
+                    Text="{Binding ApMaterno, UpdateSourceTrigger=PropertyChanged}" />
+                <DatePicker
+                    Style="{StaticResource DatePickerStyle}"
+                    CalendarStyle="{StaticResource DatePickerCalendarStyle}"
+                    Name="dpFechaNac_De"
+                    Tag="Fecha de nacimiento"
+                    Margin="0,7,0,3.95"
+                    PreviewTextInput="DatePicker_PreviewTextInput"
+                    PreviewKeyDown="DatePicker_PreviewKeyDown"
+                    SelectedDate="{Binding FechaNacimiento, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox
+                    Style="{StaticResource tbxStyleGeneral}"
+                    x:Name="txtDireccion_De"
+                    Height="70"
+                    VerticalContentAlignment="Top"
+                    TextWrapping="Wrap"
+                    Text="{Binding Direccion, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox
+                    Style="{StaticResource tbxStyleGeneral}"
+                    x:Name="txtTelefono_De"
+                    Text="{Binding Telefono, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox
+                    Style="{StaticResource tbxStyleGeneral}"
+                    x:Name="txtCorreo_De"
+                    Text="{Binding Correo, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox
+                    Style="{StaticResource tbxStyleGeneral}"
+                    x:Name="txtCuenta_De"
+                    Text="{Binding Cuenta, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBox
+                    Style="{StaticResource tbxStyleGeneral}"
+                    x:Name="txtPassword_De"
+                    Text="{Binding Contrasena, UpdateSourceTrigger=PropertyChanged}" />
+                <ComboBox
+                    Style="{StaticResource ComboBoxStyle1}"
+                    x:Name="cbxSexo_De"
+                    Text="{Binding Sexo, UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBoxItem Content="masculino" />
+                    <ComboBoxItem Content="femenino" />
+                    <ComboBoxItem Content="otro" />
+                </ComboBox>
+
+                <ComboBox
+                    Style="{StaticResource ComboBoxStyle1}"
+                    x:Name="cbxGradoAcad_De"
+                    Text="{Binding GradoAcademico, UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBoxItem Content="licenciatura" />
+                    <ComboBoxItem Content="maestria" />
+                    <ComboBoxItem Content="doctorado" />
+                </ComboBox>
+                <ComboBox
+                    Style="{StaticResource ComboBoxStyle1}"
+                    x:Name="cbxCarrera_De"
+                    Text="{Binding Carrera, UpdateSourceTrigger=PropertyChanged}" 
+                    DisplayMemberPath="nombre"
+                    ItemsSource="{Binding Items}"
+                    SelectedItem="{Binding ElementoItem}"/>
+                <!--MOSTRAR RESULTADO-->
+                <Label
+                    Content="{Binding Resultado, UpdateSourceTrigger=PropertyChanged}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource StyleLetras}" />
+
+            </StackPanel>
+
+            <StackPanel
+                Orientation="Vertical"
+                Margin="-25,0,0,0"
+                Grid.Column="2"
+                Width="auto"
+                HorizontalAlignment="Left">
+                <Label
+                    x:Name="ctrlCI_Dor"
+                    Content="{Binding IsCIVacio, UpdateSourceTrigger=PropertyChanged}"
+                    Style="{StaticResource StyleLabelAviso}"
+                    Margin="0,9,0,9" />
+                <Label
+                    x:Name="ctrlNom_Dor"
+                    Content="{Binding IsNombreVacio, UpdateSourceTrigger=PropertyChanged}"
+                    Style="{StaticResource StyleLabelAviso}"
+                    Margin="0,8,0,9" />
+                <Label
+                    x:Name="ctrlAP_Dor"
+                    Content="{Binding IsApPaternoVacio, UpdateSourceTrigger=PropertyChanged}"
+                    Style="{StaticResource StyleLabelAviso}"
+                    Margin="0,9,0,9" />
+                <Label
+                    x:Name="ctrlAM_Dor"
+                    Content="{Binding IsApMaternoVacio, UpdateSourceTrigger=PropertyChanged}"
+                    Style="{StaticResource StyleLabelAviso}"
+                    Margin="0,7,0,9" />
+                <Label
+                    x:Name="ctrlFecNac_Dor"
+                    Content="{Binding IsFechaVacio, UpdateSourceTrigger=PropertyChanged}"
+                    Style="{StaticResource StyleLabelAviso}"
+                    Margin="0,9,0,9" />
+                <Label
+                    x:Name="ctrlDir_Dor"
+                    Content="{Binding IsDireccionVacio, UpdateSourceTrigger=PropertyChanged}"
+                    Style="{StaticResource StyleLabelAviso}"
+                    Margin="0,7,0,7" />
+                <Label
+                    x:Name="ctrlTel_Dor"
+                    Content="{Binding IsTelefonoVacio, UpdateSourceTrigger=PropertyChanged}"
+                    Style="{StaticResource StyleLabelAviso}"
+                    Margin="0,45,0,7" />
+                <Label
+                    x:Name="ctrlCorreo_Dor"
+                    Content="{Binding IsCorreoVacio, UpdateSourceTrigger=PropertyChanged}"
+                    Style="{StaticResource StyleLabelAviso}"
+                    Margin="0,10,0,7" />
+                <Label
+                    x:Name="ctrlCuenta_Dor"
+                    Content="{Binding IsCuentaVacio, UpdateSourceTrigger=PropertyChanged}"
+                    Style="{StaticResource StyleLabelAviso}"
+                    Foreground="LightGreen"
+                    Margin="0,9,0,7" />
+                <Label
+                    x:Name="ctrlPass_Dor"
+                    Content="{Binding IsContrasenaVacio, UpdateSourceTrigger=PropertyChanged}"
+                    Foreground="LightGreen"
+                    Style="{StaticResource StyleLabelAviso}"
+                    Margin="0,9,0,7" />
+                <Label
+                    x:Name="ctrlSexo_Dor"
+                    Content="{Binding IsSexoVacio, UpdateSourceTrigger=PropertyChanged}"
+                    Foreground="LightGray"
+                    Style="{StaticResource StyleLabelAviso}"
+                    Margin="0,9,0,7" />
+                <Label
+                    x:Name="ctrlGraAcad_Dor"
+                    Content="{Binding IsGradoAcademicoVacio, UpdateSourceTrigger=PropertyChanged}"
+                    Foreground="LightGray"
+                    Style="{StaticResource StyleLabelAviso}"
+                    Margin="0,10,0,7" />
+
+                <Label
+                    x:Name="ctrlCarrera_Dor"
+                    Content="{Binding IsCarreraVacio, UpdateSourceTrigger=PropertyChanged}"
+                    Foreground="LightGray"
+                    Style="{StaticResource StyleLabelAviso}"
+                    Margin="0,10,0,7" />
+            </StackPanel>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+        </Grid>
+
+        <Button
+            x:Name="registrarNuevoD"
+            Grid.Row="2"
+            Style="{StaticResource ButtonLogin}"
+            Content="Registrar"
+            VerticalAlignment="Top"
+            Width="150"
+            Margin="0,0,110,0"
+            Click="btnRegistrarNuevoD"
+            Command="{Binding RegistrarCommand}" />
+
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+    </Grid>
+</UserControl>

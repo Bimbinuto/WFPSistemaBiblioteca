@@ -33,5 +33,20 @@ namespace Biblioteca.Vistas.Ventanas
         {
             ContentControl.Content = new GestionarBibliotecario(ContentControl);
         }
+
+        private void btnGestionarDocente(object sender, RoutedEventArgs e)
+        {
+            ContentControl.Content = new GestionarDocente(ContentControl);
+        }
+
+        private void btnGestionarEstudiante(object sender, RoutedEventArgs e)
+        {
+            ContentControl.Content = new GestionarEstudiante(ContentControl);
+        }
+
+        private void btnGestionarLibros(object sender, RoutedEventArgs e)
+        {
+            ContentControl.Content = new GestionarLibro(ContentControl);
+        }
     }
 }

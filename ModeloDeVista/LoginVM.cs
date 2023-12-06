@@ -21,10 +21,12 @@ namespace Biblioteca.ModeloDeVista
     {
         public LoginM _login = new LoginM();
         public Conexion conexion = new Conexion();
+        private EncriptadoUnico encriptar = new EncriptadoUnico();
         public event PropertyChangedEventHandler PropertyChanged;
         public ICommand AccederCommand { get; set; }
 
         public string nombreUsuario;
+        public string soloNombreUsuario;
         public string tipoUsuario;
         public string resultado;
         private object sender = null;
@@ -54,6 +56,15 @@ namespace Biblioteca.ModeloDeVista
             {
                 nombreUsuario = value;
                 OnPropertyChanged(nameof(NombreUsuario));
+            }
+        }
+        public string SoloNombreUsuario
+        {
+            get => soloNombreUsuario;
+            set
+            {
+                soloNombreUsuario = value;
+                OnPropertyChanged(nameof(SoloNombreUsuario));
             }
         }
         public string TipoUsuario
@@ -93,7 +104,7 @@ namespace Biblioteca.ModeloDeVista
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
                         cmd.Parameters.AddWithValue("@pcuenta", Usuario);
-                        cmd.Parameters.AddWithValue("@pcontrasena", Password);
+                        cmd.Parameters.AddWithValue("@pcontrasena", encriptar.ComputeSha256Hash(Password));
 
                         cmd.Parameters.Add("@ptipo_usuario", MySqlDbType.VarChar, 20);
                         cmd.Parameters["@ptipo_usuario"].Direction = System.Data.ParameterDirection.Output;
@@ -107,14 +118,22 @@ namespace Biblioteca.ModeloDeVista
                         var tipo = cmd.Parameters["@ptipo_usuario"].Value;
 
                         NombreUsuario = nom.ToString();
+                        SoloNombreUsuario = nom.ToString();
                         TipoUsuario = tipo.ToString();
+
+                        //UsuarioGlobal uglobal = new UsuarioGlobal();
+                        //uglobal.NombreUsuarioG = SoloNombreUsuario;
+                        //uglobal.TipoUsuarioG = TipoUsuario;
 
                         //MessageBox.Show($"nombres: {nom.ToString()} \n Tipo: {tipo.ToString()} \n NombreUsuario: {NombreUsuario} \n TipoUsuario: {TipoUsuario}");
 
-                        if (res == 1)
+                        if (TipoUsuario == "Bibliotecario" || TipoUsuario == "Docente" || TipoUsuario == "Estudiante")
                         {
+                            Resultado = "OK";
                             Login log = new Login();
                             log.btnLogin(sender, null);
+                            //log.Comenzar();
+                            //log.btnEjecutarAnimacion(sender, null);
 
                             DispatcherTimer dispatcherTimer = new DispatcherTimer();
                             DispatcherTimer timer1 = dispatcherTimer;
@@ -122,14 +141,15 @@ namespace Biblioteca.ModeloDeVista
                             timer1.Tick += (s, args) =>
                             {
                                 timer1.Stop();
+                                //colocar despues el 'this' como parametro para el menu
                                 Menu nuevo = new Menu();
                                 nuevo.Show();
                             };
                             timer1.Start();
                         }
-                        else
+                        else if (TipoUsuario == "Desconocido")
                         {
-                            Resultado = "El usuario no existe";
+                            Resultado = "Ingrese crendeciales validas";
                         }
                     }
 

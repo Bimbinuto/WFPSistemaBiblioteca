@@ -28,16 +28,27 @@ namespace Biblioteca.Ventanas
 {
     public partial class Menu : Window
     {
+        // esperar a usar despues
+        //LoginVM log;
 
         private DispatcherTimer timer;
+
+        //Colocar despues el 'LoginVM log' como parametro al constructor
         public Menu()
         {
             BaseDeDatosVM bvm = new BaseDeDatosVM();
             InitializeComponent();
             //frPagePrincipal.Content = new PageInicio();
             ccPrincipal.Content = new Inicio();
+
+            //ccPrincipal.Content = new Administracion(ccPrincipal);
             startclock();
+            //this.log = log;
             //movableGrid = bvm.EstaConectado;
+
+            //se activa con el LoginVM log;
+            //txtUsuarioGlobal.DataContext = log;
+            //txtTipoUsuarioGlobal.DataContext = log;
         }
 
         #region [base de datos y tiempo]eventos
@@ -140,6 +151,11 @@ namespace Biblioteca.Ventanas
         private void btnMenuClose(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void btnConfiguracion(object sendere, RoutedEventArgs e)
+        {
+            ccPrincipal.Content = new UserControlTest();
         }
 
         private void btnNotasDesarrollo(object sender, RoutedEventArgs e)

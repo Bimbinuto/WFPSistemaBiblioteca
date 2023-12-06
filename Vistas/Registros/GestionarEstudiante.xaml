@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="Biblioteca.Vistas.Registros.GestionarBibliotecario"
+    x:Class="Biblioteca.Vistas.Registros.GestionarEstudiante"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -10,12 +10,7 @@
     d:DesignWidth="1000">
 
     <Grid>
-
-        <!--<Border Grid.RowSpan="4" Visibility="Visible" Panel.ZIndex="5">
-            <ContentControl x:Name="SubMenu" />
-        </Border>-->
-
-        <!--CONTENIDO SUPERIOR-->
+        <!--  CONTENIDO SUPERIOR  -->
         <StackPanel Orientation="Horizontal" Grid.Row="0">
             <Button
                 Content="Administracion"
@@ -38,7 +33,7 @@
 
             <Label
                 Grid.Row="0"
-                Content="Gestionar Bibliotecario"
+                Content="Gestionar Estudiante"
                 Style="{StaticResource StyleLabelTitle}" />
         </StackPanel>
 
@@ -56,13 +51,12 @@
                 Style="{StaticResource ComboBoxStyle1}"
                 Width="180"
                 SelectedIndex="1"
-                Text="{Binding FiltroB, UpdateSourceTrigger=PropertyChanged}">
+                Text="{Binding FiltroE, UpdateSourceTrigger=PropertyChanged}">
                 <ComboBoxItem Content="Carnet de identidad" />
                 <ComboBoxItem Content="Nombres" />
                 <ComboBoxItem Content="Apellido paterno" />
                 <ComboBoxItem Content="Apellido materno" />
                 <ComboBoxItem Content="Cuenta" />
-                <ComboBoxItem Content="Nombre completo" />
             </ComboBox>
 
             <Label
@@ -74,7 +68,7 @@
                 Style="{StaticResource tbxStyleGeneral}"
                 Margin="0,0,0,0"
                 Width="400"
-                Text="{Binding BusquedaB, UpdateSourceTrigger=PropertyChanged}" />
+                Text="{Binding BusquedaE, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
 
         <DataGrid
@@ -88,51 +82,45 @@
             AutoGenerateColumns="False"
             FontSize="15"
             IsReadOnly="True"
-            ItemsSource="{Binding BibliotecarioT}"
-            SelectedItem="{Binding FilaSeleccionadaB}"
+            ItemsSource="{Binding EstudianteT}"
+            SelectedItem="{Binding FilaSeleccionadaE}"
             ScrollViewer.HorizontalScrollBarVisibility="Auto"
             ScrollViewer.VerticalScrollBarVisibility="Hidden">
             <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Path=id_estudiante}" Visibility="Hidden" />
                 <DataGridTextColumn
-                    Width="130"
+                    Width="110"
                     Header="Carnet"
                     Binding="{Binding Path=ci}" />
                 <DataGridTextColumn
                     Width="*"
                     Header="Nombres"
-                    Binding="{Binding Path=nombres}" Visibility="Hidden"/>
+                    Binding="{Binding Path=nombres}" />
                 <DataGridTextColumn
                     Width="*"
                     Header="Apellido Paterno"
-                    Binding="{Binding Path=ap_paterno}" Visibility="Hidden"/>
+                    Binding="{Binding Path=ap_paterno}" />
                 <DataGridTextColumn
                     Width="*"
                     Header="Apellido Materno"
-                    Binding="{Binding Path=ap_materno}" Visibility="Hidden"/>
-                <DataGridTextColumn
-                    Width="*"
-                    Header="Nombre completo"
-                    Binding="{Binding Path=nombre_completo}" />
+                    Binding="{Binding Path=ap_materno}" />
                 <DataGridTextColumn Binding="{Binding Path=fecha_nacimiento, StringFormat=d}" Visibility="Hidden" />
                 <DataGridTextColumn Binding="{Binding Path=direccion}" Visibility="Hidden" />
                 <DataGridTextColumn
                     Width="*"
                     Header="Telefono"
                     Binding="{Binding Path=telefono}" />
-                <DataGridTextColumn Binding="{Binding Path=correo}" Visibility="Hidden" />
+                <DataGridTextColumn Width="*" Header="Coreeo" Binding="{Binding Path=correo}" />
                 <DataGridTextColumn
                     Width="1.5*"
                     Header="Cuenta"
                     Binding="{Binding Path=cuenta}" />
                 <DataGridTextColumn Binding="{Binding Path=constrasena}" Visibility="Hidden" />
                 <DataGridTextColumn Binding="{Binding Path=sexo}" Visibility="Hidden" />
-                <DataGridTextColumn Binding="{Binding Path=activo}" Visibility="Hidden" />
-                <DataGridTextColumn Binding="{Binding Path=id_bibliotecario}" Visibility="Hidden" />
-                <DataGridTextColumn Binding="{Binding Path=id_usuario}" Visibility="Hidden" />
-                <DataGridTextColumn
-                    Binding="{Binding Path=fecha_contrato, StringFormat=d}"
-                    Width="*"
-                    Header="Fecha contrato" />
+                <DataGridTextColumn Width="90" Header="Ingreso" Binding="{Binding Path=semestre_ingreso}"/>
+                <DataGridTextColumn Width="90" Header="Carrera" Binding="{Binding Path=codigo}"  />
+                <DataGridTextColumn Binding="{Binding Path=codigo}" Visibility="Hidden" />
+                <DataGridTextColumn Binding="{Binding Path=nombre}" Visibility="Hidden" />
                 <DataGridTemplateColumn
                     Header="Operacion"
                     IsReadOnly="True"
@@ -168,7 +156,7 @@
         </DataGrid>
 
         <Label
-            Content="{Binding ElementosSeleccionadosB, UpdateSourceTrigger=PropertyChanged}"
+            Content="{Binding ElementosSeleccionadosE, UpdateSourceTrigger=PropertyChanged}"
             Style="{StaticResource StyleLabel}"
             Grid.Row="3" />
 
@@ -178,9 +166,9 @@
             VerticalAlignment="Center"
             HorizontalAlignment="Right"
             Margin="0,0,100,50"
-            Content="Registrar nuevo Bibliotecario"
+            Content="Registrar nuevo Estudiante"
             Width="260"
-            Click="btnRegistrarNuevoBibliotecario" />
+            Click="btnRegistrarNuevoEstudiante" />
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -188,16 +176,6 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-    </Grid>
 
-    <!--<Button
-                        x:Name="btnPrestar"
-                        Cursor="Hand"
-                        Width="30"
-                        Height="30"
-                        VerticalAlignment="Center"
-                        Style="{StaticResource StyleButtonIcons}"
-                        Tag="{StaticResource IconPrestar}"
-                        ToolTip="Realizar Prestamo"
-                        Command="{Binding DataContext.PrestamoCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" />-->
+    </Grid>
 </UserControl>

@@ -24,6 +24,7 @@ namespace Biblioteca.Ventanas
     public partial class Login : Window
     {
         private int intentos = 0;
+        //private string _tipoUsuario;
 
         public Login()
         {
@@ -35,6 +36,7 @@ namespace Biblioteca.Ventanas
             btnAcceder.DataContext = loginVM;
             txtBienvenido.DataContext = loginVM;
             txtTipoUsuario.DataContext = loginVM;
+            lbResultado.DataContext = loginVM;
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -61,9 +63,57 @@ namespace Biblioteca.Ventanas
 
         }
 
+        public void Comenzar()
+        {
+            Storyboard sb = this.FindResource("animacionLogin") as Storyboard;
+            if (sb != null)
+            {
+                sb.Begin();
+            }
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(2);
+            timer.Tick += (s, args) =>
+            {
+                timer.Stop();
+                this.Close();
+            };
+            timer.Start();
+
+            intentos++;
+            if (intentos >= 3)
+                this.Close();
+
+        }
+
+        //public void btnEjecutarAnimacion(object sender, RoutedEventArgs e)
+        //{
+        //    Storyboard sb = this.FindResource("animacionLogin") as Storyboard;
+        //    if (sb != null)
+        //    {
+        //        sb.Begin();
+        //    }
+        //    DispatcherTimer timer = new DispatcherTimer();
+        //    timer.Interval = TimeSpan.FromSeconds(2);
+        //    timer.Tick += (s, args) =>
+        //    {
+        //        timer.Stop();
+        //        this.Close();
+        //    };
+        //    timer.Start();
+
+        //    intentos++;
+        //    if (intentos >= 3)
+        //        this.Close();
+        //}
+
+
         // TODO arreglar el error del boton que acceder que cuando se pulsa varias veces, repite la animacion varias veces y crear varios Menus
         public void btnLogin(object sender, EventArgs e)
         {
+            //if (!String.IsNullOrEmpty(txtUsername.Text) && !String.IsNullOrEmpty(txtPassword.Password))
+            //{
+            //    if (lbResultado.Content.ToString() == "OK")
+            //    {
             Storyboard sb = this.FindResource("animacionLogin") as Storyboard;
             if (sb != null)
             {
@@ -79,10 +129,12 @@ namespace Biblioteca.Ventanas
                 this.Close();
             };
             timer.Start();
+            //}
 
             intentos++;
             if (intentos >= 3)
                 this.Close();
+            //}
 
         }
 

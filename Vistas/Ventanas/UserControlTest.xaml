@@ -1,0 +1,46 @@
+﻿<UserControl
+    x:Class="Biblioteca.Vistas.Ventanas.UserControlTest"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Biblioteca.Vistas.Ventanas"
+    mc:Ignorable="d"
+    d:DesignHeight="450"
+    d:DesignWidth="800">
+    <Grid>
+        <Label Content="entrada:" Style="{StaticResource StyleLabel}" />
+        <TextBox
+            x:Name="txtDatos"
+            Style="{StaticResource tbxStyleGeneral}"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            Margin="80,0,0,0" />
+        <Button
+            Content="Encriptar"
+            Style="{StaticResource ButtonLogin}"
+            VerticalAlignment="Top"
+            HorizontalAlignment="Left"
+            Margin="350,0,0,0" Click="Button_Click" />
+
+        <Label
+            Content="SalidaCripto: "
+            Style="{StaticResource StyleLabel}"
+            Margin="0,50,0,0" />
+        <Label
+            x:Name="lbCripto"
+            Content="this "
+            Style="{StaticResource StyleLabel}"
+            Margin="90,50,0,0" />
+
+        <Label
+            Content="SalidaDescifrada: "
+            Style="{StaticResource StyleLabel}"
+            Margin="0,100,0,0" />
+        <Label
+            x:Name="lbDescifrada"
+            Content="thus"
+            Style="{StaticResource StyleLabel}"
+            Margin="120,100,0,0" />
+    </Grid>
+</UserControl>

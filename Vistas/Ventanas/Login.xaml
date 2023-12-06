@@ -174,12 +174,22 @@
                             IsHitTestVisible="False"
                             Foreground="#CC707070" />
                     </Grid>
+
+                    <Label
+                        x:Name="lbResultado"
+                        Content="{Binding Resultado}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        Margin="60,5,0,0"
+                        Foreground="red"
+                        Style="{StaticResource StyleLetras}" />
+
                     <Button
                         Content="Acceder"
                         Style="{StaticResource ButtonLogin}"
-                        x:Name="btnAcceder"
                         Click="btnLogin"
-                        Margin="0,55,0,20"
+                        x:Name="btnAcceder"
+                        Margin="0,30,0,20"
                         Command="{Binding AccederCommand}" />
 
                     <Label
@@ -189,13 +199,14 @@
                         Margin="-10"
                         Style="{StaticResource StyleLetras}" />
 
-                    <Label
-                        x:Name="lbResultado"
-                        Content="{Binding Resultado}"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Center"
-                        Margin="-10"
-                        Style="{StaticResource StyleLetras}" />
+                    <!--<Button
+                        Content="Acceder"
+                        Style="{StaticResource ButtonLogin}"
+                        Click="btnEjecutarAnimacion"
+                        x:Name="EjecutarAnimacion"
+                        Margin="0,30,0,20"
+                        Visibility="Collapsed" />-->
+
                 </StackPanel>
             </Grid>
 

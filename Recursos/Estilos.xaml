@@ -1493,24 +1493,34 @@
                 BorderBrush="{StaticResource ColorCrema}"
                 BorderThickness="0.3,0.3,0.3,1.8"
                 SnapsToDevicePixels="True" />
-            <Border Grid.Column="1">
-                <Path
+            <Grid Grid.Column="1" Margin="0,0,5,0">
+                <!--<Path
                     x:Name="Arrow"
                     Data="{StaticResource IconAbajo2}"
                     Fill="{StaticResource ColorCrema}"
                     Margin="10,0,10,0"
                     Stretch="UniformToFill"
+
                     Height="8"
                     Width="15"
                     HorizontalAlignment="Center"
+                    VerticalAlignment="Center" />-->
+                <Image
+                    Source="\Recursos\imgAbajo.png"
+                    Stretch="UniformToFill"
+                    Height="25"
+                    Width="25"
+                    HorizontalAlignment="Center"
                     VerticalAlignment="Center" />
-            </Border>
+            </Grid>
         </Grid>
         <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <!--<Setter Property="Background" Value="{StaticResource Tranparencia-TextboxGen-isMouseOver2}"/>-->
+            <!--<Trigger Property="IsMouseOver" Value="True">
+            -->
+            <!--<Setter Property="Background" Value="{StaticResource Tranparencia-TextboxGen-isMouseOver2}"/>-->
+            <!--
                 <Setter Property="Fill" Value="{StaticResource ColorCremaOscuro}" TargetName="Arrow" />
-            </Trigger>
+            </Trigger>-->
             <Trigger Property="IsKeyboardFocused" Value="True">
                 <Setter Property="BorderBrush" Value="{StaticResource ColorCremaOscuro}" TargetName="Border" />
                 <Setter Property="BorderThickness" Value="0.3,0.3,0.3,0.3" TargetName="Border" />
@@ -1637,7 +1647,15 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Path
+                    <Image
+                        x:Name="ArrowImage"
+                        Source="\Recursos\imgCalendar2.png"
+                        Stretch="UniformToFill"
+                        Height="23"
+                        Width="23"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center" />
+                    <!--<Path
                         x:Name="IconBar"
                         Width="20"
                         Height="20"
@@ -1645,11 +1663,11 @@
                         Fill="{StaticResource iFill-default-color}"
                         Stretch="UniformToFill"
                         VerticalAlignment="Center"
-                        HorizontalAlignment="Center" />
+                        HorizontalAlignment="Center" />-->
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
+                        <!--<Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="IconBar" Property="Fill" Value="{StaticResource ColorCremaOscuro}" />
-                        </Trigger>
+                        </Trigger>-->
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

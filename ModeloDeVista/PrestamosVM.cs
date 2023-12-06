@@ -169,7 +169,7 @@ namespace Biblioteca.ModeloDeVista
             {
                 await cnx.OpenAsync();
 
-                string consulta = "SELECT e.id_ejemplar, e.codigo, l.titulo, GROUP_CONCAT(a.nombres) AS autores, e.disponibilidad\r\n" +
+                string consulta = "SELECT e.id_ejemplar, e.codigo, l.titulo, a.nombres, GROUP_CONCAT(a.nombres) AS autores, e.disponibilidad\r\n" +
                                   "FROM ejemplar e\r\n" +
                                   "JOIN libro l ON e.id_libro = l.id_libro\r\n" +
                                   "JOIN libro_autor la ON l.id_libro = la.id_autor\r\n" +

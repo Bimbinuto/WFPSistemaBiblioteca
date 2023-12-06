@@ -51,7 +51,7 @@
                 Grid.Row="0"
                 Background="{StaticResource br-bar-color}"
                 DataContext="{StaticResource BDVM}">
-                <!--DataContext="{StaticResource BDVM}"-->
+                <!--  DataContext="{StaticResource BDVM}"  -->
                 <Label
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
@@ -73,8 +73,8 @@
                         Margin="0,0,15,0"
                         Width="24"
                         Height="24"
-                        
-                        Stretch="Uniform">
+                        Stretch="Uniform"
+                        ToolTipService.InitialShowDelay="200">
                         <Path.Fill>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                                 <GradientStop Color="#FF0000" Offset="0.0" />
@@ -124,22 +124,24 @@
                         </Ellipse>
 
                         <!--  Nombre  -->
+                        <!--  colocar depues el ' Content="{Binding SoloNombreUsuario}"'  -->
                         <Label
+                            x:Name="txtUsuarioGlobal"
                             Grid.Column="1"
-                            Content="Administrador"
-                            Foreground="{StaticResource ColorLetras}"
-                            FontFamily="Calibri"
-                            FontSize="16"
-                            FontWeight="Bold"
+                            Content="Dev"
+                            Style="{StaticResource StyleLabel}"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Left"
                             Margin="0,0,0,18" />
 
                         <!--  Cuenta  -->
+                        <!--  colocar despues el 'Content="{Binding TipoUsuario}"'  -->
                         <Label
+                            x:Name="txtTipoUsuarioGlobal"
                             Grid.Column="1"
-                            Content="admin@sistemas.edu.bo"
+                            Content="dev"
                             Style="{StaticResource StyleLabel}"
+                            FontWeight="Bold"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Left"
                             Margin="0,18,0,0" />
@@ -151,7 +153,7 @@
                     </Grid>
 
                     <Border Grid.Row="1">
-                        <StackPanel Grid.Column="0" Margin="10 0 0 0">
+                        <StackPanel Grid.Column="0" Margin="10,0,0,0">
                             <!--  Prueba de nueva forma de boton  -->
                             <RadioButton
                                 Style="{StaticResource DesignButton}"
@@ -190,8 +192,8 @@
                             <RadioButton
                                 Style="{StaticResource DesignButton}"
                                 Content="Reportes"
-                                Tag="{StaticResource IconReporte}" 
-                                Click="btnReporte"/>
+                                Tag="{StaticResource IconReporte}"
+                                Click="btnReporte" />
 
                             <RadioButton
                                 Style="{StaticResource DesignButton}"
@@ -207,6 +209,7 @@
                             <RadioButton
                                 Style="{StaticResource DesignButton}"
                                 Content="Configuracion"
+                                Click="btnConfiguracion"
                                 Tag="{StaticResource IconConfiguracion2}" />
                             <RadioButton
                                 Style="{StaticResource DesignButton}"
@@ -236,7 +239,7 @@
 
                 <!--  ventana que contiene los submenu's  -->
                 <Grid Grid.Column="1" Background="{StaticResource bg-Content-subMenus-color}">
-                    <ContentControl x:Name="ccPrincipal"/>
+                    <ContentControl x:Name="ccPrincipal" />
                     <!--<Frame x:Name="frPagePrincipal" NavigationUIVisibility="Hidden" />-->
                 </Grid>
 

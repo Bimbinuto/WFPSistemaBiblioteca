@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Biblioteca.Modelos
 {
-    public class DocenteM
+    public class EstudianteM
     {
         public string ci { get; set; }
         public string nombres { get; set; }
@@ -19,7 +19,7 @@ namespace Biblioteca.Modelos
         public string cuenta { get; set; }
         public string contrasena { get; set; }
         public string sexo { get; set; }
-        public string gradoAcademico { get; set; }
         public string carrera { get; set; }
+        public string ingreso { get; set; }
     }
 }
