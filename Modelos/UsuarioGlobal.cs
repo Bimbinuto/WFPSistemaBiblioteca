@@ -8,6 +8,7 @@ namespace Biblioteca.Modelos
 {
     public class UsuarioGlobal
     {
+        public string IdUsuario { get; set; }
         public string NombreUsuarioG { get; set; }
         public string TipoUsuarioG { get; set; }
     }

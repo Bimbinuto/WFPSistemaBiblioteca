@@ -15,15 +15,21 @@ using Biblioteca.BDConexion;
 using Biblioteca.Modelos;
 using Microsoft.Win32;
 using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Asn1.Mozilla;
 
 namespace Biblioteca.ModeloDeVista
 {
     public partial class LibroVM : INotifyPropertyChanged
     {
         private LibroM _libro = new LibroM();
+
         public ICommand RegistrarCommand { get; set; }
         public ICommand ModificarCommand { get; set; }
         public ICommand EliminarCommand { get; set; }
+        public ICommand RegistrarEjemplarCommand { get; set; }
+        public ICommand ModificarEjemplarCommand { get; set; }
+        public ICommand EliminarEjemplarCommand { get; set; }
+
         private Timer _timerBusqueda;
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -33,8 +39,8 @@ namespace Biblioteca.ModeloDeVista
         private string _filtroL = "Nombres";
         private string _busquedaL;
         private DataTable _libroT;
-        private DataRowView _filaSeleccionadaL;
-        private string _elementosSeleccionadosL;
+        private DataTable _ejemplarT;
+
         //para los combobox
         private ObservableCollection<Proveedor> _iProveedor;
         private ObservableCollection<CategoriaM> _iCategoria;
@@ -160,6 +166,25 @@ namespace Biblioteca.ModeloDeVista
                 OnPropertyChanged(nameof(LibroT));
             }
         }
+        public DataTable EjemplarT
+        {
+            get => _ejemplarT;
+            set
+            {
+                if (_ejemplarT != value)
+                {
+                    _ejemplarT = value;
+                    OnPropertyChanged(nameof(EjemplarT));
+                }
+
+            }
+        }
+
+        private DataRowView _filaSeleccionadaL;
+        private DataRowView _filaSeleccionadaEjemplar;
+        private string _elementosSeleccionadosL;
+        private string _elementosSeleccionadoEjemplar;
+        //private string _idEjemplarSeleccionado;
 
         public string ElementosSeleccionadosL
         {
@@ -170,31 +195,75 @@ namespace Biblioteca.ModeloDeVista
                 OnPropertyChanged("ElementosSeleccionadosL");
             }
         }
+        public string ElementosSeleccionadosEjemplar
+        {
+            get => _elementosSeleccionadoEjemplar;
+            set
+            {
+                _elementosSeleccionadoEjemplar = value;
+                OnPropertyChanged(nameof(ElementosSeleccionadosEjemplar));
+            }
+        }
+        public DataRowView FilaSeleccionadaL
+        {
+            get => _filaSeleccionadaL;
+            set
+            {
+                _filaSeleccionadaL = value;
+                OnPropertyChanged(nameof(_filaSeleccionadaL));
+
+                if (value != null)
+                {
+                    _idLibroSel = value["id_libro"].ToString();
+                    _tituloSel = value["titulo"].ToString();
+
+                    ElementosSeleccionadosL = $"ID: {_idLibroSel} \n" +
+                                              $"Titulo: {_tituloSel}";
+                }
+            }
+        }
+        public DataRowView FilaSeleccionadaEjemplar
+        {
+            get => _filaSeleccionadaEjemplar;
+            set
+            {
+                _filaSeleccionadaEjemplar = value;
+                OnPropertyChanged(nameof(FilaSeleccionadaEjemplar));
+
+                if (value != null)
+                {
+                    _idEjemplarSel = value["id_ejemplar"].ToString();
+                    _codigoEjemplar = value["codigo"].ToString();
+                    _descripcionEjemplar = value["descripcion"].ToString();
+
+                    ElementosSeleccionadosEjemplar = $"ID Ejemplar: {_idEjemplarSel} \n" +
+                                                     $"Codigo: {_codigoEjemplar}\n" +
+                                                     $"Descripcion: {_descripcionEjemplar}";
+                }
+            }
+        }
+        public string IDLibroSeleccionado
+        {
+            get => _idLibroSel;
+            set
+            {
+                _idLibroSel = value;
+                OnPropertyChanged(nameof(IDLibroSeleccionado));
+            }
+        }
 
 
         public LibroVM()
         {
             RegistrarCommand = new AsyncRelayCommand(Registrar, PuedeRegistrar);
             //ModificarCommand = new AsyncRelayCommand(Modificar, PuedeModificar);
-            //EliminarCommand = new AsyncRelayCommand(Eliminar, PuedeEliminar);
+            EliminarCommand = new AsyncRelayCommand(Eliminar, PuedeEliminar);
+            RegistrarEjemplarCommand = new AsyncRelayCommand(RegistrarEjemplar, PuedeRegistrarEjemplar);
+            ModificarEjemplarCommand = new AsyncRelayCommand(ModificarEjemplar, PuedeModificarEjemplar);
+            EliminarEjemplarCommand = new AsyncRelayCommand(EliminarEjemplar, PuedeEliminarEjemplar);
 
             FechaDisposicion = new DateTime(2000, 1, 1);
             FechaEdicion = new DateTime(2000, 1, 1);
-
-            ////IsbnVacio = "Hola";
-            ////TituloVacio = "Hola";
-            //FechaEdicionVacio = "Hola";
-            //EditorialVacio = "Seleccionar";
-            //DescripcionVacio = "Hola";
-            //FechaDisposicionVacio = "Hola";
-
-            //IdProveedorVacio = "Seleccionar";
-            //IdCategoriaVacio = "Seleccionar";
-            //IdMateriaVacio = "Seleccionar";
-            //DisponibilidadVacio = "Seleccionar";
-            //TipoEjemplarVacio = "Seleccionar";
-            //EstadoVacio = "Seleccionar";
-            //IdEstanteriaVacio = "Seleccionar";
 
             _timerBusqueda = new System.Timers.Timer(650);
             _timerBusqueda.Elapsed += (sender, e) => Task.Run(() => CargarTablaLibrosAsync());
@@ -205,6 +274,7 @@ namespace Biblioteca.ModeloDeVista
             CargarListaCategoriaASync();
             CargarListaMateriaASync();
             CargarListaEstanteriaASync();
+            CargarListaEjemplaresAsync();
         }
 
         private async void CargarTablaLibrosAsync()
@@ -371,12 +441,351 @@ namespace Biblioteca.ModeloDeVista
             catch (Exception ex) { MessageBox.Show(ex.Message); }
         }
 
+        public async void CargarListaEjemplaresAsync()
+        {
+            using (MySqlConnection cnx = new MySqlConnection(conexion.cadenaConexion))
+            {
+                await cnx.OpenAsync();
+
+                string consulta = "SELECT e.id_ejemplar, e.codigo, e.fecha_disposicion, e.disponibilidad, e.tipo_ejemplar, e.estado,  e.descripcion, e.activo , es.codigo_ubicacion\r\n" +
+                                  "FROM ejemplar e\r\n" +
+                                  "JOIN estanteria es ON e.id_estanteria = es.id_estanteria\r\n" +
+                                  "WHERE e.activo = 1\r\n";
+
+                if (!String.IsNullOrEmpty(IDLibroSeleccionado))
+                {
+                    consulta += "AND e.id_libro LIKE @idlibro ";
+                }
+
+                MySqlCommand cmd = new MySqlCommand(consulta, cnx);
+                cmd.Parameters.AddWithValue("@idlibro", $"%{IDLibroSeleccionado.ToString()}%");
+
+                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+
+                EjemplarT = dt;
+                await cnx.CloseAsync();
+
+            }
+        }
+
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 
+
+    //REGISTRAR EJEMPLARES:
+    public partial class LibroVM
+    {
+        /*
+         SELECT l.id_libro, l.isbn, l.titulo, l.fecha_edicion, l.editorial, l.grado_recomendacion, l.id_proveedor, l.id_categoria, l.id_materia
+         */
+
+        private string _idLibroSel = "";
+        private string _tituloSel = "";
+
+        public DateTime FechaDisposicionEjemplar
+        {
+            get => _libro.fecha_disposicion;
+            set
+            {
+                _libro.fecha_disposicion = value;
+                OnPropertyChanged(nameof(FechaDisposicionEjemplar));
+
+                if (value > DateTime.Now)
+                {
+                    FechaDisposicionVacio = "La fecha no puede ser superior al dia de hoy";
+                    fechaDisposicionCorrecto = false;
+                }
+                else
+                {
+                    FechaDisposicionVacio = "";
+                    fechaDisposicionCorrecto = true;
+                }
+            }
+        }
+        public string DisponibilidadEjemplar
+        {
+            get => _libro.disponibilidad;
+            set
+            {
+                _libro.disponibilidad = value;
+                OnPropertyChanged(nameof(DisponibilidadEjemplar));
+
+                if (String.IsNullOrEmpty(value))
+                {
+                    DisponibilidadVacio = "No puede estar vacio";
+                    disponibilidadCorrecto = false;
+                }
+                else
+                {
+                    DisponibilidadVacio = "";
+                    disponibilidadCorrecto = true;
+                }
+            }
+        }
+        public string TipoEjemplarEjemplar
+        {
+            get => _libro.tipo_ejemplar;
+            set
+            {
+                _libro.tipo_ejemplar = value;
+                OnPropertyChanged(nameof(TipoEjemplarEjemplar));
+
+                if (String.IsNullOrEmpty(value))
+                {
+                    TipoEjemplarVacio = "No puede estar vacio";
+                    tipoEjemplarCorrecto = false;
+                }
+                else
+                {
+                    TipoEjemplarVacio = "";
+                    tipoEjemplarCorrecto = true;
+                }
+            }
+        }
+        public string EstadoEjemplar
+        {
+            get => _libro.estado;
+            set
+            {
+                _libro.estado = value;
+                OnPropertyChanged(nameof(EstadoEjemplar));
+
+                if (String.IsNullOrEmpty(value))
+                {
+                    EstadoVacio = "No puede estar vacio";
+                    estadoCorrecto = false;
+                }
+                else
+                {
+                    EstadoVacio = "";
+                    estadoCorrecto = true;
+                }
+            }
+        }
+        public string DescripcionEjemplar
+        {
+            get => _libro.descripcion;
+            set
+            {
+                _libro.descripcion = value;
+                OnPropertyChanged(nameof(DescripcionEjemplar));
+
+                if (String.IsNullOrEmpty(value))
+                {
+                    DescripcionVacio = "No puede estar vacio";
+                    descripcionCorrecto = false;
+                }
+                else
+                {
+                    DescripcionVacio = "";
+                    descripcionCorrecto = true;
+                }
+            }
+        }
+        public string IdEstanteriaEjemplar
+        {
+            get => _libro.id_estanteria;
+            set
+            {
+                _libro.id_estanteria = value;
+                OnPropertyChanged(nameof(IdEstanteriaEjemplar));
+
+                if (String.IsNullOrEmpty(value))
+                {
+                    IdEstanteriaVacio = "No puede estar vacio";
+                    idEstanteriaCorrecto = false;
+                }
+                else
+                {
+                    IdEstanteriaVacio = "";
+                    idEstanteriaCorrecto = true;
+                }
+            }
+        }
+
+        private async Task RegistrarEjemplar(object parameter)
+        {
+            try
+            {
+                using (MySqlConnection cnx = new MySqlConnection(conexion.cadenaConexion))
+                {
+                    await cnx.OpenAsync();
+
+                    using (MySqlCommand cmd = new MySqlCommand("registrar_ejemplar", cnx))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@pid_libro", _idLibroSel);
+                        cmd.Parameters.AddWithValue("@pfecha_disposicion", FechaDisposicionEjemplar);
+                        cmd.Parameters.AddWithValue("@pdisponibilidad", DisponibilidadEjemplar);
+                        cmd.Parameters.AddWithValue("@ptipo_ejemplar", TipoEjemplarEjemplar);
+                        cmd.Parameters.AddWithValue("@pestado", EstadoEjemplar);
+                        cmd.Parameters.AddWithValue("@pdescripcion", DescripcionEjemplar);
+                        cmd.Parameters.AddWithValue("@pid_estanteria", Int64.Parse(IdEstanteriaEjemplar));
+
+                        cmd.Parameters.Add("@resultado", MySqlDbType.VarChar, 200);
+                        cmd.Parameters["@resultado"].Direction = System.Data.ParameterDirection.Output;
+
+
+                        await cmd.ExecuteNonQueryAsync();
+
+                        Resultado = (string)cmd.Parameters["@resultado"].Value;
+
+                        await cnx.CloseAsync();
+                    }
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+
+            //MessageBox.Show($"nombres: {Nombres} \n Apellido paterno: {ApPaterno} \n Apellido materno: {ApMaterno} \n Fechde nacimiento: {FechaNacimiento} \n Direccion: {Direccion} \n Telefono: {Telefono} \n Correo: {Correo} \n Cuenta: {Cuenta} \n Contraseña: {Contrasena} \n Sexo: {Sexo} \n Fecha de contrato: {FechaContrato}");
+        }
+
+        private bool PuedeRegistrarEjemplar(object parameter)
+        {
+            return fechaDisposicionCorrecto &&
+                   disponibilidadCorrecto &&
+                   tipoEjemplarCorrecto &&
+                   estadoCorrecto &&
+                   descripcionCorrecto &&
+                   idEstanteriaCorrecto;
+        }
+    }
+
+
+    //MODIFICAR EJEMPLAR
+    public partial class LibroVM
+    {
+        private string _idEjemplarSel = "";
+        private string _codigoEjemplar = "";
+        private string _descripcionEjemplar = "";
+
+        private async Task ModificarEjemplar(object parameter)
+        {
+            try
+            {
+                using (MySqlConnection cnx = new MySqlConnection(conexion.cadenaConexion))
+                {
+                    await cnx.OpenAsync();
+
+                    using (MySqlCommand cmd = new MySqlCommand("modificar_ejemplar", cnx))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@pid_ejemplar", _idEjemplarSel);
+                        cmd.Parameters.AddWithValue("@pfecha_disposicion", FechaDisposicionEjemplar);
+                        cmd.Parameters.AddWithValue("@pdisponibilidad", DisponibilidadEjemplar);
+                        cmd.Parameters.AddWithValue("@ptipo_ejemplar", TipoEjemplarEjemplar);
+                        cmd.Parameters.AddWithValue("@pestado", EstadoEjemplar);
+                        cmd.Parameters.AddWithValue("@pdescripcion", DescripcionEjemplar);
+                        cmd.Parameters.AddWithValue("@pactivo", true);
+                        cmd.Parameters.AddWithValue("@pid_libro", _idLibroSel);
+                        cmd.Parameters.AddWithValue("@pid_estanteria", Int64.Parse(IdEstanteriaEjemplar));
+
+
+
+                        cmd.Parameters.Add("@resultado", MySqlDbType.VarChar, 200);
+                        cmd.Parameters["@resultado"].Direction = System.Data.ParameterDirection.Output;
+
+
+                        await cmd.ExecuteNonQueryAsync();
+
+                        Resultado = (string)cmd.Parameters["@resultado"].Value;
+
+                        await cnx.CloseAsync();
+                    }
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+
+            //MessageBox.Show($"nombres: {Nombres} \n Apellido paterno: {ApPaterno} \n Apellido materno: {ApMaterno} \n Fechde nacimiento: {FechaNacimiento} \n Direccion: {Direccion} \n Telefono: {Telefono} \n Correo: {Correo} \n Cuenta: {Cuenta} \n Contraseña: {Contrasena} \n Sexo: {Sexo} \n Fecha de contrato: {FechaContrato}");
+        }
+
+        private bool PuedeModificarEjemplar(object parameter)
+        {
+            return fechaDisposicionCorrecto &&
+                   disponibilidadCorrecto &&
+                   tipoEjemplarCorrecto &&
+                   estadoCorrecto &&
+                   descripcionCorrecto &&
+                   idEstanteriaCorrecto;
+        }
+    }
+
+    // ELIMINAR INFORMACION DEL LIBRO
+    public partial class LibroVM
+    {
+        private bool ejemplarElimCorrecto;
+        private string _resultadoEjemplarEliminacion;
+
+        public string ElementoSelEliminarEjemplar
+        {
+            get => _idLibroSel;
+            set
+            {
+                _idLibroSel = value;
+                OnPropertyChanged(nameof(ElementoSelEliminarEjemplar));
+
+                if (value != null)
+                {
+                    ejemplarElimCorrecto = true;
+                }
+                else
+                {
+                    ejemplarElimCorrecto = false;
+                }
+            }
+        }
+        public string ResultadoEliminacionEjemplar
+        {
+            get => _resultadoEjemplarEliminacion;
+            set
+            {
+                _resultadoEjemplarEliminacion = value;
+                OnPropertyChanged(nameof(ResultadoEliminacionEjemplar));
+
+
+            }
+        }
+
+        private async Task EliminarEjemplar(object parameter)
+        {
+            try
+            {
+                using (MySqlConnection cnx = new MySqlConnection(conexion.cadenaConexion))
+                {
+                    await cnx.OpenAsync();
+
+                    using (MySqlCommand cmd = new MySqlCommand("eliminar_ejemplar", cnx))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@pid_ejemplar", Int64.Parse(_idEjemplarSel));
+
+                        cmd.Parameters.Add("@resultado", MySqlDbType.VarChar, 200);
+                        cmd.Parameters["@resultado"].Direction = System.Data.ParameterDirection.Output;
+
+                        await cmd.ExecuteNonQueryAsync();
+
+                        ResultadoEliminacionEjemplar = (string)cmd.Parameters["@resultado"].Value;
+
+                        await cnx.CloseAsync();
+                    }
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+
+        private bool PuedeEliminarEjemplar(object parameter)
+        {
+            return !ejemplarElimCorrecto;
+        }
+    }
 
 
     // REGISTRAR LIBRO NUEVO
@@ -610,7 +1019,12 @@ namespace Biblioteca.ModeloDeVista
 
                 if (String.IsNullOrEmpty(value))
                 {
-                    EditorialVacio = "no puede estar vacio";
+                    EditorialVacio = "No puede estar vacío";
+                    editorialCorrecto = false;
+                }
+                else if (!Regex.IsMatch(value, "^[a-zA-Z0-9 ]*$"))
+                {
+                    EditorialVacio = "Contiene caracteres especiales";
                     editorialCorrecto = false;
                 }
                 else
@@ -989,6 +1403,69 @@ namespace Biblioteca.ModeloDeVista
     // ELIMINAR INFORMACION DEL LIBRO
     public partial class LibroVM
     {
+        private bool elementoElimCorrecto;
+        private string _resultadoEliminacion;
 
+        public string ElementoSelEliminarLibro
+        {
+            get => _idLibroSel;
+            set
+            {
+                _idLibroSel = value;
+                OnPropertyChanged(nameof(ElementoSelEliminarLibro));
+
+                if (value != null)
+                {
+                    elementoElimCorrecto = true;
+                }
+                else
+                {
+                    elementoElimCorrecto = false;
+                }
+            }
+        }
+        public string ResultadoEliminacionLibro
+        {
+            get => _resultadoEliminacion;
+            set
+            {
+                _resultadoEliminacion = value;
+                OnPropertyChanged(nameof(ResultadoEliminacionLibro));
+            }
+        }
+
+
+        private async Task Eliminar(object parameter)
+        {
+            try
+            {
+                using (MySqlConnection cnx = new MySqlConnection(conexion.cadenaConexion))
+                {
+                    await cnx.OpenAsync();
+
+                    using (MySqlCommand cmd = new MySqlCommand("eliminar_libro", cnx))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@pid_libro", Int64.Parse(ElementoSelEliminarLibro));
+
+                        cmd.Parameters.Add("@resultado", MySqlDbType.VarChar, 200);
+                        cmd.Parameters["@resultado"].Direction = System.Data.ParameterDirection.Output;
+
+                        await cmd.ExecuteNonQueryAsync();
+
+                        ResultadoEliminacionLibro = (string)cmd.Parameters["@resultado"].Value;
+
+                        await cnx.CloseAsync();
+                    }
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+        }
+
+        private bool PuedeEliminar(object parameter)
+        {
+            return !elementoElimCorrecto;
+        }
     }
 }

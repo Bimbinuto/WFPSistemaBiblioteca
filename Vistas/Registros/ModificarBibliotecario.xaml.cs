@@ -40,7 +40,6 @@ namespace Biblioteca.Vistas.Registros
         private void btnVolverGestionarBibliotecario(object sender, RoutedEventArgs e)
         {
             contentControl.Content = new GestionarBibliotecario(contentControl);
-
         }
 
         private void btnModificarBibliotecario(object sender, RoutedEventArgs e)

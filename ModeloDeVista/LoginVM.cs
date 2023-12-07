@@ -26,11 +26,21 @@ namespace Biblioteca.ModeloDeVista
         public ICommand AccederCommand { get; set; }
 
         public string nombreUsuario;
+        public string idUsuario;
         public string soloNombreUsuario;
         public string tipoUsuario;
-        public string resultado;
-        private object sender = null;
+        public string resultado = "";
+        //private object sender = null;
 
+        public string IDUsuario
+        {
+            get => idUsuario;
+            set
+            {
+                idUsuario = value;
+                OnPropertyChanged(nameof(IDUsuario));
+            }
+        }
         public string Usuario
         {
             get => _login.usuario;
@@ -86,9 +96,12 @@ namespace Biblioteca.ModeloDeVista
             }
         }
 
-        public LoginVM()
+        public Login login;
+
+        public LoginVM(Login sesion)
         {
             AccederCommand = new AsyncRelayCommand(Acceder, PuedeAcceder);
+            login = sesion;
         }
 
         private async Task Acceder(object parameter)
@@ -99,53 +112,57 @@ namespace Biblioteca.ModeloDeVista
                 {
                     await cnx.OpenAsync();
 
-                    using (MySqlCommand cmd = new MySqlCommand("obtener_tipo_usuario", cnx))
+                    using (MySqlCommand cmd = new MySqlCommand("obtener_tipo_usuario_completo", cnx))
                     {
                         cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
                         cmd.Parameters.AddWithValue("@pcuenta", Usuario);
                         cmd.Parameters.AddWithValue("@pcontrasena", encriptar.ComputeSha256Hash(Password));
 
-                        cmd.Parameters.Add("@ptipo_usuario", MySqlDbType.VarChar, 20);
+                        cmd.Parameters.Add("@pid_usuario", MySqlDbType.Int64);
+                        cmd.Parameters["@pid_usuario"].Direction = System.Data.ParameterDirection.Output;
+
+                        cmd.Parameters.Add("@ptipo_usuario", MySqlDbType.VarChar, 100);
                         cmd.Parameters["@ptipo_usuario"].Direction = System.Data.ParameterDirection.Output;
 
-                        cmd.Parameters.Add("@pnombres", MySqlDbType.VarChar, 20);
+                        cmd.Parameters.Add("@pnombres", MySqlDbType.VarChar, 100);
                         cmd.Parameters["@pnombres"].Direction = System.Data.ParameterDirection.Output;
 
-                        int res = await cmd.ExecuteNonQueryAsync();
+                        await cmd.ExecuteNonQueryAsync();
 
+                        var id = cmd.Parameters["@pid_usuario"].Value;
                         var nom = cmd.Parameters["@pnombres"].Value;
                         var tipo = cmd.Parameters["@ptipo_usuario"].Value;
 
+                        IDUsuario = id.ToString();
                         NombreUsuario = nom.ToString();
                         SoloNombreUsuario = nom.ToString();
                         TipoUsuario = tipo.ToString();
 
-                        //UsuarioGlobal uglobal = new UsuarioGlobal();
-                        //uglobal.NombreUsuarioG = SoloNombreUsuario;
-                        //uglobal.TipoUsuarioG = TipoUsuario;
+                        UsuarioGlobal uglobal = new UsuarioGlobal();
+                        uglobal.IdUsuario = IDUsuario;
+                        uglobal.NombreUsuarioG = SoloNombreUsuario;
+                        uglobal.TipoUsuarioG = TipoUsuario;
 
-                        //MessageBox.Show($"nombres: {nom.ToString()} \n Tipo: {tipo.ToString()} \n NombreUsuario: {NombreUsuario} \n TipoUsuario: {TipoUsuario}");
+                        //MessageBox.Show($"ID: {id}\nombres: {nom.ToString()} \n Tipo: {tipo.ToString()} \n ID usuario: {IDUsuario} \n NombreUsuario: {NombreUsuario} \n TipoUsuario: {TipoUsuario}");
 
                         if (TipoUsuario == "Bibliotecario" || TipoUsuario == "Docente" || TipoUsuario == "Estudiante")
                         {
                             Resultado = "OK";
-                            Login log = new Login();
-                            log.btnLogin(sender, null);
-                            //log.Comenzar();
-                            //log.btnEjecutarAnimacion(sender, null);
 
-                            DispatcherTimer dispatcherTimer = new DispatcherTimer();
-                            DispatcherTimer timer1 = dispatcherTimer;
-                            timer1.Interval = TimeSpan.FromSeconds(1.7);
-                            timer1.Tick += (s, args) =>
-                            {
-                                timer1.Stop();
-                                //colocar despues el 'this' como parametro para el menu
-                                Menu nuevo = new Menu();
-                                nuevo.Show();
-                            };
-                            timer1.Start();
+                            login.Comenzar();
+                            //DispatcherTimer dispatcherTimer = new DispatcherTimer();
+                            //DispatcherTimer timer1 = dispatcherTimer;
+                            //timer1.Interval = TimeSpan.FromSeconds(1.7);
+                            //timer1.Tick += (s, args) =>
+                            //{
+                            //    timer1.Stop();
+                            //    //colocar despues el 'this' como parametro para el menu
+                            //    Menu nuevo = new Menu();
+                            //    nuevo.Show();
+                            //};
+                            //timer1.Start();
+                            login.Close();
                         }
                         else if (TipoUsuario == "Desconocido")
                         {

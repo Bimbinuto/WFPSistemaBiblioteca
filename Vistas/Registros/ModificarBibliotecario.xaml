@@ -204,8 +204,8 @@
                     Content="{Binding ResultadoMod, UpdateSourceTrigger=PropertyChanged}"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Style="{StaticResource StyleLetras}" 
-                    Foreground="Green"/>
+                    Style="{StaticResource StyleLetras}"
+                    Foreground="Green" />
             </StackPanel>
 
             <StackPanel

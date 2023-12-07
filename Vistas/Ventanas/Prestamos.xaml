@@ -15,7 +15,7 @@
             Content="Prestamos"
             Style="{StaticResource StyleLabelTitle}" />
 
-        <!--BUSQUEDAS INDIVIDUAL Y POR FILTRO-->
+        <!--  BUSQUEDAS INDIVIDUAL Y POR FILTRO  -->
         <StackPanel
             Orientation="Horizontal"
             Grid.Row="1"
@@ -41,11 +41,11 @@
                 x:Name="txtBuscarEjemplar"
                 Style="{StaticResource tbxStyleGeneral}"
                 Margin="0,0,0,0"
-                Width="400" 
-                Text="{Binding Busqueda, UpdateSourceTrigger=PropertyChanged}"/>
+                Width="400"
+                Text="{Binding Busqueda, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
 
-        <!--TABLA DE LOS EJEMPLARES-->
+        <!--  TABLA DE LOS EJEMPLARES  -->
         <DataGrid
             Style="{DynamicResource DataGridStyle1}"
             ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
@@ -94,8 +94,8 @@
                                     VerticalAlignment="Center"
                                     Style="{StaticResource StyleButtonIcons}"
                                     Tag="{StaticResource IconEditar}"
-                                    ToolTip="Editar" 
-                                    Command="{Binding DataContext.ModificarCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                                    ToolTip="Editar"
+                                    Command="{Binding DataContext.ModificarCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" />
                                 <!--<Button
                                     x:Name="eliminarPrestamo"
                                     Click="btnEliminarClick"
@@ -115,13 +115,13 @@
                                     VerticalAlignment="Center"
                                     Style="{StaticResource StyleButtonIcons}"
                                     Tag="{StaticResource IconPrestar}"
-                                    ToolTip="Realizar Prestamo" 
-                                    Command="{Binding DataContext.PrestamoCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                                    ToolTip="Realizar Prestamo"
+                                    Command="{Binding DataContext.PrestamoCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" />
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Binding="{Binding id_ejemplar}" Visibility="Hidden"/>
+                <DataGridTextColumn Binding="{Binding id_ejemplar}" Visibility="Hidden" />
             </DataGrid.Columns>
         </DataGrid>
 
@@ -138,8 +138,6 @@
                 Content="{Binding ElementosFilaSeleccionada}"
                 Style="{StaticResource StyleLabel}" />
         </StackPanel>
-
-
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

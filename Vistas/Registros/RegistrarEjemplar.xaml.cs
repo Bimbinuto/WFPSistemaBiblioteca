@@ -19,27 +19,27 @@ using Biblioteca.Vistas.Ventanas;
 namespace Biblioteca.Vistas.Registros
 {
     /// <summary>
-    /// Lógica de interacción para RegistrarLibro.xaml
+    /// Lógica de interacción para RegistrarEjemplar.xaml
     /// </summary>
-    public partial class RegistrarLibro : UserControl
+    public partial class RegistrarEjemplar : UserControl
     {
         ContentControl contentControl;
 
-        public RegistrarLibro(ContentControl ccDeGestionaLibro)
+        public RegistrarEjemplar(ContentControl contentControl, LibroVM lvm)
         {
             InitializeComponent();
-            contentControl = ccDeGestionaLibro;
-            DataContext = new LibroVM();
-        }
-
-        private void btnVolverAdministracion(object sender, RoutedEventArgs e)
-        {
-            contentControl.Content = new Administracion(contentControl);
+            this.contentControl = contentControl;
+            DataContext = lvm;
         }
 
         private void btnVolverGestionarLibros(object sender, RoutedEventArgs e)
         {
             contentControl.Content = new GestionarLibro(contentControl);
+        }
+
+        private void btnVolverAdministracion(object sender, RoutedEventArgs e)
+        {
+            contentControl.Content = new Administracion(contentControl);
         }
 
         private void DatePicker_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -54,19 +54,17 @@ namespace Biblioteca.Vistas.Registros
             }
         }
 
-        private void btnRegistrarNuevoL(object sender, RoutedEventArgs e)
+        private void btnRegistrarNuevoEjemplar(object sender, RoutedEventArgs e)
         {
             registrarNuevoE.IsEnabled = false;
-
-            DispatcherTimer dispatcherTimer = new DispatcherTimer();
-            DispatcherTimer timer1 = dispatcherTimer;
-            timer1.Interval = TimeSpan.FromSeconds(1.7);
-            timer1.Tick += (s, args) =>
+            DispatcherTimer localTimer = new DispatcherTimer();
+            localTimer.Interval = TimeSpan.FromSeconds(2);
+            localTimer.Tick += (s, args) =>
             {
-                timer1.Stop();
                 contentControl.Content = new GestionarLibro(contentControl);
+                localTimer.Stop();
             };
-            timer1.Start();
+            localTimer.Start();
         }
     }
 }

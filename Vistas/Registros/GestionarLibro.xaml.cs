@@ -34,12 +34,17 @@ namespace Biblioteca.Vistas.Registros
 
         private void btnEditarLibro(object sender, RoutedEventArgs e)
         {
-
+            contentControl.Content = new ObservarEjemplar(contentControl, lvm);
         }
 
         private void btnEliminarLibro(object sender, RoutedEventArgs e)
         {
+            contentControl.Content = new EliminarLibro(contentControl, lvm);
+        }
 
+        private void btnRegistrarEjemplar(object sender, RoutedEventArgs e)
+        {
+            contentControl.Content = new RegistrarEjemplar(contentControl, lvm);
         }
 
         private void btnRegistrarNuevoLibro(object sender, RoutedEventArgs e)

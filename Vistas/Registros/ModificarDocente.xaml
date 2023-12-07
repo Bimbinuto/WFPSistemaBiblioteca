@@ -229,14 +229,24 @@
                     RenderTransformOrigin="0.5 0.5"
                     ToolTipService.InitialShowDelay="200">
                     <Path.ToolTip>
-                        <ToolTip Background="Black" BorderBrush="#FCDADA" BorderThickness="1.5">
+                        <ToolTip
+                            Background="Black"
+                            BorderBrush="#FCDADA"
+                            BorderThickness="1.5">
                             <ItemsControl ItemsSource="{Binding Items}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock FontSize="15" Foreground="white" Margin="0 5 0 5" FontFamily="Segoe UI">
-                                            <Run Text="{Binding codigo}" FontWeight="Bold" FontFamily="Segoe UI"/>
+                                        <TextBlock
+                                            FontSize="15"
+                                            Foreground="white"
+                                            Margin="0,5,0,5"
+                                            FontFamily="Segoe UI">
+                                            <Run
+                                                Text="{Binding codigo}"
+                                                FontWeight="Bold"
+                                                FontFamily="Segoe UI" />
                                             <Run Text=" - " />
-                                            <Run Text="{Binding nombre}" FontFamily="Segoe UI"/>
+                                            <Run Text="{Binding nombre}" FontFamily="Segoe UI" />
                                         </TextBlock>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
@@ -245,7 +255,7 @@
                     </Path.ToolTip>
                 </Path>
 
-                <!--  MOSTRAR RESULTADO -->
+                <!--  MOSTRAR RESULTADO  -->
                 <Label
                     Content="{Binding ResultadoMod, UpdateSourceTrigger=PropertyChanged}"
                     HorizontalAlignment="Center"

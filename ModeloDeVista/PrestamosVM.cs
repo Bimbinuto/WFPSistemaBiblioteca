@@ -174,7 +174,8 @@ namespace Biblioteca.ModeloDeVista
                                   "JOIN libro l ON e.id_libro = l.id_libro\r\n" +
                                   "JOIN libro_autor la ON l.id_libro = la.id_autor\r\n" +
                                   "JOIN autor a ON la.id_autor = a.id_autor \r\n" +
-                                  "WHERE l.titulo LIKE @busqueda ";
+                                  "WHERE l.titulo LIKE @busqueda\r\n" +
+                                  "AND e.disponibilidad = 'disponible' ";
 
                 if (Filtro == "Tesis")
                 {

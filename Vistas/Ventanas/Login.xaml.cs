@@ -25,18 +25,24 @@ namespace Biblioteca.Ventanas
     {
         private int intentos = 0;
         //private string _tipoUsuario;
+        LoginVM logVM; // = new LoginVM();
+
 
         public Login()
         {
             InitializeComponent();
-            LoginVM loginVM = new LoginVM();
 
-            txtUsername.DataContext = loginVM;
-            txtPassword.DataContext = loginVM;
-            btnAcceder.DataContext = loginVM;
-            txtBienvenido.DataContext = loginVM;
-            txtTipoUsuario.DataContext = loginVM;
-            lbResultado.DataContext = loginVM;
+            logVM = new LoginVM(this);
+            string entero = logVM.IDUsuario;
+
+
+            txtUsername.DataContext = logVM;
+            txtPassword.DataContext = logVM;
+            btnAcceder.DataContext = logVM;
+            txtBienvenido.DataContext = logVM;
+            txtTipoUsuario.DataContext = logVM;
+            lbResultado.DataContext = logVM;
+            lbResultado.Content = "";
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -44,14 +50,11 @@ namespace Biblioteca.Ventanas
             if (e.ChangedButton == MouseButton.Left)
                 DragMove();
         }
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             DataContext = new Efectos.WindowBlureffect(this, Efectos.AccentState.ACCENT_ENABLE_BLURBEHIND) { BlurOpacity = 100 };
         }
-
         private void BtnCerrarLogin(object sender, EventArgs e) => this.Close();
-
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
             watermarkTextBlock.Visibility = string.IsNullOrEmpty(txtPassword.Password) ? Visibility.Visible : Visibility.Collapsed;
@@ -70,73 +73,35 @@ namespace Biblioteca.Ventanas
             {
                 sb.Begin();
             }
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(2);
-            timer.Tick += (s, args) =>
-            {
-                timer.Stop();
-                this.Close();
-            };
-            timer.Start();
-
-            intentos++;
-            if (intentos >= 3)
-                this.Close();
-
         }
-
-        //public void btnEjecutarAnimacion(object sender, RoutedEventArgs e)
-        //{
-        //    Storyboard sb = this.FindResource("animacionLogin") as Storyboard;
-        //    if (sb != null)
-        //    {
-        //        sb.Begin();
-        //    }
-        //    DispatcherTimer timer = new DispatcherTimer();
-        //    timer.Interval = TimeSpan.FromSeconds(2);
-        //    timer.Tick += (s, args) =>
-        //    {
-        //        timer.Stop();
-        //        this.Close();
-        //    };
-        //    timer.Start();
-
-        //    intentos++;
-        //    if (intentos >= 3)
-        //        this.Close();
-        //}
-
 
         // TODO arreglar el error del boton que acceder que cuando se pulsa varias veces, repite la animacion varias veces y crear varios Menus
-        public void btnLogin(object sender, EventArgs e)
+        public void btnLogin(object sender, RoutedEventArgs e)
         {
-            //if (!String.IsNullOrEmpty(txtUsername.Text) && !String.IsNullOrEmpty(txtPassword.Password))
-            //{
-            //    if (lbResultado.Content.ToString() == "OK")
-            //    {
-            Storyboard sb = this.FindResource("animacionLogin") as Storyboard;
-            if (sb != null)
+            string resultado = logVM.Resultado.ToString();
+
+            if (resultado == "OK")
             {
-                sb.Begin();
+                //lbResultado.Foreground = new SolidColorBrush(Colors.Green);
+                //Comenzar();
+                DispatcherTimer timer = new DispatcherTimer();
+                timer.Interval = TimeSpan.FromSeconds(2);
+                timer.Tick += (s, args) =>
+                {
+                    timer.Stop();
+                    Menu nuevo = new Menu();
+                    nuevo.Show();
+                    this.Close();
+                };
+                timer.Start();
             }
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(2);
-            timer.Tick += (s, args) =>
+            else
             {
-                timer.Stop();
-                //Menu nuevo = new Menu();
-                //nuevo.Show();
-                this.Close();
-            };
-            timer.Start();
-            //}
-
-            intentos++;
-            if (intentos >= 3)
-                this.Close();
-            //}
-
+                lbResultado.Content = "ingrese credenciales";
+                intentos++;
+                if (intentos >= 3)
+                    this.Close();
+            }
         }
-
     }
 }

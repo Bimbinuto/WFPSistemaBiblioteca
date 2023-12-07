@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="Biblioteca.Vistas.Registros.GestionarLibro"
+    x:Class="Biblioteca.Vistas.Registros.ObservarEjemplar"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -19,21 +19,38 @@
 
             <Path
                 Grid.Column="1"
-                x:Name="Icon"
+                x:Name="Icon1"
                 Width="11"
                 Height="11"
                 Margin="10,0,-10,0"
                 Data="{StaticResource IconDerecha}"
                 Fill="{StaticResource iFill-default-color}"
                 Stretch="Uniform"
-                StrokeThickness="10"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right"
+                RenderTransformOrigin="0.5 0.5" />
+
+            <Button
+                Content="Gestionar Libros"
+                Style="{StaticResource btBarSuperior}"
+                Click="btnVolverGestionarLibros" />
+
+            <Path
+                Grid.Column="1"
+                x:Name="Icon2"
+                Width="11"
+                Height="11"
+                Margin="10,0,-10,0"
+                Data="{StaticResource IconDerecha}"
+                Fill="{StaticResource iFill-default-color}"
+                Stretch="Uniform"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Right"
                 RenderTransformOrigin="0.5 0.5" />
 
             <Label
                 Grid.Row="0"
-                Content="Gestionar Libros"
+                Content="Ver Ejemplares"
                 Style="{StaticResource StyleLabelTitle}" />
         </StackPanel>
 
@@ -42,7 +59,19 @@
             Orientation="Horizontal"
             Grid.Row="1"
             Margin="0,20,0,20">
+
             <Label
+                Style="{StaticResource StyleLabel}"
+                Content="Ejemplares del libro de: "
+                Margin="100,4,0,0" />
+
+            <Label
+                Style="{StaticResource StyleLabel}"
+                Content="{Binding FilaSeleccionadaL[titulo]}"
+                Margin="0,4,0,0"
+                FontWeight="Bold" />
+
+            <!--<Label
                 Style="{StaticResource StyleLabel}"
                 Content="Filtrar por:"
                 Margin="100,4,0,0" />
@@ -66,7 +95,7 @@
                 Style="{StaticResource tbxStyleGeneral}"
                 Margin="0,0,0,0"
                 Width="400"
-                Text="{Binding BusquedaL, UpdateSourceTrigger=PropertyChanged}" />
+                Text="{Binding BusquedaL, UpdateSourceTrigger=PropertyChanged}" />-->
         </StackPanel>
 
         <DataGrid
@@ -74,47 +103,44 @@
             ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
             RowStyle="{DynamicResource DataGridRowStyle1}"
             CellStyle="{DynamicResource DataGridCellStyle1}"
+            x:Name="TablaEjemplares"
             AlternationCount="2"
             Grid.Row="2"
             Margin="50,20,50,20"
             AutoGenerateColumns="False"
             FontSize="15"
             IsReadOnly="True"
-            ItemsSource="{Binding LibroT}"
-            SelectedItem="{Binding FilaSeleccionadaL}"
+            ItemsSource="{Binding EjemplarT, UpdateSourceTrigger=PropertyChanged}"
+            SelectedItem="{Binding FilaSeleccionadaEjemplar}"
             ScrollViewer.HorizontalScrollBarVisibility="Auto"
             ScrollViewer.VerticalScrollBarVisibility="Hidden">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Path=id_libro}" Visibility="Hidden" />
+                <DataGridTextColumn Binding="{Binding Path=id_ejemplar}" Visibility="Hidden" />
                 <DataGridTextColumn
                     Width="*"
-                    Header="ISBN"
-                    Binding="{Binding Path=isbn}" />
-                <DataGridTextColumn
-                    Width="2*"
-                    Header="Titulo"
-                    Binding="{Binding Path=titulo}" />
+                    Header="Codigo"
+                    Binding="{Binding Path=codigo}" />
                 <DataGridTextColumn
                     Width="*"
-                    Header="Fecha edicion"
-                    Binding="{Binding Path=fecha_edicion, StringFormat=yyyy}" />
+                    Header="Fecha de disposicion"
+                    Binding="{Binding Path=fecha_disposicion, StringFormat=d}" />
                 <DataGridTextColumn
                     Width="*"
-                    Header="Editorial"
-                    Binding="{Binding Path=editorial}" />
+                    Header="Disponibilidad"
+                    Binding="{Binding Path=disponibilidad}" />
                 <DataGridTextColumn
                     Width="*"
-                    Header="Recomendacion"
-                    Binding="{Binding Path=grado_recomendacion}" />
-                <DataGridTextColumn Binding="{Binding Path=id_proveedor}" Visibility="Hidden" />
-                <DataGridTextColumn Binding="{Binding Path=id_categoria}" Visibility="Hidden" />
-                <DataGridTextColumn Binding="{Binding Path=id_materia}" Visibility="Hidden" />
-                <DataGridTextColumn Binding="{Binding Path=fecha_disposicion}" Visibility="Hidden" />
-                <DataGridTextColumn Binding="{Binding Path=disponibilidad}" Visibility="Hidden" />
-                <DataGridTextColumn Binding="{Binding Path=tipo_ejemplar}" Visibility="Hidden" />
-                <DataGridTextColumn Binding="{Binding Path=estado}" Visibility="Hidden" />
+                    Header="Tipo"
+                    Binding="{Binding Path=tipo_ejemplar}" />
+                <DataGridTextColumn
+                    Width="*"
+                    Header="Estado"
+                    Binding="{Binding Path=estado}" />
                 <DataGridTextColumn Binding="{Binding Path=descripcion}" Visibility="Hidden" />
+                <DataGridTextColumn Binding="{Binding Path=activo}" Visibility="Hidden" />
+                <DataGridTextColumn Binding="{Binding Path=id_libro}" Visibility="Hidden" />
                 <DataGridTextColumn Binding="{Binding Path=id_estanteria}" Visibility="Hidden" />
+
 
                 <DataGridTemplateColumn
                     Header="Operacion"
@@ -123,7 +149,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Button
+                                <!--<Button
                                     x:Name="registrarEjemplar"
                                     Click="btnRegistrarEjemplar"
                                     Cursor="Hand"
@@ -133,28 +159,28 @@
                                     Style="{StaticResource StyleButtonIcons}"
                                     Tag="{StaticResource IconRegistrar}"
                                     ToolTip="Registrar nuevo ejemplar"
-                                    ToolTipService.InitialShowDelay="500"/>
+                                    ToolTipService.InitialShowDelay="500" />-->
                                 <Button
-                                    x:Name="editarLibro"
-                                    Click="btnEditarLibro"
+                                    x:Name="editarEjemplar"
+                                    Click="btnEditarEjemplar"
                                     Cursor="Hand"
                                     Width="30"
                                     Height="30"
                                     VerticalAlignment="Center"
                                     Style="{StaticResource StyleButtonIcons}"
-                                    Tag="{StaticResource IconObservar}"
-                                    ToolTip="Ver ejemplares"
+                                    Tag="{StaticResource IconEditar}"
+                                    ToolTip="Editar ejemplares"
                                     ToolTipService.InitialShowDelay="500" />
                                 <Button
-                                    x:Name="EliminarLibro"
-                                    Click="btnEliminarLibro"
+                                    x:Name="EliminarEjemplar"
+                                    Click="btnEliminarEjemplar"
                                     Cursor="Hand"
                                     Width="30"
                                     Height="30"
                                     VerticalAlignment="Center"
                                     Style="{StaticResource StyleButtonIcons}"
                                     Tag="{StaticResource IconEliminar2}"
-                                    ToolTip="Eliminar" 
+                                    ToolTip="Eliminar"
                                     ToolTipService.InitialShowDelay="500" />
                             </StackPanel>
                         </DataTemplate>
@@ -164,13 +190,13 @@
         </DataGrid>
 
 
-        <StackPanel
+        <!--<StackPanel
             Orientation="Horizontal"
             Grid.Row="4"
             Margin="0,0,0,20">
             <Path
                 Grid.Row="4"
-                x:Name="Icon1"
+                x:Name="Icon3"
                 Width="17"
                 Height="17"
                 Margin="0"
@@ -186,27 +212,37 @@
                 Style="{StaticResource StyleLabel}"
                 Margin="5,0,0,0"
                 Grid.Row="4" />
-        </StackPanel>
+        </StackPanel>-->
 
 
         <Label
-            Content="{Binding ElementosSeleccionadosL, UpdateSourceTrigger=PropertyChanged}"
+            Content="{Binding ElementosSeleccionadosEjemplar, UpdateSourceTrigger=PropertyChanged}"
             Style="{StaticResource StyleLabel}"
-            Grid.Row="3" />
+            Grid.Row="3"
+            Margin="0,0,0,10" />
 
         <StackPanel
             Orientation="Horizontal"
             Grid.Row="3"
             HorizontalAlignment="Right"
             Margin="0,20,60,20">
-            <Button
+            <!--<Button
                 Style="{StaticResource ButtonLogin}"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Right"
                 Margin="20,0,20,0"
                 Content="Registrar nuevo Libro"
                 Width="260"
-                Click="btnRegistrarNuevoLibro" />
+                Click="btnRegistrarNuevoLibro" />-->
+            <Button
+                Width="30"
+                Height="30"
+                Background="Transparent"
+                BorderThickness="0"
+                Style="{StaticResource ButtonLogin}"
+                Click="btnRefrescar">
+                <Image Source="\Recursos\imgRecargar.png" />
+            </Button>
         </StackPanel>
 
 
