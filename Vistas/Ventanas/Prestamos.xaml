@@ -81,11 +81,11 @@
                 <DataGridTemplateColumn
                     Header="Operacion"
                     IsReadOnly="True"
-                    Width="130">
+                    Width="100">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Button
+                                <!--<Button
                                     x:Name="editarPrestamo"
                                     Click="btnEditarClick"
                                     Cursor="Hand"
@@ -95,7 +95,8 @@
                                     Style="{StaticResource StyleButtonIcons}"
                                     Tag="{StaticResource IconEditar}"
                                     ToolTip="Editar"
-                                    Command="{Binding DataContext.ModificarCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" />
+                                    ToolTipService.InitialShowDelay="200"
+                                    Command="{Binding DataContext.ModificarCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" />-->
                                 <!--<Button
                                     x:Name="eliminarPrestamo"
                                     Click="btnEliminarClick"
@@ -116,6 +117,7 @@
                                     Style="{StaticResource StyleButtonIcons}"
                                     Tag="{StaticResource IconPrestar}"
                                     ToolTip="Realizar Prestamo"
+                                    ToolTipService.InitialShowDelay="200"
                                     Command="{Binding DataContext.PrestamoCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}" />
                             </StackPanel>
                         </DataTemplate>

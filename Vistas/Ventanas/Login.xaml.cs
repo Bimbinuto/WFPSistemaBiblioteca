@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using Biblioteca.ModeloDeVista;
+using Biblioteca.Modelos;
 
 namespace Biblioteca.Ventanas
 {
@@ -26,7 +27,6 @@ namespace Biblioteca.Ventanas
         private int intentos = 0;
         //private string _tipoUsuario;
         LoginVM logVM; // = new LoginVM();
-
 
         public Login()
         {
@@ -42,7 +42,7 @@ namespace Biblioteca.Ventanas
             txtBienvenido.DataContext = logVM;
             txtTipoUsuario.DataContext = logVM;
             lbResultado.DataContext = logVM;
-            lbResultado.Content = "";
+            //lbResultado.Content = "";
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
@@ -78,29 +78,34 @@ namespace Biblioteca.Ventanas
         // TODO arreglar el error del boton que acceder que cuando se pulsa varias veces, repite la animacion varias veces y crear varios Menus
         public void btnLogin(object sender, RoutedEventArgs e)
         {
+            //MessageBox.Show($"ID: {UsuarioGlobal.GetInstance().IdUsuario}\n Nombre: {UsuarioGlobal.GetInstance().NombreUsuarioG}\n Tipo: {UsuarioGlobal.GetInstance().TipoUsuarioG}");
+
             string resultado = logVM.Resultado.ToString();
 
             if (resultado == "OK")
             {
-                //lbResultado.Foreground = new SolidColorBrush(Colors.Green);
+                lbResultado.Foreground = new SolidColorBrush(Colors.Green);
+                btnAcceder.IsEnabled = false;
                 //Comenzar();
-                DispatcherTimer timer = new DispatcherTimer();
-                timer.Interval = TimeSpan.FromSeconds(2);
-                timer.Tick += (s, args) =>
-                {
-                    timer.Stop();
-                    Menu nuevo = new Menu();
-                    nuevo.Show();
-                    this.Close();
-                };
-                timer.Start();
+                //DispatcherTimer timer = new DispatcherTimer();
+                //timer.Interval = TimeSpan.FromSeconds(2);
+                //timer.Tick += (s, args) =>
+                //{
+                //    timer.Stop();
+                //    Menu nuevo = new Menu();
+                //    nuevo.Show();
+                //    this.Close();
+                //};
+                //timer.Start();
             }
             else
             {
-                lbResultado.Content = "ingrese credenciales";
-                intentos++;
-                if (intentos >= 3)
-                    this.Close();
+                //intentos++;
+                //if (intentos >= 3)
+                //{
+                //    this.Close();
+                //}
+
             }
         }
     }

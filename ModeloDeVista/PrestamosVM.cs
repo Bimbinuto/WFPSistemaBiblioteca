@@ -10,6 +10,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Timers;
+using Biblioteca.Modelos;
+using System.Windows;
 
 namespace Biblioteca.ModeloDeVista
 {
@@ -18,10 +20,12 @@ namespace Biblioteca.ModeloDeVista
     {
         private Conexion conexion = new Conexion();
         private System.Timers.Timer _timer;
+        private PrestamoM prestamo = new PrestamoM();
 
         public ICommand ModificarCommand { get; private set; }
         public ICommand EliminarCommand { get; private set; }
         public ICommand PrestamoCommand { get; private set; }
+        public ICommand RegistrarPrestamoCommand { get; private set; }
 
         private string _idEjemplar;
         private string _idUsuario;
@@ -34,6 +38,7 @@ namespace Biblioteca.ModeloDeVista
         private string _elementosFilaSeleccionada;
         private string _busqueda;
         private string _filtro;
+        private string _resultadoPrestamo;
 
         private string _idEjemplarSel;
         private string _codigoSel;
@@ -67,8 +72,14 @@ namespace Biblioteca.ModeloDeVista
                     _codigoSel = codigo;
                     _disponibilidadSel = disponibilidad;
 
-                    ElementosFilaSeleccionada = $"{_idEjemplarSel}, {_codigoSel}, {_disponibilidadSel}"; // $"{codigo},  {titulo},  {autores},  {disponibilidad} - ID: {id_ejemplar}";
+                    IdEjemplar = id_ejemplar;
+                    IdUsuario = UsuarioGlobal.GetInstance().IdUsuario;
+                    FechaPrestamo = DateTime.Now;
+                    FechaDevolucion = DateTime.Now;
 
+                    //ElementosFilaSeleccionada = $"{_idEjemplarSel}, {_codigoSel}, {_disponibilidadSel}"; // $"{codigo},  {titulo},  {autores},  {disponibilidad} - ID: {id_ejemplar}";
+
+                    ElementosFilaSeleccionada = $"ID Ejemplar: {IdEjemplar} \n ID Usuario: {IdUsuario} \n Fecha prestamo: {FechaPrestamo} \n Fecha Devolucion: {FechaDevolucion}";
                 }
             }
         }
@@ -121,43 +132,18 @@ namespace Biblioteca.ModeloDeVista
                 OnPropertyChanged(nameof(IdUsuario));
             }
         }
-        public DateTime FechaPrestamo
-        {
-            get => _fechaPrestamo;
-            set
-            {
-                _fechaPrestamo = value;
-                OnPropertyChanged(nameof(FechaPrestamo));
-            }
-        }
-        public DateTime FechaDevolucion
-        {
-            get => _fechaDevolucion;
-            set
-            {
-                _fechaDevolucion = value;
-                OnPropertyChanged(nameof(FechaDevolucion));
-            }
-        }
-        public string TipoPrestamo
-        {
-            get => _tipoPrestamo;
-            set
-            {
-                _tipoPrestamo = value;
-                OnPropertyChanged(nameof(TipoPrestamo));
-            }
-        }
-
 
         public PrestamosVM()
         {
             ModificarCommand = new RelayCommand(Modificar, PuedeModificar);
             PrestamoCommand = new RelayCommand(Prestamo, PuedeRealizarPrestamo);
+            RegistrarPrestamoCommand = new AsyncRelayCommand(RegistrarPrestamo, PuedeRegistrarPrestamo);
 
             _timer = new System.Timers.Timer(650);
             _timer.Elapsed += (sender, e) => Task.Run(() => CargarTablaAsync());
             _timer.AutoReset = false;
+
+            TipoPrestamo = "Seleccionar";
 
             CargarTablaAsync();
             CargarLectoresAsync();
@@ -223,7 +209,6 @@ namespace Biblioteca.ModeloDeVista
             }
 
         }
-
         private bool PuedeRealizarPrestamo(object parameter)
         {
             if (_disponibilidadSel == "disponible")
@@ -243,6 +228,105 @@ namespace Biblioteca.ModeloDeVista
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
+
+
+
+    //Para realizar el prestamo
+    public partial class PrestamosVM
+    {
+        private bool fechaPrestamoCorrecto = true;
+        private bool fechaDevolucionCorrecto = true;
+        private bool tipoPrestamoCorrecto;
+
+        public DateTime FechaPrestamo
+        {
+            get => _fechaPrestamo;
+            set
+            {
+                _fechaPrestamo = value;
+                OnPropertyChanged(nameof(FechaPrestamo));
+            }
+        }
+        public DateTime FechaDevolucion
+        {
+            get => _fechaDevolucion;
+            set
+            {
+                _fechaDevolucion = value;
+                OnPropertyChanged(nameof(FechaDevolucion));
+            }
+        }
+        public string TipoPrestamo
+        {
+            get => _tipoPrestamo;
+            set
+            {
+                _tipoPrestamo = value;
+                OnPropertyChanged(nameof(TipoPrestamo));
+
+                if (value == "Seleccionar" || String.IsNullOrEmpty(value))
+                {
+                    tipoPrestamoCorrecto = false;
+                }
+                else
+                {
+                    tipoPrestamoCorrecto = true;
+                }
+            }
+        }
+        public string ResultadoPrestamo
+        {
+            get => _resultadoPrestamo;
+            set
+            {
+                _resultadoPrestamo = value;
+                OnPropertyChanged(nameof(ResultadoPrestamo));
+            }
+        }
+
+        private async Task RegistrarPrestamo(object parameter)
+        {
+            try
+            {
+                using (MySqlConnection cnx = new MySqlConnection(conexion.cadenaConexion))
+                {
+                    await cnx.OpenAsync();
+
+                    using (MySqlCommand cmd = new MySqlCommand("registrar_prestamo", cnx))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@pid_ejemplar", Int32.Parse(IdEjemplar));
+                        cmd.Parameters.AddWithValue("@pid_usuario", Int32.Parse(IdUsuario));
+                        cmd.Parameters.AddWithValue("@pfecha_prestamo", FechaPrestamo);
+                        cmd.Parameters.AddWithValue("@pfecha_devolucion", FechaDevolucion);
+                        cmd.Parameters.AddWithValue("@ptipo_prestamo", TipoPrestamo);
+
+                        cmd.Parameters.Add("@resultado", MySqlDbType.VarChar, 200);
+                        cmd.Parameters["@resultado"].Direction = System.Data.ParameterDirection.Output;
+
+                        await cmd.ExecuteNonQueryAsync();
+
+                        ResultadoPrestamo = (string)cmd.Parameters["@resultado"].Value;
+
+                        await cnx.CloseAsync();
+                    }
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+
+            //MessageBox.Show($"nombres: {Nombres} \n Apellido paterno: {ApPaterno} \n Apellido materno: {ApMaterno} \n Fechde nacimiento: {FechaNacimiento} \n Direccion: {Direccion} \n Telefono: {Telefono} \n Correo: {Correo} \n Cuenta: {Cuenta} \n Contraseña: {Contrasena} \n Sexo: {Sexo} \n Fecha de contrato: {FechaContrato}");
+        }
+
+        private bool PuedeRegistrarPrestamo(object parameter)
+        {
+            return fechaPrestamoCorrecto &&
+                   fechaDevolucionCorrecto &&
+                   tipoPrestamoCorrecto;
+        }
+    }
+
+
 
     //Para la ventana de Modificar Prestamo
     public partial class PrestamosVM

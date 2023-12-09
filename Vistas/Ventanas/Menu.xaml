@@ -90,12 +90,12 @@
                     <Button
                         Style="{StaticResource StyleButtonBarUp}"
                         Tag="{StaticResource IconMin}"
-                        ToolTip="Minimizar" />
+                        ToolTip="Minimizar" Click="Button_Click_1" />
                     <!--  boton de maximizar  -->
                     <Button
                         Style="{StaticResource StyleButtonBarUp}"
                         Tag="{StaticResource IconMax}"
-                        ToolTip="Maximizar" />
+                        ToolTip="Maximizar" Click="Button_Click" />
                     <!--  boton de minimizar  -->
                     <Button
                         Style="{StaticResource StyleButtonBarUp}"
@@ -124,22 +124,22 @@
                         </Ellipse>
 
                         <!--  Nombre  -->
-                        <!--  colocar depues el ' Content="{Binding SoloNombreUsuario}"'  -->
+                        <!--  colocar depues el ' Content="{Binding SoloNombreUsuario}"'  OK-->
                         <Label
                             x:Name="txtUsuarioGlobal"
                             Grid.Column="1"
-                            Content="Dev"
+                            Content="{Binding SoloNombreUsuario}"
                             Style="{StaticResource StyleLabel}"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Left"
                             Margin="0,0,0,18" />
 
                         <!--  Cuenta  -->
-                        <!--  colocar despues el 'Content="{Binding TipoUsuario}"'  -->
+                        <!--  colocar despues el 'Content="{Binding TipoUsuario}"' OK -->
                         <Label
                             x:Name="txtTipoUsuarioGlobal"
                             Grid.Column="1"
-                            Content="dev"
+                            Content="{Binding TipoUsuario}"
                             Style="{StaticResource StyleLabel}"
                             FontWeight="Bold"
                             VerticalAlignment="Center"
@@ -156,6 +156,7 @@
                         <StackPanel Grid.Column="0" Margin="10,0,0,0">
                             <!--  Prueba de nueva forma de boton  -->
                             <RadioButton
+                                x:Name="rbMenuInicio"
                                 Style="{StaticResource DesignButton}"
                                 Content="Inicio"
                                 Tag="{StaticResource IconInicio}"
@@ -163,62 +164,75 @@
                                 IsChecked="True" />
 
                             <RadioButton
+                                x:Name="rbMenuAdministracion"
                                 Style="{StaticResource DesignButton}"
                                 Content="Admistracion"
                                 Tag="{StaticResource IconAdministracion}"
                                 Click="btnAdministracion" />
 
                             <RadioButton
+                                x:Name="rbMenuPrestamos"
                                 Style="{StaticResource DesignButton}"
                                 Content="Prestamos"
                                 Tag="{StaticResource IconPrestamos3}"
                                 Click="btnPrestamos" />
 
                             <RadioButton
+                                x:Name="rbMenuReservaciones"
                                 Style="{StaticResource DesignButton}"
                                 Content="Reservaciones"
                                 Tag="{StaticResource IconReservacion}" />
 
                             <RadioButton
+                                x:Name="rbMenuLibros"
                                 Style="{StaticResource DesignButton}"
                                 Content="Libros"
                                 Tag="{StaticResource IconLibros}" />
 
                             <RadioButton
+                                x:Name="rbMenuCatalogos"
                                 Style="{StaticResource DesignButton}"
                                 Content="Catalogos"
                                 Tag="{StaticResource IconCatalogos}" />
 
                             <RadioButton
+                                x:Name="rbMenuReportes"
                                 Style="{StaticResource DesignButton}"
                                 Content="Reportes"
                                 Tag="{StaticResource IconReporte}"
                                 Click="btnReporte" />
 
                             <RadioButton
+                                x:Name="rbMenuEstadisticas"
                                 Style="{StaticResource DesignButton}"
                                 Content="Estadisticas"
                                 Tag="{StaticResource IconEstadistica}" />
 
                             <RadioButton
+                                x:Name="rbMenuAcercaDe"
                                 Style="{StaticResource DesignButton}"
                                 Content="Acerca del Software"
                                 Tag="{StaticResource IconAcercaSoftware}"
                                 Click="btnAcercaDe" />
 
                             <RadioButton
+                                x:Name="rbMenuConfiguracion"
                                 Style="{StaticResource DesignButton}"
                                 Content="Configuracion"
                                 Click="btnConfiguracion"
                                 Tag="{StaticResource IconConfiguracion2}" />
                             <RadioButton
+                                x:Name="rbMenuNotas"
                                 Style="{StaticResource DesignButton}"
                                 Content="Notas de desarrollo"
                                 Tag="{StaticResource IconNotasDesarrollo}"
                                 Click="btnNotasDesarrollo" />
 
                         </StackPanel>
+
                     </Border>
+
+                    <!--<Label x:Name="lbAsignar" Content="Texto" Style="{StaticResource StyleLetras}"/>-->
 
                     <Border Grid.Row="2">
                         <StackPanel Orientation="Vertical">

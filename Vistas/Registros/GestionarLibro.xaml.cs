@@ -56,5 +56,10 @@ namespace Biblioteca.Vistas.Registros
         {
             contentControl.Content = new Administracion(contentControl);
         }
+
+        private void btnRegistrarAutor(object sender, RoutedEventArgs e)
+        {
+            contentControl.Content = new RegistrarAutor(contentControl, lvm);
+        }
     }
 }

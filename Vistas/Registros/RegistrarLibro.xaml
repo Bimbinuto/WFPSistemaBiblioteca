@@ -134,6 +134,7 @@
                     Content="Estanteria:  "
                     HorizontalAlignment="Right"
                     Margin="0,45,0,7" />
+
             </StackPanel>
 
             <!--  Conentido de los TEXTBOX  -->
@@ -218,7 +219,6 @@
                     DisplayMemberPath="codigo_ubicacion"
                     ItemsSource="{Binding IEstanteria}"
                     SelectedItem="{Binding EEstanteria}" />
-
 
                 <!--  MOSTRAR RESULTADO  -->
                 <Label

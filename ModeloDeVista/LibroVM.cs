@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 using Biblioteca.BDConexion;
 using Biblioteca.Modelos;
 using Microsoft.Win32;
@@ -23,6 +24,8 @@ namespace Biblioteca.ModeloDeVista
     {
         private LibroM _libro = new LibroM();
 
+        public ICommand AsignarAutorCommand { get; set; }
+        public ICommand RegistrarNuevoAutorCommand { get; set; }
         public ICommand RegistrarCommand { get; set; }
         public ICommand ModificarCommand { get; set; }
         public ICommand EliminarCommand { get; set; }
@@ -40,6 +43,7 @@ namespace Biblioteca.ModeloDeVista
         private string _busquedaL;
         private DataTable _libroT;
         private DataTable _ejemplarT;
+        private DataTable _autorT;
 
         //para los combobox
         private ObservableCollection<Proveedor> _iProveedor;
@@ -179,11 +183,22 @@ namespace Biblioteca.ModeloDeVista
 
             }
         }
+        public DataTable AutorT
+        {
+            get => _autorT;
+            set
+            {
+                _autorT = value;
+                OnPropertyChanged(nameof(AutorT));
+            }
+        }
 
         private DataRowView _filaSeleccionadaL;
         private DataRowView _filaSeleccionadaEjemplar;
+        private DataRowView _filaSeleccionadaA;
         private string _elementosSeleccionadosL;
         private string _elementosSeleccionadoEjemplar;
+        private string _elementosSeleccionadosA;
         //private string _idEjemplarSeleccionado;
 
         public string ElementosSeleccionadosL
@@ -202,6 +217,15 @@ namespace Biblioteca.ModeloDeVista
             {
                 _elementosSeleccionadoEjemplar = value;
                 OnPropertyChanged(nameof(ElementosSeleccionadosEjemplar));
+            }
+        }
+        public string ElementosSeleccionadosA
+        {
+            get => _elementosSeleccionadosA;
+            set
+            {
+                _elementosSeleccionadosA = value;
+                OnPropertyChanged(nameof(ElementosSeleccionadosA));
             }
         }
         public DataRowView FilaSeleccionadaL
@@ -242,6 +266,22 @@ namespace Biblioteca.ModeloDeVista
                 }
             }
         }
+        public DataRowView FilaSeleccionadaA
+        {
+            get => _filaSeleccionadaA;
+            set
+            {
+                _filaSeleccionadaA = value;
+                OnPropertyChanged(nameof(FilaSeleccionadaA));
+
+                if (value != null)
+                {
+                    _idAutor = value["id_autor"].ToString();
+
+                    ElementosSeleccionadosA = $"ID autor: {_idAutor}\n";
+                }
+            }
+        }
         public string IDLibroSeleccionado
         {
             get => _idLibroSel;
@@ -255,7 +295,9 @@ namespace Biblioteca.ModeloDeVista
 
         public LibroVM()
         {
+            AsignarAutorCommand = new AsyncRelayCommand(AsignarAutor, PuedeAsignarAutor);
             RegistrarCommand = new AsyncRelayCommand(Registrar, PuedeRegistrar);
+            RegistrarNuevoAutorCommand = new AsyncRelayCommand(RegistrarNuevoAutor, PuedeRegistrarNuevoAutor);
             //ModificarCommand = new AsyncRelayCommand(Modificar, PuedeModificar);
             EliminarCommand = new AsyncRelayCommand(Eliminar, PuedeEliminar);
             RegistrarEjemplarCommand = new AsyncRelayCommand(RegistrarEjemplar, PuedeRegistrarEjemplar);
@@ -269,12 +311,19 @@ namespace Biblioteca.ModeloDeVista
             _timerBusqueda.Elapsed += (sender, e) => Task.Run(() => CargarTablaLibrosAsync());
             _timerBusqueda.AutoReset = false;
 
+            _timerAutor = new System.Timers.Timer(650);
+            _timerAutor.Elapsed += (sender, e) => Task.Run(() => CargarTablaAutoresAsync());
+            _timerAutor.AutoReset = false;
+
+            FiltroA = "Nombres";
+
             CargarTablaLibrosAsync();
             CargarListaProveedorASync();
             CargarListaCategoriaASync();
             CargarListaMateriaASync();
             CargarListaEstanteriaASync();
             CargarListaEjemplaresAsync();
+            CargarTablaAutoresAsync();
         }
 
         private async void CargarTablaLibrosAsync()
@@ -471,20 +520,328 @@ namespace Biblioteca.ModeloDeVista
             }
         }
 
+        public async void CargarTablaAutoresAsync()
+        {
+            using (MySqlConnection cnx = new MySqlConnection(conexion.cadenaConexion))
+            {
+                await cnx.OpenAsync();
+
+                string consulta = "SELECT id_autor, nombres, ap_paterno, ap_materno\r\n" +
+                                  "FROM autor WHERE\r\n";
+
+                if (FiltroA == "Nombres")
+                {
+                    consulta += " nombres LIKE @Busqueda AND\r\n";
+                }
+                else if (FiltroA == "Apellido paterno")
+                {
+                    consulta += " ap_paterno LIKE @Busqueda AND\r\n";
+                }
+                else if (FiltroA == "Apellido materno")
+                {
+                    consulta += " ap_materno LIKE @Busqueda AND\r\n";
+                }
+
+                consulta += " NOT EXISTS (\r\nSELECT 1\r\nFROM libro_autor\r\nWHERE autor.id_autor = libro_autor.id_autor\r\nAND libro_autor.id_libro = @idLibro\r\n);";
+
+
+                //consulta += "";
+
+
+                MySqlCommand cmd = new MySqlCommand(consulta, cnx);
+                cmd.Parameters.AddWithValue("@Busqueda", $"%{BusquedaA}%");
+                cmd.Parameters.AddWithValue("@idLibro", $"{IDLibroSeleccionado.ToString()}");
+
+                MySqlDataAdapter adapter = new MySqlDataAdapter(cmd);
+
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+
+                AutorT = dt;
+                await cnx.CloseAsync();
+
+            }
+        }
+
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 
+    //REGISTRAR AUTOR
+    public partial class LibroVM
+    {
+        private Timer _timerAutor;
+
+        private string _idAutor;
+
+        private string _nombres;
+        private string _apPaterno;
+        private string _apMaterno;
+
+        private string _nombresVacio;
+        private string _apPaternoVacio;
+        private string _apMaternoVacio;
+
+        private bool nombresCorrecto;
+        private bool apPaternoCorrecto;
+        private bool apMaternoCorrecto;
+
+        public string NombresAutorVacio
+        {
+            get => _nombresVacio;
+            set
+            {
+                _nombresVacio = value;
+                OnPropertyChanged(nameof(NombresAutorVacio));
+            }
+        }
+        public string ApPaternoAutorVacio
+        {
+            get => _apPaternoVacio;
+            set
+            {
+                _apPaternoVacio = value;
+                OnPropertyChanged(nameof(ApPaternoAutorVacio));
+            }
+        }
+        public string ApMaternoAutorVacio
+        {
+            get => _apMaternoVacio;
+            set
+            {
+                _apMaternoVacio = value;
+                OnPropertyChanged(nameof(ApMaternoAutorVacio));
+            }
+        }
+
+        private string _filtroA;
+        private string _busquedaA;
+        private string _resultadoAutor;
+        private string _resultadoNuevoAutor;
+
+        public string FiltroA
+        {
+            get => _filtroA;
+            set
+            {
+                _filtroA = value;
+                OnPropertyChanged(nameof(FiltroA));
+            }
+        }
+        public string BusquedaA
+        {
+            get => _busquedaA;
+            set
+            {
+                _busquedaA = value;
+                OnPropertyChanged(nameof(BusquedaA));
+                _timerAutor.Stop();
+                _timerAutor.Start();
+            }
+        }
+        public string ResultadoAutor
+        {
+            get => _resultadoAutor;
+            set
+            {
+                _resultadoAutor = value;
+                OnPropertyChanged(nameof(ResultadoAutor));
+            }
+        }
+        public string ResultadoNuevoAutor
+        {
+            get => _resultadoNuevoAutor;
+            set
+            {
+                _resultadoNuevoAutor = value;
+                OnPropertyChanged(nameof(ResultadoNuevoAutor));
+            }
+        }
+
+        private async Task AsignarAutor(object parameter)
+        {
+            try
+            {
+                using (MySqlConnection cnx = new MySqlConnection(conexion.cadenaConexion))
+                {
+                    await cnx.OpenAsync();
+
+                    using (MySqlCommand cmd = new MySqlCommand("registrar_autor_por_libro", cnx))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@pid_libro", Int32.Parse(_idLibroSel));
+                        cmd.Parameters.AddWithValue("@pid_autor", Int32.Parse(_idAutor));
+
+                        cmd.Parameters.Add("@resultado", MySqlDbType.VarChar, 200);
+                        cmd.Parameters["@resultado"].Direction = System.Data.ParameterDirection.Output;
+
+
+                        await cmd.ExecuteNonQueryAsync();
+
+                        ResultadoAutor = (string)cmd.Parameters["@resultado"].Value;
+
+                        CargarTablaAutoresAsync();
+
+                        DispatcherTimer dispatcherTimer = new DispatcherTimer();
+                        DispatcherTimer timerAutor = dispatcherTimer;
+                        timerAutor.Interval = TimeSpan.FromSeconds(3);
+                        timerAutor.Tick += (s, args) =>
+                        {
+                            ResultadoAutor = "";
+                        };
+                        timerAutor.Start();
+
+
+
+                        await cnx.CloseAsync();
+                    }
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+
+            //MessageBox.Show($"nombres: {Nombres} \n Apellido paterno: {ApPaterno} \n Apellido materno: {ApMaterno} \n Fechde nacimiento: {FechaNacimiento} \n Direccion: {Direccion} \n Telefono: {Telefono} \n Correo: {Correo} \n Cuenta: {Cuenta} \n Contraseña: {Contrasena} \n Sexo: {Sexo} \n Fecha de contrato: {FechaContrato}");
+        }
+
+        private bool PuedeAsignarAutor(object parameter)
+        {
+            return true;
+        }
+
+        public string NombresAutor
+        {
+            get => _nombres;
+            set
+            {
+                _nombres = value;
+                OnPropertyChanged(nameof(NombresAutor));
+
+                if (string.IsNullOrEmpty(value))
+                {
+                    NombresAutorVacio = "No puede estar vacio o contener espacios";
+                    nombresCorrecto = false;
+                }
+                else
+                {
+                    string pattern = @"^[a-zA-Z\s]+$";
+                    if (!Regex.IsMatch(value, pattern))
+                    {
+                        NombresAutorVacio = "No puede contener números ni caracteres especiales";
+                        nombresCorrecto = false;
+                    }
+                    else
+                    {
+                        NombresAutorVacio = "";
+                        nombresCorrecto = true;
+                    }
+                }
+            }
+        }
+        public string ApPaternoAutor
+        {
+            get => _apPaterno;
+            set
+            {
+                _apPaterno = value;
+                OnPropertyChanged(nameof(ApPaternoAutor));
+
+                if (string.IsNullOrEmpty(value))
+                {
+                    ApPaternoAutorVacio = "No puede estar vacio o contener espacios";
+                    apPaternoCorrecto = false;
+                }
+                else
+                {
+                    string pattern = @"^[a-zA-Z\s]+$";
+                    if (!Regex.IsMatch(value, pattern))
+                    {
+                        ApPaternoAutorVacio = "No puede contener números ni caracteres especiales";
+                        apPaternoCorrecto = false;
+                    }
+                    else
+                    {
+                        ApPaternoAutorVacio = "";
+                        apPaternoCorrecto = true;
+                    }
+                }
+            }
+        }
+        public string ApMaternoAutor
+        {
+            get => _apMaterno;
+            set
+            {
+                _apMaterno = value;
+                OnPropertyChanged(nameof(ApMaternoAutor));
+
+                if (string.IsNullOrEmpty(value))
+                {
+                    ApMaternoAutorVacio = "No puede estar vacio o contener espacios";
+                    apMaternoCorrecto = false;
+                }
+                else
+                {
+                    string pattern = @"^[a-zA-Z\s]+$";
+                    if (!Regex.IsMatch(value, pattern))
+                    {
+                        ApMaternoAutorVacio = "No puede contener números ni caracteres especiales";
+                        apMaternoCorrecto = false;
+                    }
+                    else
+                    {
+                        ApMaternoAutorVacio = "";
+                        apMaternoCorrecto = true;
+                    }
+                }
+            }
+        }
+
+        private async Task RegistrarNuevoAutor(object parameter)
+        {
+            try
+            {
+                using (MySqlConnection cnx = new MySqlConnection(conexion.cadenaConexion))
+                {
+                    await cnx.OpenAsync();
+
+                    using (MySqlCommand cmd = new MySqlCommand("registrar_autor", cnx))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@pnombres", NombresAutor);
+                        cmd.Parameters.AddWithValue("@pap_paterno", ApPaternoAutor);
+                        cmd.Parameters.AddWithValue("@pap_materno", ApMaternoAutor);
+
+                        cmd.Parameters.Add("@resultado", MySqlDbType.VarChar, 200);
+                        cmd.Parameters["@resultado"].Direction = System.Data.ParameterDirection.Output;
+
+
+                        await cmd.ExecuteNonQueryAsync();
+
+                        ResultadoNuevoAutor = (string)cmd.Parameters["@resultado"].Value;
+
+                        await cnx.CloseAsync();
+                    }
+                }
+            }
+            catch (Exception ex) { MessageBox.Show(ex.Message); }
+
+            //MessageBox.Show($"nombres: {Nombres} \n Apellido paterno: {ApPaterno} \n Apellido materno: {ApMaterno} \n Fechde nacimiento: {FechaNacimiento} \n Direccion: {Direccion} \n Telefono: {Telefono} \n Correo: {Correo} \n Cuenta: {Cuenta} \n Contraseña: {Contrasena} \n Sexo: {Sexo} \n Fecha de contrato: {FechaContrato}");
+        }
+
+        private bool PuedeRegistrarNuevoAutor(object parameter)
+        {
+            return nombresCorrecto && apPaternoCorrecto && apMaternoCorrecto;
+        }
+
+    }
+
 
     //REGISTRAR EJEMPLARES:
     public partial class LibroVM
     {
-        /*
-         SELECT l.id_libro, l.isbn, l.titulo, l.fecha_edicion, l.editorial, l.grado_recomendacion, l.id_proveedor, l.id_categoria, l.id_materia
-         */
-
         private string _idLibroSel = "";
         private string _tituloSel = "";
 
@@ -1300,33 +1657,7 @@ namespace Biblioteca.ModeloDeVista
                     IdEstanteriaVacio = "";
                     idEstanteriaCorrecto = true;
                 }
-                //else
-                //{
-                //    string patternPositivo = @"^[1-9][0-9]*$"; // Expresión regular que acepta solo números positivos (no cero)
-                //    string patternNegativo = @"^-"; // Expresión regular que detecta números negativos
-                //    string patternEspecial = @"[^0-9]"; // Expresión regular que detecta caracteres no numéricos
 
-                //    if (Regex.IsMatch(value, patternNegativo))
-                //    {
-                //        IdEstanteriaVacio = "No puede haber campos negativos";
-                //        idEstanteriaCorrecto = false;
-                //    }
-                //    else if (!Regex.IsMatch(value, patternPositivo))
-                //    {
-                //        IdEstanteriaVacio = "El valor debe ser un número positivo";
-                //        idEstanteriaCorrecto = false;
-                //    }
-                //    else if (Regex.IsMatch(value, patternEspecial))
-                //    {
-                //        IdEstanteriaVacio = "No puede contener caracteres especiales";
-                //        idEstanteriaCorrecto = false;
-                //    }
-                //    else
-                //    {
-                //        IdEstanteriaVacio = "";
-                //        idEstanteriaCorrecto = true;
-                //    }
-                //}
             }
         }
 
@@ -1366,6 +1697,14 @@ namespace Biblioteca.ModeloDeVista
 
                         await cnx.CloseAsync();
                     }
+
+                    /*using(MySqlCommand cmd = new MySqlCommand("registrar_autor_por_libro", cnx))
+                    {
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                        cmd.Parameters.AddWithValue("@pid_libro", );
+                        cmd.Parameters.AddWithValue("@pid_autor", Int32.Parse(IdAutor));
+                    }*/
                 }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }

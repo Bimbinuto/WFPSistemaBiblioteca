@@ -169,6 +169,7 @@
     <Compile Include="ModeloDeVista\LoginVM.cs" />
     <Compile Include="ModeloDeVista\PrestamosVM.cs" />
     <Compile Include="ModeloDeVista\RelayCommand.cs" />
+    <Compile Include="Modelos\AutorM.cs" />
     <Compile Include="Modelos\BibliotecarioM.cs" />
     <Compile Include="Modelos\CarreraM.cs" />
     <Compile Include="Modelos\CategoriaM.cs" />
@@ -178,9 +179,13 @@
     <Compile Include="Modelos\LibroM.cs" />
     <Compile Include="Modelos\LoginM.cs" />
     <Compile Include="Modelos\MateriaM.cs" />
+    <Compile Include="Modelos\PrestamoM.cs" />
     <Compile Include="Modelos\Proveedor.cs" />
     <Compile Include="Modelos\UsuarioGlobal.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="Vistas\Registros\ConfirmarPrestamo.xaml.cs">
+      <DependentUpon>ConfirmarPrestamo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\Registros\EliminarBibliotecario.xaml.cs">
       <DependentUpon>EliminarBibliotecario.xaml</DependentUpon>
     </Compile>
@@ -226,6 +231,9 @@
     <Compile Include="Vistas\Registros\ObservarEjemplar.xaml.cs">
       <DependentUpon>ObservarEjemplar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Vistas\Registros\RegistrarAutor.xaml.cs">
+      <DependentUpon>RegistrarAutor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\Registros\RegistrarBibliotecario.xaml.cs">
       <DependentUpon>RegistrarBibliotecario.xaml</DependentUpon>
     </Compile>
@@ -240,6 +248,9 @@
     </Compile>
     <Compile Include="Vistas\Registros\RegistrarLibro.xaml.cs">
       <DependentUpon>RegistrarLibro.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\Registros\RegistrarNuevoAutor.xaml.cs">
+      <DependentUpon>RegistrarNuevoAutor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\Ventanas\AcercaSoftware.xaml.cs">
       <DependentUpon>AcercaSoftware.xaml</DependentUpon>
@@ -290,6 +301,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Recursos\Iconos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\Registros\ConfirmarPrestamo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -353,6 +368,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Vistas\Registros\RegistrarAutor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Vistas\Registros\RegistrarBibliotecario.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -370,6 +389,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vistas\Registros\RegistrarLibro.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\Registros\RegistrarNuevoAutor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

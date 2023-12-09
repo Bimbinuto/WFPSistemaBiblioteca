@@ -21,6 +21,7 @@ using Biblioteca.Vistas.Registros;
 using System.Management.Instrumentation;
 using Biblioteca.Efectos;
 using Biblioteca.ModeloDeVista;
+using Biblioteca.Modelos;
 
 /*TODO se esta usando Mysql.Data Framework (el que pesa menos)*/
 
@@ -29,26 +30,41 @@ namespace Biblioteca.Ventanas
     public partial class Menu : Window
     {
         // esperar a usar despues
-        //LoginVM log;
+        LoginVM log;
 
         private DispatcherTimer timer;
 
-        //Colocar despues el 'LoginVM log' como parametro al constructor
-        public Menu()
+        //Colocar despues el 'LoginVM log' como parametro al constructor OK
+        public Menu(LoginVM log)
         {
             BaseDeDatosVM bvm = new BaseDeDatosVM();
             InitializeComponent();
-            //frPagePrincipal.Content = new PageInicio();
             ccPrincipal.Content = new Inicio();
 
             //ccPrincipal.Content = new Administracion(ccPrincipal);
             startclock();
-            //this.log = log;
+            this.log = log;
             //movableGrid = bvm.EstaConectado;
 
             //se activa con el LoginVM log;
-            //txtUsuarioGlobal.DataContext = log;
-            //txtTipoUsuarioGlobal.DataContext = log;
+            txtUsuarioGlobal.DataContext = log;
+            txtTipoUsuarioGlobal.DataContext = log;
+
+            if (UsuarioGlobal.GetInstance().TipoUsuarioG == "Estudiante")
+            {
+                rbMenuAdministracion.Visibility = Visibility.Collapsed;
+                rbMenuReservaciones.Visibility = Visibility.Collapsed;
+                rbMenuReportes.Visibility = Visibility.Collapsed;
+                rbMenuEstadisticas.Visibility = Visibility.Collapsed;
+                rbMenuNotas.Visibility = Visibility.Collapsed;
+            }
+            else if (UsuarioGlobal.GetInstance().TipoUsuarioG == "Docente")
+            {
+                rbMenuAdministracion.Visibility = Visibility.Collapsed;
+                rbMenuReportes.Visibility = Visibility.Collapsed;
+                rbMenuEstadisticas.Visibility = Visibility.Collapsed;
+                rbMenuNotas.Visibility = Visibility.Collapsed;
+            }
         }
 
         #region [base de datos y tiempo]eventos
@@ -168,6 +184,18 @@ namespace Biblioteca.Ventanas
             Login nuevo = new Login();
             nuevo.Show();
             this.Close();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.WindowState == WindowState.Normal)
+                this.WindowState = WindowState.Maximized;
+            else this.WindowState = WindowState.Normal;
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
         }
     }
 }

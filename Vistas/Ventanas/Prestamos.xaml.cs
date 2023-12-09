@@ -23,11 +23,12 @@ namespace Biblioteca.Vistas.Ventanas
     public partial class Prestamos : UserControl
     {
         public ContentControl ContentControl;
+        PrestamosVM lpvm = new PrestamosVM();
 
         public Prestamos(ContentControl ccDelMenu)
         {
             InitializeComponent();
-            DataContext = new PrestamosVM();
+            DataContext = lpvm;
             ContentControl = ccDelMenu;
         }
 
@@ -43,7 +44,7 @@ namespace Biblioteca.Vistas.Ventanas
 
         private void btnPrestarClick(object sender, RoutedEventArgs e)
         {
-
+            ContentControl.Content = new ConfirmarPrestamo(ContentControl, lpvm);
         }
     }
 }

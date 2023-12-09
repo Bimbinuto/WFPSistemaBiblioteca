@@ -23,6 +23,7 @@ namespace Biblioteca.ModeloDeVista
         public Conexion conexion = new Conexion();
         private EncriptadoUnico encriptar = new EncriptadoUnico();
         public event PropertyChangedEventHandler PropertyChanged;
+        private int intentos = 3;
         public ICommand AccederCommand { get; set; }
 
         public string nombreUsuario;
@@ -30,7 +31,6 @@ namespace Biblioteca.ModeloDeVista
         public string soloNombreUsuario;
         public string tipoUsuario;
         public string resultado = "";
-        //private object sender = null;
 
         public string IDUsuario
         {
@@ -139,10 +139,18 @@ namespace Biblioteca.ModeloDeVista
                         SoloNombreUsuario = nom.ToString();
                         TipoUsuario = tipo.ToString();
 
-                        UsuarioGlobal uglobal = new UsuarioGlobal();
-                        uglobal.IdUsuario = IDUsuario;
-                        uglobal.NombreUsuarioG = SoloNombreUsuario;
-                        uglobal.TipoUsuarioG = TipoUsuario;
+                        //UsuarioGlobal uglobal = new UsuarioGlobal();
+                        //uglobal.IdUsuario = IDUsuario;
+                        //uglobal.NombreUsuarioG = SoloNombreUsuario;
+                        //uglobal.TipoUsuarioG = TipoUsuario;
+
+                        //UsuarioGlobal.GetInstance().IdUsuario = id.ToString();
+                        //UsuarioGlobal.GetInstance().NombreUsuarioG = nom.ToString();
+                        //UsuarioGlobal.GetInstance().TipoUsuarioG = tipo.ToString();
+
+                        UsuarioGlobal.GetInstance().IdUsuario = IDUsuario;
+                        UsuarioGlobal.GetInstance().NombreUsuarioG = SoloNombreUsuario;
+                        UsuarioGlobal.GetInstance().TipoUsuarioG = TipoUsuario;
 
                         //MessageBox.Show($"ID: {id}\nombres: {nom.ToString()} \n Tipo: {tipo.ToString()} \n ID usuario: {IDUsuario} \n NombreUsuario: {NombreUsuario} \n TipoUsuario: {TipoUsuario}");
 
@@ -151,22 +159,29 @@ namespace Biblioteca.ModeloDeVista
                             Resultado = "OK";
 
                             login.Comenzar();
-                            //DispatcherTimer dispatcherTimer = new DispatcherTimer();
-                            //DispatcherTimer timer1 = dispatcherTimer;
-                            //timer1.Interval = TimeSpan.FromSeconds(1.7);
-                            //timer1.Tick += (s, args) =>
-                            //{
-                            //    timer1.Stop();
-                            //    //colocar despues el 'this' como parametro para el menu
-                            //    Menu nuevo = new Menu();
-                            //    nuevo.Show();
-                            //};
-                            //timer1.Start();
-                            login.Close();
+
+                            DispatcherTimer dispatcherTimer = new DispatcherTimer();
+                            DispatcherTimer timerlocal = dispatcherTimer;
+                            timerlocal.Interval = TimeSpan.FromSeconds(1.7);
+                            timerlocal.Tick += (s, args) =>
+                            {
+                                timerlocal.Stop();
+
+                                Menu nuevo = new Menu(this);
+                                nuevo.Show();
+                                login.Close();
+                            };
+                            timerlocal.Start();
+
                         }
                         else if (TipoUsuario == "Desconocido")
                         {
-                            Resultado = "Ingrese crendeciales validas";
+                            intentos--;
+                            Resultado = $"Ingrese crendeciales validas\n(quedan {intentos} intentos)";
+                            if (intentos == 0)
+                            {
+                                login.Close();
+                            }
                         }
                     }
 

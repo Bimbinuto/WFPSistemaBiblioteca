@@ -6,7 +6,6 @@
     xmlns:local="clr-namespace:Biblioteca.Ventanas"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:log="clr-namespace:Biblioteca.ModeloDeVista"
-    d:DataContext="{d:DesignInstance Type=log:LibroVM}"
     Title="Login"
     Width="700"
     Height="450"
@@ -179,6 +178,7 @@
                             Content="{Binding Resultado, UpdateSourceTrigger=PropertyChanged}"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Left"
+                            Height="50"
                             Margin="45,5,0,0"
                             Foreground="red"
                             Grid.RowSpan="4"
@@ -187,20 +187,21 @@
 
 
                     <Button
-                        d:DataContext="{d:DesignInstance Type=log:LoginVM}"
                         Content="Acceder"
                         Style="{StaticResource ButtonLogin}"
                         Click="btnLogin"
                         x:Name="btnAcceder"
-                        Margin="0,20,0,20"
+                        Margin="0,25,0,20"
                         Command="{Binding AccederCommand}" />
 
-                    <Label
+                    <!--<Label
                         x:Name="lbTest"
+                        Content="Aqui"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center"
                         Margin="-10"
-                        Style="{StaticResource StyleLetras}" />
+                        Visibility="Hidden"
+                        Style="{StaticResource StyleLetras}" />-->
 
 
                 </StackPanel>
