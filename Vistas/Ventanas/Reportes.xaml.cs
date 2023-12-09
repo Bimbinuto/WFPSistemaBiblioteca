@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+using Biblioteca.ModeloDeVista;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,11 +20,19 @@ namespace Biblioteca.Vistas.Ventanas
     /// <summary>
     /// Lógica de interacción para Reporte.xaml
     /// </summary>
-    public partial class Reporte : UserControl
+    public partial class Reportes : UserControl
     {
-        public Reporte()
+        public ReportesVM rvm = new ReportesVM();
+
+        public Reportes()
         {
             InitializeComponent();
+            DataContext = rvm;
+        }
+
+        private void btnGenerarReporte(object sender, RoutedEventArgs e)
+        {
+            rvm.GenerarReporte();
         }
     }
 }

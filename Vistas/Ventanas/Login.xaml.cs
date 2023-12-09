@@ -24,9 +24,7 @@ namespace Biblioteca.Ventanas
 
     public partial class Login : Window
     {
-        private int intentos = 0;
-        //private string _tipoUsuario;
-        LoginVM logVM; // = new LoginVM();
+        LoginVM logVM;
 
         public Login()
         {
@@ -86,26 +84,6 @@ namespace Biblioteca.Ventanas
             {
                 lbResultado.Foreground = new SolidColorBrush(Colors.Green);
                 btnAcceder.IsEnabled = false;
-                //Comenzar();
-                //DispatcherTimer timer = new DispatcherTimer();
-                //timer.Interval = TimeSpan.FromSeconds(2);
-                //timer.Tick += (s, args) =>
-                //{
-                //    timer.Stop();
-                //    Menu nuevo = new Menu();
-                //    nuevo.Show();
-                //    this.Close();
-                //};
-                //timer.Start();
-            }
-            else
-            {
-                //intentos++;
-                //if (intentos >= 3)
-                //{
-                //    this.Close();
-                //}
-
             }
         }
     }

@@ -169,6 +169,7 @@
     <Compile Include="ModeloDeVista\LoginVM.cs" />
     <Compile Include="ModeloDeVista\PrestamosVM.cs" />
     <Compile Include="ModeloDeVista\RelayCommand.cs" />
+    <Compile Include="ModeloDeVista\ReportesVM.cs" />
     <Compile Include="Modelos\AutorM.cs" />
     <Compile Include="Modelos\BibliotecarioM.cs" />
     <Compile Include="Modelos\CarreraM.cs" />
@@ -274,8 +275,8 @@
     <Compile Include="Vistas\Ventanas\Prestamos.xaml.cs">
       <DependentUpon>Prestamos.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Vistas\Ventanas\Reporte.xaml.cs">
-      <DependentUpon>Reporte.xaml</DependentUpon>
+    <Compile Include="Vistas\Ventanas\Reportes.xaml.cs">
+      <DependentUpon>Reportes.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\Ventanas\UserControlTest.xaml.cs">
       <DependentUpon>UserControlTest.xaml</DependentUpon>
@@ -424,7 +425,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Vistas\Ventanas\Reporte.xaml">
+    <Page Include="Vistas\Ventanas\Reportes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

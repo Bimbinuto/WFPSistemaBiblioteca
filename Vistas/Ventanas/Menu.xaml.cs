@@ -156,7 +156,7 @@ namespace Biblioteca.Ventanas
 
         private void btnReporte(object sender, RoutedEventArgs e)
         {
-            ccPrincipal.Content = new Reporte();
+            ccPrincipal.Content = new Reportes();
         }
 
         private void btnAcercaDe(object sender, RoutedEventArgs e)
