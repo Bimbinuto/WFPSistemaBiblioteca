@@ -24,7 +24,7 @@
                 Click="btnGenerarReporte"/>
 
             <Label
-                Content="{Binding ResultadoReporte}"
+                Content="{Binding ResultadoReporte, UpdateSourceTrigger=PropertyChanged}"
                 Style="{StaticResource StyleLabel}"
                 Height="30" 
                 HorizontalAlignment="Center"
