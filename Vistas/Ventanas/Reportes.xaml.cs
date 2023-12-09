@@ -33,6 +33,7 @@ namespace Biblioteca.Vistas.Ventanas
         private void btnGenerarReporte(object sender, RoutedEventArgs e)
         {
             rvm.GenerarReporte();
+            BuscadorWeb.Navigate(new Uri("C:/Users/HP/source/repos/Biblioteca/ReportesGenerados/ReporteGenerado.pdf"));
         }
     }
 }

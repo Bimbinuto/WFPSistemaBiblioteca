@@ -30,12 +30,12 @@ namespace Biblioteca.Ventanas
     public partial class Menu : Window
     {
         // esperar a usar despues
-        LoginVM log;
+        //LoginVM log;
 
         private DispatcherTimer timer;
 
         //Colocar despues el 'LoginVM log' como parametro al constructor OK
-        public Menu(LoginVM log)
+        public Menu()
         {
             BaseDeDatosVM bvm = new BaseDeDatosVM();
             InitializeComponent();
@@ -43,12 +43,15 @@ namespace Biblioteca.Ventanas
 
             //ccPrincipal.Content = new Administracion(ccPrincipal);
             startclock();
-            this.log = log;
+            //this.log = log;
             //movableGrid = bvm.EstaConectado;
 
             //se activa con el LoginVM log;
-            txtUsuarioGlobal.DataContext = log;
-            txtTipoUsuarioGlobal.DataContext = log;
+            //txtUsuarioGlobal.DataContext = log;
+            //txtTipoUsuarioGlobal.DataContext = log;
+
+            txtUsuarioGlobal.Content = UsuarioGlobal.GetInstance().NombreUsuarioG;
+            txtTipoUsuarioGlobal.Content = UsuarioGlobal.GetInstance().TipoUsuarioG;
 
             if (UsuarioGlobal.GetInstance().TipoUsuarioG == "Estudiante")
             {

@@ -543,6 +543,8 @@
     <Resource Include="Recursos\Library02.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Recursos\LOGO_INF.png" />
+    <Resource Include="Recursos\LOGO_SIS.png" />
     <Resource Include="Recursos\imgRecargar.png" />
     <Resource Include="Recursos\imgCalendar2.png" />
     <Resource Include="Recursos\imgAbajo.png" />

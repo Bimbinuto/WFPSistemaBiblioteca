@@ -167,7 +167,7 @@ namespace Biblioteca.ModeloDeVista
                             {
                                 timerlocal.Stop();
 
-                                Menu nuevo = new Menu(this);
+                                Menu nuevo = new Menu();
                                 nuevo.Show();
                                 login.Close();
                             };
