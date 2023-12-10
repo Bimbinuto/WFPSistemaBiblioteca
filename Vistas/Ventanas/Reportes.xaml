@@ -1,45 +1,73 @@
-﻿<UserControl x:Class="Biblioteca.Vistas.Ventanas.Reportes"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Biblioteca.Vistas.Ventanas"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+﻿<UserControl
+    x:Class="Biblioteca.Vistas.Ventanas.Reportes"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:cefSharp="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+    xmlns:local="clr-namespace:Biblioteca.Vistas.Ventanas"
+    mc:Ignorable="d"
+    d:DesignHeight="450"
+    d:DesignWidth="800">
     <Grid>
         <Label
             Grid.Row="0"
             Content="Reportes"
             Style="{StaticResource StyleLabelTitle}" />
 
-        <StackPanel
+        <cefSharp:ChromiumWebBrowser
             Grid.Row="1"
+            x:Name="Navegador"
+            Margin="100 20 100 20"
+            />
+
+        <StackPanel
+            Orientation="Horizontal"
+            Grid.Row="2"
+            Margin="100,0,0,20">
+            <Path
+                Grid.Row="4"
+                x:Name="Icon1"
+                Width="17"
+                Height="17"
+                Margin="0"
+                Data="{StaticResource IconInfo}"
+                Fill="{StaticResource iFill-default-color}"
+                Stretch="Uniform"
+                StrokeThickness="10"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                RenderTransformOrigin="0.5 0.5" />
+            <Label
+                Content="Vista previa de la plantilla a generar"
+                Style="{StaticResource StyleLabel}"
+                Margin="5,0,0,0" />
+        </StackPanel>
+
+        <StackPanel
+            Grid.Row="3"
             Orientation="Vertical"
             VerticalAlignment="Center">
-
             <Button
                 Style="{StaticResource ButtonLogin}"
                 Content="Generar reporte"
-                Width="150" 
-                Click="btnGenerarReporte"/>
-
+                Width="150"
+                Click="btnGenerarReporte" />
             <Label
                 Content="{Binding ResultadoReporte, UpdateSourceTrigger=PropertyChanged}"
                 Style="{StaticResource StyleLabel}"
-                Height="30" 
+                Height="30"
                 HorizontalAlignment="Center"
-                Margin="20"/>
-
+                Margin="20" 
+                x:Name="lbGeneracionCorrecta"
+                Foreground="LightGreen"/>
         </StackPanel>
-
-        <WebBrowser Grid.Row="2"
-                    x:Name="BuscadorWeb"
-                    Margin="20"/>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
     </Grid>
 </UserControl>

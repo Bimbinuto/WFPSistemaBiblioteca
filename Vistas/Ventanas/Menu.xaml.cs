@@ -164,7 +164,7 @@ namespace Biblioteca.Ventanas
 
         private void btnAcercaDe(object sender, RoutedEventArgs e)
         {
-            //contentControlPrincipal.Content = new AcercaSoftware();
+            ccPrincipal.Content = new AcercaSoftware();
         }
 
         private void btnMenuClose(object sender, RoutedEventArgs e)

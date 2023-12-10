@@ -105,10 +105,10 @@
 
             <Path
                 x:Name="Icon"
-                Width="90"
-                Height="90"
+                Width="100"
+                Height="100"
                 Margin="0,0,0,200"
-                Data="{StaticResource Icono}"
+                Data="{StaticResource IconLibros}"
                 Fill="#ffff"
                 Stretch="Uniform"
                 VerticalAlignment="Center" />
@@ -119,27 +119,28 @@
                 HorizontalAlignment="Center">
 
                 <Label
-                    Content="This Library Software is"
+                    Content="SISTEMA DE SERVICIO DE BIBLIOTECA"
                     FontSize="40"
-                    Foreground="White" />
+                    Foreground="White"/>
 
                 <StackPanel
                     Orientation="Horizontal"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center">
                     <Label
-                        Content="Development by Team"
+                        Content="Desarrollado por el Equipo"
                         Foreground="White"
                         FontSize="17"
                         FontWeight="Light" />
                     <Label
-                        Content="Mentes Brillantes*"
+                        Content="Mentes Brillantes"
                         FontWeight="Bold"
                         Foreground="White"
                         FontFamily="Calibri"
                         FontSize="20" />
 
                     <Label
+                        Margin="-7 0 0 0"
                         Content="©"
                         FontWeight="Light"
                         Foreground="White"
@@ -148,7 +149,7 @@
                 </StackPanel>
 
                 <Label
-                    Content="Coming soon for more..."
+                    Content="MATERIA SIS3651A - DISEÑO DE SISTEMAS"
                     Foreground="White"
                     FontSize="12"
                     FontWeight="Light"

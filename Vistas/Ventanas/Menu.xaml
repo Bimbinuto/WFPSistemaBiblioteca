@@ -183,11 +183,11 @@
                                 Content="Reservaciones"
                                 Tag="{StaticResource IconReservacion}" />
 
-                            <RadioButton
+                            <!--<RadioButton
                                 x:Name="rbMenuLibros"
                                 Style="{StaticResource DesignButton}"
                                 Content="Libros"
-                                Tag="{StaticResource IconLibros}" />
+                                Tag="{StaticResource IconLibros}" />-->
 
                             <RadioButton
                                 x:Name="rbMenuCatalogos"

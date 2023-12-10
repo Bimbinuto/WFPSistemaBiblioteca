@@ -45,10 +45,12 @@ namespace Biblioteca.ModeloDeVista
             }
         }
 
-        public async void GenerarReporte()
+        public async Task<bool> GenerarReporte()
         {
             SaveFileDialog guardar = new SaveFileDialog();
             guardar.FileName = "C:\\Users\\HP\\Downloads\\TestReportes\\" + DateTime.Now.ToString("ddMMyyyyHHmmss") + ".pdf";
+
+            Direccion = guardar.FileName;
 
             string paginahtml_texto = Properties.Resources.plantilla.ToString();
 
@@ -218,8 +220,8 @@ namespace Biblioteca.ModeloDeVista
                     ResultadoReporte = "Se ha generado el reporte";
                 }
             }
+            return true;
         }
-
 
         protected virtual void OnPropertyChanged(string propertyName)
         {
