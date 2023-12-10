@@ -1,12 +1,4 @@
 ﻿using Biblioteca.BDConexion;
-using iText.IO.Font.Constants;
-using iText.IO.Image;
-using iText.Kernel.Font;
-using iText.Kernel.Pdf;
-using iText.Layout;
-using iText.Layout.Element;
-using iText.Layout.Properties;
-using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +8,13 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.tool.xml;
+using System.IO;
+using Microsoft.Win32;
+using MySql.Data.MySqlClient;
 
 namespace Biblioteca.ModeloDeVista
 {
@@ -48,7 +47,194 @@ namespace Biblioteca.ModeloDeVista
 
         public async void GenerarReporte()
         {
-            try
+            SaveFileDialog guardar = new SaveFileDialog();
+            guardar.FileName = "C:\\Users\\HP\\Downloads\\TestReportes\\" + DateTime.Now.ToString("ddMMyyyyHHmmss") + ".pdf";
+
+            string paginahtml_texto = Properties.Resources.plantilla.ToString();
+
+            paginahtml_texto = paginahtml_texto.Replace("@FECHA", DateTime.Now.ToString("dd-MM-yyyy"));
+            paginahtml_texto = paginahtml_texto.Replace("@HORA", DateTime.Now.ToString("HH:mm:ss"));
+            paginahtml_texto = paginahtml_texto.Replace("@CODIGO", "SISINF" + DateTime.Now.ToString("ddMMyyyyHHmmss"));
+
+            //string consulta = "SELECT * FROM prestamo";
+            //string total = "SELECT COUNT(*) FROM prestamo"
+
+            string mesActual = DateTime.Now.ToString("yyyy-MM");
+            string consulta = $"SELECT * FROM prestamo WHERE DATE_FORMAT(fecha_prestamo, '%Y-%m') = '{mesActual}'";
+
+            paginahtml_texto = paginahtml_texto.Replace("@MES", mesActual);
+
+            //PRESTAMOS DEL MES
+            using (MySqlConnection cnx = new MySqlConnection(_conexion.cadenaConexion))
+            {
+                MySqlCommand cmd = new MySqlCommand(consulta, cnx);
+                await cnx.OpenAsync();
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                StringBuilder filas = new StringBuilder();
+
+                while (reader.Read())
+                {
+                    string fechaDevolucion = reader["fecha_devolucion"] == DBNull.Value ? "sala" : Convert.ToDateTime(reader["fecha_devolucion"]).Date.ToString("dd/MM/yyyy");
+                    string fechaMaxDevolucion = reader["fecha_max_devolucion"] == DBNull.Value ? "-" : Convert.ToDateTime(reader["fecha_max_devolucion"]).Date.ToString("dd/MM/yyyy");
+
+                    filas.Append("<tr>");
+                    filas.Append("<td>" + reader["id_prestamo"] + "</td>");
+                    filas.Append("<td>" + reader["fecha_prestamo"] + "</td>");
+                    filas.Append("<td>" + fechaDevolucion + "</td>");
+                    filas.Append("<td>" + fechaMaxDevolucion + "</td>");
+                    filas.Append("<td>" + reader["tipo_prestamo"] + "</td>");
+                    filas.Append("<td>" + reader["id_transaccion"] + "</td>");
+                    filas.Append("</tr>");
+                }
+
+                reader.Close();
+
+                paginahtml_texto = paginahtml_texto.Replace("@FILAS", filas.ToString());
+
+                await cnx.CloseAsync();
+            }
+
+            //CANTIDAD DE LIBROS PRESTADOS DEL MES (COMPLEMENTARIO AL ANTERIOR)
+            string totales = $"SELECT COUNT(*) as total FROM prestamo WHERE DATE_FORMAT(fecha_prestamo, '%Y-%m') = '{mesActual}'";
+            using (MySqlConnection cnx = new MySqlConnection(_conexion.cadenaConexion))
+            {
+                MySqlCommand cmd = new MySqlCommand(totales, cnx);
+                await cnx.OpenAsync();
+
+                MySqlDataReader totalMes = cmd.ExecuteReader();
+
+                totalMes.Read();
+
+                string totalMesActual = totalMes["total"].ToString();
+
+
+                paginahtml_texto = paginahtml_texto.Replace("@TOTAL", totalMesActual.ToString());
+
+                totalMes.Close();
+
+                await cnx.CloseAsync();
+            }
+
+            //LISTA DE LOS LIBROS MAS PRESTADOS:
+            string librosMasPrestados = "SELECT L.titulo as titulo, COUNT(*) AS veces_prestado\r\nFROM prestamo P\r\nJOIN transaccion T ON P.id_transaccion = T.id_transaccion\r\nJOIN ejemplar E ON T.id_ejemplar = E.id_ejemplar\r\nJOIN libro L ON E.id_libro = L.id_libro\r\nGROUP BY L.titulo\r\nORDER BY veces_prestado DESC;\r\n";
+            using (MySqlConnection cnx = new MySqlConnection(_conexion.cadenaConexion))
+            {
+                MySqlCommand cmd = new MySqlCommand(librosMasPrestados, cnx);
+                await cnx.OpenAsync();
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                StringBuilder filas = new StringBuilder();
+
+                while (reader.Read())
+                {
+                    filas.Append("<tr>");
+                    filas.Append("<td>" + reader["titulo"] + "</td>");
+                    filas.Append("<td>" + reader["veces_prestado"] + "</td>");
+                    filas.Append("</tr>");
+                }
+
+                reader.Close();
+
+                paginahtml_texto = paginahtml_texto.Replace("@LIBROS", filas.ToString());
+
+                await cnx.CloseAsync();
+            }
+
+            //LISTA DE LAS MULTA:
+            string consultaMultas = "SELECT CONCAT(U.nombres, ' ', U.ap_paterno, ' ', U.ap_materno) AS nombre_completo, M.fecha_multa ,M.monto\r\nFROM multa M\r\nJOIN lector L ON M.id_lector = L.id_lector\r\nJOIN usuario U ON L.id_usuario = U.id_usuario\r\nWHERE M.fecha_cancelada IS NOT NULL;";
+
+            using (MySqlConnection cnx = new MySqlConnection(_conexion.cadenaConexion))
+            {
+                MySqlCommand cmd = new MySqlCommand(consultaMultas, cnx);
+                await cnx.OpenAsync();
+
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                StringBuilder filas = new StringBuilder();
+
+                while (reader.Read())
+                {
+                    filas.Append("<tr>");
+                    filas.Append("<td>" + reader["nombre_completo"] + "</td>");
+                    filas.Append("<td>" + Convert.ToDateTime(reader["fecha_multa"]).Date.ToString("dd/MM/yyyy") + "</td>");
+                    filas.Append("<td>" + reader["monto"] + "</td>");
+                    filas.Append("</tr>");
+                }
+
+                reader.Close();
+
+                paginahtml_texto = paginahtml_texto.Replace("@MULTAS", filas.ToString());
+                paginahtml_texto = paginahtml_texto.Replace("@MES", DateTime.Now.ToString("MMMM yyyy"));
+
+                await cnx.CloseAsync();
+            }
+
+
+
+            //LEER GUARDAR Y CREAR REPORTE PDF
+            if (guardar.ShowDialog() == true)
+            {
+                using (FileStream stream = new FileStream(guardar.FileName, FileMode.Create))
+                {
+                    Document pdfDoc = new Document(PageSize.LETTER, 25, 25, 25, 25);
+
+                    PdfWriter writer = PdfWriter.GetInstance(pdfDoc, stream);
+
+                    pdfDoc.Open();
+
+                    pdfDoc.Add(new Phrase(""));
+
+                    //CREACION DEL LOGO SUPERIOR
+                    iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(Properties.Resources.LOGO_SIS, System.Drawing.Imaging.ImageFormat.Png);
+                    img.ScaleToFit(60, 60);
+                    img.Alignment = iTextSharp.text.Image.UNDERLYING;
+                    img.SetAbsolutePosition(pdfDoc.Right - 100, pdfDoc.Top - 75);
+                    pdfDoc.Add(img);
+
+                    iTextSharp.text.Image img2 = iTextSharp.text.Image.GetInstance(Properties.Resources.LOGO_INF, System.Drawing.Imaging.ImageFormat.Png);
+                    img2.ScaleToFit(44, 44);
+                    img2.Alignment = iTextSharp.text.Image.UNDERLYING;
+                    img2.SetAbsolutePosition(pdfDoc.Right - 40, pdfDoc.Top - 74);
+                    pdfDoc.Add(img2);
+
+                    iTextSharp.text.Image img3 = iTextSharp.text.Image.GetInstance(Properties.Resources.FNI, System.Drawing.Imaging.ImageFormat.Png);
+                    img3.ScaleToFit(60, 60);
+                    img3.Alignment = iTextSharp.text.Image.UNDERLYING;
+                    img3.SetAbsolutePosition(pdfDoc.LeftMargin + 40, pdfDoc.Top - 80);
+                    pdfDoc.Add(img3);
+
+                    using (StringReader sr = new StringReader(paginahtml_texto))
+                    {
+                        XMLWorkerHelper.GetInstance().ParseXHtml(writer, pdfDoc, sr);
+                    }
+
+                    pdfDoc.Close();
+
+                    stream.Close();
+
+                    ResultadoReporte = "Se ha generado el reporte";
+                }
+            }
+        }
+
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
+}
+
+
+
+
+// NO USAR, EN CONFUSO
+/*
+ 
+ try
             {
                 PdfWriter pdfWriter = new PdfWriter("C:/Users/HP/source/repos/Biblioteca/ReportesGenerados/ReporteNuevo.pdf");
                 PdfDocument pdf = new PdfDocument(pdfWriter);
@@ -139,12 +325,6 @@ namespace Biblioteca.ModeloDeVista
 
             //return Direccion;
 
-        }
-
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-    }
-}
+ 
+ 
+ */

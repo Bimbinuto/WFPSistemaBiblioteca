@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.5;
+        }
+
+        .header-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+            .header-table td {
+                width: 20%;
+                vertical-align: middle;
+                text-align: center;
+                padding: 10px;
+            }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+            .data-table th,
+            .data-table td {
+                border: 1px solid #000;
+                padding: 10px;
+                text-align: center;
+            }
+
+        .data-table1 th,
+        .data-table1 td {
+            text-align: left;
+        }
+
+        .data-table th {
+            background-color: #D8D8D8;
+        }
+
+        .data-table td.no-border {
+            border: none;
+        }
+
+        .align-right {
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+    <br />
+    <table class="header-table">
+        <tr>
+            <td>
+                <div><b>FACULTAD NACIONAL DE INGENIERIA</b></div>
+                <div><b>CARRERA DE ING. DE SISTEMAS E ING. INFORMATICA</b></div>
+            </td>
+        </tr>
+    </table>
+
+    <br />
+
+
+    <table style="width: 100%;">
+        <tr>
+            <td style="width: 20%;"></td>
+            <td style="width: 50%;"></td>
+            <td style="width: 30%;" align="center">
+                <table>
+                    <tr><td align="left">Fecha: @FECHA</td></tr>
+                    <tr><td align="left">Hora: @HORA</td></tr>
+                    <tr><td align="left">@CODIGO</td></tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <table class="header-table">
+        <tr>
+            <td>
+                <div><b>REPORTES</b></div>
+            </td>
+        </tr>
+    </table>
+
+    <p>Lista de prestamos realizados del mes de @MES:</p>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>ID prestamo</th>
+                <th>fecha prestamo</th>
+                <th>fecha devolucion</th>
+                <th>fecha limite devolucion</th>
+                <th>tipo prestamo</th>
+                <th>id transaccion</th>
+            </tr>
+        </thead>
+        <tbody>
+            @FILAS
+            <tr>
+                <td style="border: 0px !important"></td>
+                <td style="border: 0px !important"></td>
+                <td style="border: 0px !important"></td>
+                <td style="border: 0px !important"></td>
+                <td><b>Total de prestamos:</b></td>
+                <td>@TOTAL</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>Lista de los libros mas prestados del mes de @MES: </p>
+    <table class="data-table" style="width: 100%;">
+        <thead>
+            <tr>
+                <th style="width: 70%;">titulo del libro</th>
+                <th style="width: 30%;">Nro. de veces prestado</th>
+            </tr>
+        </thead>
+        <tbody>
+            @LIBROS
+        </tbody>
+    </table>
+
+    <p>Listado de las multas:</p>
+    <table class="data-table" style="width: 100%;">
+        <thead>
+            <tr>
+                <th style="width: 70%;">Nombre Completo</th>
+                <th style="width: 30%;">fecha de multa</th>
+                <th style="width: 30%;">Monto</th>
+            </tr>
+        </thead>
+        <tbody>
+            @MULTAS
+        </tbody>
+    </table>
+    <p>Fecha: @FECHA</p>
+    <br />
+    <br />
+    <br />
+    <br />
+    <table class="header-table">
+        <tr>
+            <td>
+                <div><b>Firma</b></div>
+                <div><b>BIBLIOTECA</b></div>
+                <div><b>Carrera de Ing. de Sistemas e Ing. Informatica</b></div>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>
