@@ -90,12 +90,14 @@
                     <Button
                         Style="{StaticResource StyleButtonBarUp}"
                         Tag="{StaticResource IconMin}"
-                        ToolTip="Minimizar" Click="Button_Click_1" />
+                        ToolTip="Minimizar"
+                        Click="Button_Click_1" />
                     <!--  boton de maximizar  -->
                     <Button
                         Style="{StaticResource StyleButtonBarUp}"
                         Tag="{StaticResource IconMax}"
-                        ToolTip="Maximizar" Click="Button_Click" />
+                        ToolTip="Maximizar"
+                        Click="Button_Click" />
                     <!--  boton de minimizar  -->
                     <Button
                         Style="{StaticResource StyleButtonBarUp}"
@@ -124,7 +126,7 @@
                         </Ellipse>
 
                         <!--  Nombre  -->
-                        <!--  colocar depues el ' Content="{Binding SoloNombreUsuario}"'  OK-->
+                        <!--  colocar depues el ' Content="{Binding SoloNombreUsuario}"'  OK  -->
                         <Label
                             x:Name="txtUsuarioGlobal"
                             Grid.Column="1"
@@ -135,7 +137,7 @@
                             Margin="0,0,0,18" />
 
                         <!--  Cuenta  -->
-                        <!--  colocar despues el 'Content="{Binding TipoUsuario}"' OK -->
+                        <!--  colocar despues el 'Content="{Binding TipoUsuario}"' OK  -->
                         <Label
                             x:Name="txtTipoUsuarioGlobal"
                             Grid.Column="1"
@@ -206,7 +208,8 @@
                                 x:Name="rbMenuEstadisticas"
                                 Style="{StaticResource DesignButton}"
                                 Content="Estadisticas"
-                                Tag="{StaticResource IconEstadistica}" />
+                                Tag="{StaticResource IconEstadistica}"
+                                Click="btnEstadisticas"/>
 
                             <RadioButton
                                 x:Name="rbMenuAcercaDe"

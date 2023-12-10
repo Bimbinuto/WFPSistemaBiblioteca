@@ -18,8 +18,7 @@
         <cefSharp:ChromiumWebBrowser
             Grid.Row="1"
             x:Name="Navegador"
-            Margin="100 20 100 20"
-            />
+            Margin="100,20,100,20" />
 
         <StackPanel
             Orientation="Horizontal"
@@ -58,9 +57,9 @@
                 Style="{StaticResource StyleLabel}"
                 Height="30"
                 HorizontalAlignment="Center"
-                Margin="20" 
+                Margin="20"
                 x:Name="lbGeneracionCorrecta"
-                Foreground="LightGreen"/>
+                Foreground="LightGreen" />
         </StackPanel>
 
         <Grid.RowDefinitions>

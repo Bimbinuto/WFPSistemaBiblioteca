@@ -162,6 +162,11 @@ namespace Biblioteca.Ventanas
             ccPrincipal.Content = new Reportes();
         }
 
+        private void btnEstadisticas(object sender, RoutedEventArgs e)
+        {
+            ccPrincipal.Content = new Estadisticas();
+        }
+
         private void btnAcercaDe(object sender, RoutedEventArgs e)
         {
             ccPrincipal.Content = new AcercaSoftware();
@@ -200,5 +205,6 @@ namespace Biblioteca.Ventanas
         {
             this.WindowState = WindowState.Minimized;
         }
+
     }
 }

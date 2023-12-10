@@ -121,7 +121,7 @@
                 <Label
                     Content="SISTEMA DE SERVICIO DE BIBLIOTECA"
                     FontSize="40"
-                    Foreground="White"/>
+                    Foreground="White" />
 
                 <StackPanel
                     Orientation="Horizontal"
@@ -140,12 +140,22 @@
                         FontSize="20" />
 
                     <Label
-                        Margin="-7 0 0 0"
+                        Margin="-7,0,0,0"
                         Content="©"
                         FontWeight="Light"
                         Foreground="White"
                         FontFamily="Calibri Ligth"
                         FontSize="15" />
+
+                    <Path
+                        x:Name="Icon1"
+                        Width="22"
+                        Height="22"
+                        Margin="0,0,0,0"
+                        Data="{StaticResource Icono}"
+                        Fill="#ffff"
+                        Stretch="Uniform"
+                        VerticalAlignment="Center" />
                 </StackPanel>
 
                 <Label

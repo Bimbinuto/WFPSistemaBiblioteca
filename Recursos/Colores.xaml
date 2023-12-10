@@ -52,14 +52,14 @@
 
     <!--  gradiente del background del borde del Login  -->
     <LinearGradientBrush x:Key="brbg-Login-gradient" StartPoint="0.6,0.3" EndPoint="0,0.7">
-        <GradientStop Color="{Binding Source={StaticResource CremaSemiOscuro}, Path=Color}" Offset="1" />
-        <GradientStop Color="{Binding Source={StaticResource NegroSemiOscuro}, Path=Color}" Offset="0" />
+        <GradientStop Offset="1" Color="{Binding Source={StaticResource CremaSemiOscuro}, Path=Color}" />
+        <GradientStop Offset="0" Color="{Binding Source={StaticResource NegroSemiOscuro}, Path=Color}" />
     </LinearGradientBrush>
 
     <!--  gradiente del background del canvas del Login de Bienvenida  -->
     <LinearGradientBrush x:Key="bgcn-login-gradient" StartPoint="1,0.2" EndPoint="0,0.1">
-        <GradientStop Color="{Binding Source={StaticResource CremaSemiOscuroT1}, Path=Color}" Offset="0" />
-        <GradientStop Color="{Binding Source={StaticResource NegroSemiOscuroT1}, Path=Color}" Offset="1" />
+        <GradientStop Offset="0" Color="{Binding Source={StaticResource CremaSemiOscuroT1}, Path=Color}" />
+        <GradientStop Offset="1" Color="{Binding Source={StaticResource NegroSemiOscuroT1}, Path=Color}" />
     </LinearGradientBrush>
 
     <!--  gradiente de presentacion de la imagen del Login  -->

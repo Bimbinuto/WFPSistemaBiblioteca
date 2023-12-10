@@ -12,8 +12,8 @@
     <!--  tipo de letra para Label  -->
     <Style
         x:Key="StyleLabel"
-        TargetType="{x:Type Label}"
-        BasedOn="{StaticResource StyleLetras}" />
+        BasedOn="{StaticResource StyleLetras}"
+        TargetType="{x:Type Label}" />
 
     <!--  Style de letra para errores  -->
     <Style x:Key="StyleLabelAviso" TargetType="{x:Type Label}">
@@ -25,8 +25,8 @@
     <!--  tipo de letra para TextBlock  -->
     <Style
         x:Key="StyleTextBlock"
-        TargetType="{x:Type TextBlock}"
-        BasedOn="{StaticResource StyleLetras}" />
+        BasedOn="{StaticResource StyleLetras}"
+        TargetType="{x:Type TextBlock}" />
 
     <!--  tipo de letra para TextBlock para Titulos (sin usar)  -->
     <Style x:Key="StyleTextBlockTitle" TargetType="{x:Type TextBlock}">
@@ -57,8 +57,8 @@
     <!--  Boton de General  -->
     <Style
         x:Key="ButtonLogin"
-        TargetType="{x:Type Button}"
-        BasedOn="{StaticResource StyleLetras}">
+        BasedOn="{StaticResource StyleLetras}"
+        TargetType="{x:Type Button}">
         <Setter Property="Width" Value="100" />
         <Setter Property="Height" Value="35" />
         <Setter Property="HorizontalAlignment" Value="Center" />
@@ -103,8 +103,8 @@
     <!--  Texbox Username  -->
     <Style
         x:Key="TextBoxStyleUsername"
-        TargetType="{x:Type TextBox}"
-        BasedOn="{StaticResource StyleLetras}">
+        BasedOn="{StaticResource StyleLetras}"
+        TargetType="{x:Type TextBox}">
         <Setter Property="Width" Value="250" />
         <Setter Property="Height" Value="33" />
         <Setter Property="Background" Value="{StaticResource Tranparencia-Textbox}" />
@@ -127,18 +127,18 @@
                                 <GradientStop x:Name="GS2" Offset="1.0" Color="{Binding Source={StaticResource ColorCrema}, Path=Color}" />
                             </LinearGradientBrush>
                         </Border.BorderBrush>
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                             <Path
-                                Grid.Column="0"
                                 x:Name="Icon1"
+                                Grid.Column="0"
                                 Width="15"
                                 Height="15"
                                 Margin="8,0,8,0"
+                                VerticalAlignment="Center"
                                 Data="{StaticResource IconUser}"
                                 Fill="{StaticResource ColorCremaOscuro}"
-                                Stretch="Uniform"
-                                VerticalAlignment="Center"
-                                RenderTransformOrigin="0.5 0.5" />
+                                RenderTransformOrigin="0.5 0.5"
+                                Stretch="Uniform" />
 
                             <ScrollViewer
                                 x:Name="PART_ContentHost"
@@ -147,12 +147,12 @@
 
                             <Label
                                 x:Name="lbMarcaDeAgua"
+                                Margin="-7,-1,0,0"
                                 Content="{TemplateBinding Tag}"
-                                FontWeight="{TemplateBinding FontWeight}"
-                                Visibility="Collapsed"
                                 FontSize="15"
+                                FontWeight="{TemplateBinding FontWeight}"
                                 Foreground="#CC707070"
-                                Margin="-7,-1,0,0" />
+                                Visibility="Collapsed" />
                         </StackPanel>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -160,7 +160,7 @@
                             <MultiTrigger.Conditions>
                                 <Condition Property="Text" Value="" />
                             </MultiTrigger.Conditions>
-                            <Setter Property="Visibility" TargetName="lbMarcaDeAgua" Value="Visible" />
+                            <Setter TargetName="lbMarcaDeAgua" Property="Visibility" Value="Visible" />
                         </MultiTrigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="Icon1" Property="Fill" Value="{StaticResource ColorCremaClaro}" />
@@ -231,8 +231,8 @@
     <!--  PasswordBox  -->
     <Style
         x:Key="TextBoxStylePassword"
-        TargetType="{x:Type PasswordBox}"
-        BasedOn="{StaticResource StyleLetras}">
+        BasedOn="{StaticResource StyleLetras}"
+        TargetType="{x:Type PasswordBox}">
         <Setter Property="Width" Value="250" />
         <Setter Property="Height" Value="33" />
         <Setter Property="Background" Value="{StaticResource Tranparencia-Textbox}" />
@@ -260,11 +260,11 @@
                                 Width="15"
                                 Height="15"
                                 Margin="8,0,8,0"
+                                VerticalAlignment="Center"
                                 Data="{StaticResource IconPassword}"
                                 Fill="{StaticResource ColorCremaOscuro}"
-                                Stretch="Uniform"
-                                VerticalAlignment="Center"
-                                RenderTransformOrigin="0.5 0.5" />
+                                RenderTransformOrigin="0.5 0.5"
+                                Stretch="Uniform" />
                             <ScrollViewer
                                 x:Name="PART_ContentHost"
                                 HorizontalScrollBarVisibility="Hidden"
@@ -372,11 +372,11 @@
                             x:Name="IconBar"
                             Width="12"
                             Height="12"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
                             Data="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Tag}"
                             Fill="{StaticResource ColorBlanco}"
-                            Stretch="Uniform"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Center" />
+                            Stretch="Uniform" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
@@ -416,11 +416,11 @@
                             x:Name="IconBar"
                             Width="11"
                             Height="11"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
                             Data="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Tag}"
                             Fill="{StaticResource iFill-default-color}"
-                            Stretch="Uniform"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Center" />
+                            Stretch="Uniform" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
@@ -435,8 +435,8 @@
     <!--  Diseño en general para los radiobuttons  -->
     <Style
         x:Key="DesignButton"
-        TargetType="{x:Type RadioButton}"
-        BasedOn="{StaticResource StyleLetras}">
+        BasedOn="{StaticResource StyleLetras}"
+        TargetType="{x:Type RadioButton}">
         <Setter Property="BorderBrush" Value="{StaticResource brsh-color}" />
         <Setter Property="BorderThickness" Value="2" />
         <Setter Property="Height" Value="50" />
@@ -451,24 +451,24 @@
                         CornerRadius="6">
                         <StackPanel Orientation="Horizontal">
                             <Line
+                                x:Name="lineaPrueba"
+                                Stroke="{StaticResource st-line}"
+                                StrokeThickness="4"
+                                Visibility="Hidden"
                                 X1="5"
                                 X2="5"
                                 Y1="39"
-                                Y2="10"
-                                StrokeThickness="4"
-                                Stroke="{StaticResource st-line}"
-                                x:Name="lineaPrueba"
-                                Visibility="Hidden" />
+                                Y2="10" />
                             <Path
                                 x:Name="Icon"
                                 Width="21"
                                 Height="21"
                                 Margin="12,0,20,0"
+                                VerticalAlignment="Center"
                                 Data="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Tag}"
                                 Fill="{StaticResource iFill-color}"
-                                Stretch="Uniform"
-                                VerticalAlignment="Center"
-                                RenderTransformOrigin="0.5 0.5">
+                                RenderTransformOrigin="0.5 0.5"
+                                Stretch="Uniform">
                                 <Path.RenderTransform>
                                     <ScaleTransform ScaleX="1" ScaleY="1" />
                                 </Path.RenderTransform>
@@ -520,8 +520,8 @@
                             <Setter TargetName="Icon" Property="Fill">
                                 <Setter.Value>
                                     <LinearGradientBrush StartPoint="0.2,0.2" EndPoint="0.9,1">
-                                        <GradientStop Color="#BB3D23" Offset="0.09" />
-                                        <GradientStop Color="#FFDECE" Offset="0.9" />
+                                        <GradientStop Offset="0.09" Color="#BB3D23" />
+                                        <GradientStop Offset="0.9" Color="#FFDECE" />
                                     </LinearGradientBrush>
                                 </Setter.Value>
                             </Setter>
@@ -559,19 +559,19 @@
                 <ControlTemplate>
                     <Grid x:Name="Grid">
                         <Rectangle
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
                             Width="Auto"
                             Height="Auto"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
                             Fill="Transparent" />
                         <Border
                             x:Name="Rectangle1"
-                            CornerRadius="4"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
                             Width="Auto"
                             Height="Auto"
-                            Background="{TemplateBinding Background}" />
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="4" />
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="Tag" Value="Horizontal">
@@ -600,8 +600,8 @@
                         <Track
                             x:Name="PART_Track"
                             Grid.Row="0"
-                            IsDirectionReversed="true"
-                            Focusable="False">
+                            Focusable="False"
+                            IsDirectionReversed="true">
                             <Track.Thumb>
                                 <Thumb
                                     x:Name="Thumb"
@@ -612,25 +612,25 @@
                                 <RepeatButton
                                     x:Name="PageUp"
                                     Command="ScrollBar.PageDownCommand"
-                                    Opacity="0"
-                                    Focusable="False" />
+                                    Focusable="False"
+                                    Opacity="0" />
                             </Track.IncreaseRepeatButton>
                             <Track.DecreaseRepeatButton>
                                 <RepeatButton
                                     x:Name="PageDown"
                                     Command="ScrollBar.PageUpCommand"
-                                    Opacity="0"
-                                    Focusable="False" />
+                                    Focusable="False"
+                                    Opacity="0" />
                             </Track.DecreaseRepeatButton>
                         </Track>
                     </Grid>
 
                     <ControlTemplate.Triggers>
                         <Trigger SourceName="Thumb" Property="IsMouseOver" Value="true">
-                            <Setter Value="{DynamicResource ButtonSelectBrush}" TargetName="Thumb" Property="Background" />
+                            <Setter TargetName="Thumb" Property="Background" Value="{DynamicResource ButtonSelectBrush}" />
                         </Trigger>
                         <Trigger SourceName="Thumb" Property="IsDragging" Value="true">
-                            <Setter Value="{DynamicResource DarkBrush}" TargetName="Thumb" Property="Background" />
+                            <Setter TargetName="Thumb" Property="Background" Value="{DynamicResource DarkBrush}" />
                         </Trigger>
 
                         <Trigger Property="IsEnabled" Value="false">
@@ -738,10 +738,10 @@
                         <!--  color del texto de la ventana de meses y años  -->
                         <ContentPresenter
                             x:Name="NormalText"
-                            TextElement.Foreground="#ffffff"
-                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                             Margin="16,33,15,33"
-                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            TextElement.Foreground="#ffffff" />
                         <!--  color del borde de la seleccion  -->
                         <Rectangle
                             x:Name="CalendarButtonFocusVisual"
@@ -759,19 +759,19 @@
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard>
                                         <DoubleAnimation
-                                            Duration="0"
                                             Storyboard.TargetName="Background"
+                                            Storyboard.TargetProperty="Opacity"
                                             To=".5"
-                                            Storyboard.TargetProperty="Opacity" />
+                                            Duration="0" />
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Pressed">
                                     <Storyboard>
                                         <DoubleAnimation
-                                            Duration="0"
                                             Storyboard.TargetName="Background"
+                                            Storyboard.TargetProperty="Opacity"
                                             To=".5"
-                                            Storyboard.TargetProperty="Opacity" />
+                                            Duration="0" />
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
@@ -783,10 +783,10 @@
                                 <VisualState x:Name="Selected">
                                     <Storyboard>
                                         <DoubleAnimation
-                                            Duration="0"
                                             Storyboard.TargetName="SelectedBackground"
+                                            Storyboard.TargetProperty="Opacity"
                                             To=".75"
-                                            Storyboard.TargetProperty="Opacity" />
+                                            Duration="0" />
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
@@ -798,10 +798,10 @@
                                 <VisualState x:Name="Inactive">
                                     <Storyboard>
                                         <ColorAnimation
-                                            Duration="0"
                                             Storyboard.TargetName="NormalText"
+                                            Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
                                             To="#FF777777"
-                                            Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" />
+                                            Duration="0" />
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
@@ -812,9 +812,9 @@
                                 <VisualState x:Name="CalendarButtonFocused">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames
-                                            Duration="0"
                                             Storyboard.TargetName="CalendarButtonFocusVisual"
-                                            Storyboard.TargetProperty="Visibility">
+                                            Storyboard.TargetProperty="Visibility"
+                                            Duration="0">
                                             <DiscreteObjectKeyFrame KeyTime="0">
                                                 <DiscreteObjectKeyFrame.Value>
                                                     <Visibility>Visible</Visibility>
@@ -826,9 +826,9 @@
                                 <VisualState x:Name="CalendarButtonUnfocused">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames
-                                            Duration="0"
                                             Storyboard.TargetName="CalendarButtonFocusVisual"
-                                            Storyboard.TargetProperty="Visibility">
+                                            Storyboard.TargetProperty="Visibility"
+                                            Duration="0">
                                             <DiscreteObjectKeyFrame KeyTime="0">
                                                 <DiscreteObjectKeyFrame.Value>
                                                     <Visibility>Collapsed</Visibility>
@@ -842,7 +842,7 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsFocused" Value="True">
-                            <Setter Property="Visibility" TargetName="CalendarButtonFocusVisual" Value="Visible" />
+                            <Setter TargetName="CalendarButtonFocusVisual" Property="Visibility" Value="Visible" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -892,20 +892,20 @@
                         <!--  letra de los dias del calendario y separacion de dias  -->
                         <ContentPresenter
                             x:Name="NormalText"
-                            TextElement.Foreground="#ffffff"
-                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                             Margin="10"
-                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            TextElement.Foreground="#ffffff" />
                         <Path
                             x:Name="Blackout"
+                            Margin="3"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
                             Data="M8.1772461,11.029181 L10.433105,11.029181 L11.700684,12.801641 L12.973633,11.029181 L15.191895,11.029181 L12.844727,13.999395 L15.21875,17.060919 L12.962891,17.060919 L11.673828,15.256231 L10.352539,17.060919 L8.1396484,17.060919 L10.519043,14.042364 z"
                             Fill="#FF000000"
-                            HorizontalAlignment="Stretch"
-                            Margin="3"
                             Opacity="0"
                             RenderTransformOrigin="0.5,0.5"
-                            Stretch="Fill"
-                            VerticalAlignment="Stretch" />
+                            Stretch="Fill" />
                         <!--  borde del dia seleccionado  -->
                         <Rectangle
                             x:Name="DayButtonFocusVisual"
@@ -923,33 +923,33 @@
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard>
                                         <DoubleAnimation
-                                            Duration="0"
                                             Storyboard.TargetName="HighlightBackground"
+                                            Storyboard.TargetProperty="Opacity"
                                             To="0.5"
-                                            Storyboard.TargetProperty="Opacity" />
+                                            Duration="0" />
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Pressed">
                                     <Storyboard>
                                         <DoubleAnimation
-                                            Duration="0"
                                             Storyboard.TargetName="HighlightBackground"
+                                            Storyboard.TargetProperty="Opacity"
                                             To="0.5"
-                                            Storyboard.TargetProperty="Opacity" />
+                                            Duration="0" />
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Disabled">
                                     <Storyboard>
                                         <DoubleAnimation
-                                            Duration="0"
                                             Storyboard.TargetName="HighlightBackground"
+                                            Storyboard.TargetProperty="Opacity"
                                             To="0"
-                                            Storyboard.TargetProperty="Opacity" />
+                                            Duration="0" />
                                         <DoubleAnimation
-                                            Duration="0"
                                             Storyboard.TargetName="NormalText"
+                                            Storyboard.TargetProperty="Opacity"
                                             To=".35"
-                                            Storyboard.TargetProperty="Opacity" />
+                                            Duration="0" />
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
@@ -961,10 +961,10 @@
                                 <VisualState x:Name="Selected">
                                     <Storyboard>
                                         <DoubleAnimation
-                                            Duration="0"
                                             Storyboard.TargetName="SelectedBackground"
+                                            Storyboard.TargetProperty="Opacity"
                                             To=".75"
-                                            Storyboard.TargetProperty="Opacity" />
+                                            Duration="0" />
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
@@ -975,9 +975,9 @@
                                 <VisualState x:Name="CalendarButtonFocused">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames
-                                            Duration="0"
                                             Storyboard.TargetName="DayButtonFocusVisual"
-                                            Storyboard.TargetProperty="Visibility">
+                                            Storyboard.TargetProperty="Visibility"
+                                            Duration="0">
                                             <DiscreteObjectKeyFrame KeyTime="0">
                                                 <DiscreteObjectKeyFrame.Value>
                                                     <Visibility>Visible</Visibility>
@@ -989,9 +989,9 @@
                                 <VisualState x:Name="CalendarButtonUnfocused">
                                     <Storyboard>
                                         <ObjectAnimationUsingKeyFrames
-                                            Duration="0"
                                             Storyboard.TargetName="DayButtonFocusVisual"
-                                            Storyboard.TargetProperty="Visibility">
+                                            Storyboard.TargetProperty="Visibility"
+                                            Duration="0">
                                             <DiscreteObjectKeyFrame KeyTime="0">
                                                 <DiscreteObjectKeyFrame.Value>
                                                     <Visibility>Collapsed</Visibility>
@@ -1009,10 +1009,10 @@
                                 <VisualState x:Name="Inactive">
                                     <Storyboard>
                                         <ColorAnimation
-                                            Duration="0"
                                             Storyboard.TargetName="NormalText"
+                                            Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
                                             To="#FF777777"
-                                            Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" />
+                                            Duration="0" />
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
@@ -1024,15 +1024,15 @@
                                 <VisualState x:Name="Today">
                                     <Storyboard>
                                         <DoubleAnimation
-                                            Duration="0"
                                             Storyboard.TargetName="TodayBackground"
+                                            Storyboard.TargetProperty="Opacity"
                                             To="1"
-                                            Storyboard.TargetProperty="Opacity" />
+                                            Duration="0" />
                                         <ColorAnimation
-                                            Duration="0"
                                             Storyboard.TargetName="NormalText"
+                                            Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
                                             To="#FFFFFFFF"
-                                            Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" />
+                                            Duration="0" />
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
@@ -1044,10 +1044,10 @@
                                 <VisualState x:Name="BlackoutDay">
                                     <Storyboard>
                                         <DoubleAnimation
-                                            Duration="0"
                                             Storyboard.TargetName="Blackout"
+                                            Storyboard.TargetProperty="Opacity"
                                             To=".2"
-                                            Storyboard.TargetProperty="Opacity" />
+                                            Duration="0" />
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
@@ -1068,14 +1068,14 @@
                     <ControlTemplate.Resources>
                         <DataTemplate x:Key="{x:Static CalendarItem.DayTitleTemplateResourceKey}">
                             <TextBlock
-                                Foreground="#FFFFFF"
-                                FontFamily="Verdana"
-                                FontWeight="Bold"
-                                FontSize="9.5"
-                                HorizontalAlignment="Center"
                                 Margin="0,6,0,6"
-                                Text="{Binding}"
-                                VerticalAlignment="Center" />
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                FontFamily="Verdana"
+                                FontSize="9.5"
+                                FontWeight="Bold"
+                                Foreground="#FFFFFF"
+                                Text="{Binding}" />
                         </DataTemplate>
                     </ControlTemplate.Resources>
                     <Grid x:Name="PART_Root">
@@ -1105,14 +1105,14 @@
                                                 <Grid>
                                                     <Path
                                                         x:Name="path"
-                                                        Data="M15.7071 4.29289C16.0976 4.68342 16.0976 5.31658 15.7071 5.70711L9.41421 12L15.7071 18.2929C16.0976 18.6834 16.0976 19.3166 15.7071 19.7071C15.3166 20.0976 14.6834 20.0976 14.2929 19.7071L7.29289 12.7071C7.10536 12.5196 7 12.2652 7 12C7 11.7348 7.10536 11.4804 7.29289 11.2929L14.2929 4.29289C14.6834 3.90237 15.3166 3.90237 15.7071 4.29289Z"
-                                                        Fill="#FFFFFFFF"
-                                                        HorizontalAlignment="Center"
+                                                        Width="6"
                                                         Height="10"
                                                         Margin="5"
-                                                        Stretch="Fill"
+                                                        HorizontalAlignment="Center"
                                                         VerticalAlignment="Center"
-                                                        Width="6" />
+                                                        Data="M15.7071 4.29289C16.0976 4.68342 16.0976 5.31658 15.7071 5.70711L9.41421 12L15.7071 18.2929C16.0976 18.6834 16.0976 19.3166 15.7071 19.7071C15.3166 20.0976 14.6834 20.0976 14.2929 19.7071L7.29289 12.7071C7.10536 12.5196 7 12.2652 7 12C7 11.7348 7.10536 11.4804 7.29289 11.2929L14.2929 4.29289C14.6834 3.90237 15.3166 3.90237 15.7071 4.29289Z"
+                                                        Fill="#FFFFFFFF"
+                                                        Stretch="Fill" />
                                                 </Grid>
                                                 <VisualStateManager.VisualStateGroups>
                                                     <VisualStateGroup x:Name="CommonStates">
@@ -1120,19 +1120,19 @@
                                                         <VisualState x:Name="MouseOver">
                                                             <Storyboard>
                                                                 <ColorAnimation
-                                                                    Duration="0"
                                                                     Storyboard.TargetName="path"
+                                                                    Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)"
                                                                     To="#40FFFFFF"
-                                                                    Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" />
+                                                                    Duration="0" />
                                                             </Storyboard>
                                                         </VisualState>
                                                         <VisualState x:Name="Disabled">
                                                             <Storyboard>
                                                                 <DoubleAnimation
-                                                                    Duration="0"
                                                                     Storyboard.TargetName="path"
+                                                                    Storyboard.TargetProperty="(Shape.Fill).(Brush.Opacity)"
                                                                     To=".5"
-                                                                    Storyboard.TargetProperty="(Shape.Fill).(Brush.Opacity)" />
+                                                                    Duration="0" />
                                                             </Storyboard>
                                                         </VisualState>
                                                     </VisualStateGroup>
@@ -1149,14 +1149,14 @@
                                                 <Grid>
                                                     <Path
                                                         x:Name="path"
-                                                        Data="M8.29289 4.29289C8.68342 3.90237 9.31658 3.90237 9.70711 4.29289L16.7071 11.2929C17.0976 11.6834 17.0976 12.3166 16.7071 12.7071L9.70711 19.7071C9.31658 20.0976 8.68342 20.0976 8.29289 19.7071C7.90237 19.3166 7.90237 18.6834 8.29289 18.2929L14.5858 12L8.29289 5.70711C7.90237 5.31658 7.90237 4.68342 8.29289 4.29289Z"
-                                                        Fill="#FFFFFFFF"
-                                                        HorizontalAlignment="Center"
+                                                        Width="6"
                                                         Height="10"
                                                         Margin="5"
-                                                        Stretch="Fill"
+                                                        HorizontalAlignment="Center"
                                                         VerticalAlignment="Center"
-                                                        Width="6" />
+                                                        Data="M8.29289 4.29289C8.68342 3.90237 9.31658 3.90237 9.70711 4.29289L16.7071 11.2929C17.0976 11.6834 17.0976 12.3166 16.7071 12.7071L9.70711 19.7071C9.31658 20.0976 8.68342 20.0976 8.29289 19.7071C7.90237 19.3166 7.90237 18.6834 8.29289 18.2929L14.5858 12L8.29289 5.70711C7.90237 5.31658 7.90237 4.68342 8.29289 4.29289Z"
+                                                        Fill="#FFFFFFFF"
+                                                        Stretch="Fill" />
                                                 </Grid>
                                                 <VisualStateManager.VisualStateGroups>
                                                     <VisualStateGroup x:Name="CommonStates">
@@ -1164,19 +1164,19 @@
                                                         <VisualState x:Name="MouseOver">
                                                             <Storyboard>
                                                                 <ColorAnimation
-                                                                    Duration="0"
                                                                     Storyboard.TargetName="path"
+                                                                    Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)"
                                                                     To="#40FFFFFF"
-                                                                    Storyboard.TargetProperty="(Shape.Fill).(SolidColorBrush.Color)" />
+                                                                    Duration="0" />
                                                             </Storyboard>
                                                         </VisualState>
                                                         <VisualState x:Name="Disabled">
                                                             <Storyboard>
                                                                 <DoubleAnimation
-                                                                    Duration="0"
                                                                     Storyboard.TargetName="path"
+                                                                    Storyboard.TargetProperty="(Shape.Fill).(Brush.Opacity)"
                                                                     To=".5"
-                                                                    Storyboard.TargetProperty="(Shape.Fill).(Brush.Opacity)" />
+                                                                    Duration="0" />
                                                             </Storyboard>
                                                         </VisualState>
                                                     </VisualStateGroup>
@@ -1187,37 +1187,37 @@
                                         <ControlTemplate x:Key="HeaderButtonTemplate" TargetType="{x:Type Button}">
                                             <Grid Cursor="Hand">
                                                 <Rectangle
+                                                    Margin="5"
                                                     Fill="#15E5EBF1"
                                                     Opacity="1"
-                                                    Stretch="UniformToFill"
-                                                    Margin="5" />
+                                                    Stretch="UniformToFill" />
                                                 <ContentPresenter
                                                     x:Name="buttonContent"
-                                                    ContentTemplate="{TemplateBinding ContentTemplate}"
-                                                    Content="{TemplateBinding Content}"
-                                                    TextElement.Foreground="#FFFFFFFF"
-                                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                                     Margin="0,0,0,0"
-                                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                    Content="{TemplateBinding Content}"
+                                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                    TextElement.Foreground="#FFFFFFFF" />
                                                 <VisualStateManager.VisualStateGroups>
                                                     <VisualStateGroup x:Name="CommonStates">
                                                         <VisualState x:Name="Normal" />
                                                         <VisualState x:Name="MouseOver">
                                                             <Storyboard>
                                                                 <ColorAnimation
-                                                                    Duration="0"
                                                                     Storyboard.TargetName="buttonContent"
+                                                                    Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)"
                                                                     To="#40FFFFFF"
-                                                                    Storyboard.TargetProperty="(TextElement.Foreground).(SolidColorBrush.Color)" />
+                                                                    Duration="0" />
                                                             </Storyboard>
                                                         </VisualState>
                                                         <VisualState x:Name="Disabled">
                                                             <Storyboard>
                                                                 <DoubleAnimation
-                                                                    Duration="0"
                                                                     Storyboard.TargetName="buttonContent"
+                                                                    Storyboard.TargetProperty="Opacity"
                                                                     To=".5"
-                                                                    Storyboard.TargetProperty="Opacity" />
+                                                                    Duration="0" />
                                                             </Storyboard>
                                                         </VisualState>
                                                     </VisualStateGroup>
@@ -1240,39 +1240,39 @@
 
                                     <Button
                                         x:Name="PART_HeaderButton"
-                                        Grid.Column="0"
-                                        Focusable="False"
-                                        FontWeight="Bold"
-                                        FontSize="13"
-                                        HorizontalAlignment="Center"
                                         Grid.Row="0"
-                                        Template="{StaticResource HeaderButtonTemplate}"
-                                        VerticalAlignment="Center" />
+                                        Grid.Column="0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Focusable="False"
+                                        FontSize="13"
+                                        FontWeight="Bold"
+                                        Template="{StaticResource HeaderButtonTemplate}" />
                                     <Button
                                         x:Name="PART_PreviousButton"
-                                        Grid.Column="1"
-                                        Focusable="False"
-                                        HorizontalAlignment="Center"
-                                        Height="30"
                                         Grid.Row="0"
-                                        Template="{StaticResource PreviousButtonTemplate}"
-                                        Width="30" />
+                                        Grid.Column="1"
+                                        Width="30"
+                                        Height="30"
+                                        HorizontalAlignment="Center"
+                                        Focusable="False"
+                                        Template="{StaticResource PreviousButtonTemplate}" />
                                     <Button
                                         x:Name="PART_NextButton"
-                                        Grid.Column="2"
-                                        Focusable="False"
-                                        HorizontalAlignment="Center"
-                                        Height="30"
                                         Grid.Row="0"
-                                        Template="{StaticResource NextButtonTemplate}"
-                                        Width="30" />
+                                        Grid.Column="2"
+                                        Width="30"
+                                        Height="30"
+                                        HorizontalAlignment="Center"
+                                        Focusable="False"
+                                        Template="{StaticResource NextButtonTemplate}" />
 
                                     <Grid
                                         x:Name="PART_MonthView"
-                                        Grid.ColumnSpan="3"
-                                        HorizontalAlignment="Center"
-                                        Margin="1"
                                         Grid.Row="1"
+                                        Grid.ColumnSpan="3"
+                                        Margin="1"
+                                        HorizontalAlignment="Center"
                                         Visibility="Visible">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
@@ -1295,10 +1295,10 @@
                                     </Grid>
                                     <Grid
                                         x:Name="PART_YearView"
-                                        Grid.ColumnSpan="3"
-                                        HorizontalAlignment="Center"
-                                        Margin="6,-3,7,6"
                                         Grid.Row="1"
+                                        Grid.ColumnSpan="3"
+                                        Margin="6,-3,7,6"
+                                        HorizontalAlignment="Center"
                                         Visibility="Hidden">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
@@ -1321,8 +1321,8 @@
                             Opacity="0"
                             RadiusX="2"
                             RadiusY="2"
-                            Stroke="{StaticResource DisabledColor}"
                             Stretch="Fill"
+                            Stroke="{StaticResource DisabledColor}"
                             StrokeThickness="1"
                             Visibility="Collapsed" />
                         <VisualStateManager.VisualStateGroups>
@@ -1331,10 +1331,10 @@
                                 <VisualState x:Name="Disabled">
                                     <Storyboard>
                                         <DoubleAnimation
-                                            Duration="0"
                                             Storyboard.TargetName="PART_DisabledVisual"
+                                            Storyboard.TargetProperty="Opacity"
                                             To="1"
-                                            Storyboard.TargetProperty="Opacity" />
+                                            Duration="0" />
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>
@@ -1342,15 +1342,15 @@
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Visibility" TargetName="PART_DisabledVisual" Value="Visible" />
+                            <Setter TargetName="PART_DisabledVisual" Property="Visibility" Value="Visible" />
                         </Trigger>
                         <DataTrigger Binding="{Binding DisplayMode, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Calendar}}}" Value="Year">
-                            <Setter Property="Visibility" TargetName="PART_MonthView" Value="Hidden" />
-                            <Setter Property="Visibility" TargetName="PART_YearView" Value="Visible" />
+                            <Setter TargetName="PART_MonthView" Property="Visibility" Value="Hidden" />
+                            <Setter TargetName="PART_YearView" Property="Visibility" Value="Visible" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding DisplayMode, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Calendar}}}" Value="Decade">
-                            <Setter Property="Visibility" TargetName="PART_MonthView" Value="Hidden" />
-                            <Setter Property="Visibility" TargetName="PART_YearView" Value="Visible" />
+                            <Setter TargetName="PART_MonthView" Property="Visibility" Value="Hidden" />
+                            <Setter TargetName="PART_YearView" Property="Visibility" Value="Visible" />
                         </DataTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -1363,8 +1363,8 @@
     <!--  Texbox Username  -->
     <Style
         x:Key="tbxStyleGeneral"
-        TargetType="{x:Type TextBox}"
-        BasedOn="{StaticResource StyleLetras}">
+        BasedOn="{StaticResource StyleLetras}"
+        TargetType="{x:Type TextBox}">
         <Setter Property="Width" Value="250" />
         <Setter Property="Height" Value="33" />
         <Setter Property="Margin" Value="0,7,0,3.95" />
@@ -1379,8 +1379,8 @@
                 <ControlTemplate TargetType="{x:Type TextBox}">
                     <Border
                         Background="{TemplateBinding Background}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
                         BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="2">
                         <ScrollViewer
                             x:Name="PART_ContentHost"
@@ -1408,8 +1408,8 @@
     <!--  PasswordBox Contraseñas  -->
     <Style
         x:Key="PassStyleGeneral"
-        TargetType="{x:Type PasswordBox}"
-        BasedOn="{StaticResource StyleLetras}">
+        BasedOn="{StaticResource StyleLetras}"
+        TargetType="{x:Type PasswordBox}">
         <Setter Property="Width" Value="250" />
         <Setter Property="Height" Value="33" />
         <Setter Property="Margin" Value="0,7,0,3.95" />
@@ -1424,8 +1424,8 @@
                 <ControlTemplate TargetType="{x:Type PasswordBox}">
                     <Border
                         Background="{TemplateBinding Background}"
-                        BorderThickness="{TemplateBinding BorderThickness}"
                         BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="2">
                         <ScrollViewer
                             x:Name="PART_ContentHost"
@@ -1466,7 +1466,7 @@
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
-                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
@@ -1489,9 +1489,9 @@
             <Border
                 x:Name="Border"
                 Grid.ColumnSpan="2"
-                CornerRadius="5"
                 BorderBrush="{StaticResource ColorCrema}"
                 BorderThickness="0.3,0.3,0.3,1.8"
+                CornerRadius="5"
                 SnapsToDevicePixels="True" />
             <Grid Grid.Column="1" Margin="0,0,5,0">
                 <!--<Path
@@ -1506,12 +1506,12 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center" />-->
                 <Image
-                    Source="\Recursos\imgAbajo.png"
-                    Stretch="UniformToFill"
-                    Height="25"
                     Width="25"
+                    Height="25"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Center" />
+                    VerticalAlignment="Center"
+                    Source="\Recursos\imgAbajo.png"
+                    Stretch="UniformToFill" />
             </Grid>
         </Grid>
         <ControlTemplate.Triggers>
@@ -1522,8 +1522,8 @@
                 <Setter Property="Fill" Value="{StaticResource ColorCremaOscuro}" TargetName="Arrow" />
             </Trigger>-->
             <Trigger Property="IsKeyboardFocused" Value="True">
-                <Setter Property="BorderBrush" Value="{StaticResource ColorCremaOscuro}" TargetName="Border" />
-                <Setter Property="BorderThickness" Value="0.3,0.3,0.3,0.3" TargetName="Border" />
+                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource ColorCremaOscuro}" />
+                <Setter TargetName="Border" Property="BorderThickness" Value="0.3,0.3,0.3,0.3" />
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
@@ -1531,14 +1531,14 @@
     <ControlTemplate x:Key="ComboBoxTextBox" TargetType="{x:Type TextBox}">
         <Border
             x:Name="PART_ContentHost"
-            Focusable="False"
-            Background="{TemplateBinding Background}" />
+            Background="{TemplateBinding Background}"
+            Focusable="False" />
     </ControlTemplate>
 
     <Style
         x:Key="ComboBoxStyle1"
-        TargetType="{x:Type ComboBox}"
-        BasedOn="{StaticResource StyleLetras}">
+        BasedOn="{StaticResource StyleLetras}"
+        TargetType="{x:Type ComboBox}">
         <Setter Property="Height" Value="33" />
         <Setter Property="Width" Value="250" />
         <Setter Property="Cursor" Value="Hand" />
@@ -1550,62 +1550,62 @@
                     <Grid>
                         <ToggleButton
                             x:Name="ToggleButton"
-                            Template="{StaticResource ComboBoxToggleButton}"
                             Grid.Column="2"
-                            Focusable="False"
                             ClickMode="Press"
-                            IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" />
+                            Focusable="False"
+                            IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                            Template="{StaticResource ComboBoxToggleButton}" />
                         <ContentPresenter
                             x:Name="ContentSite"
-                            IsHitTestVisible="False"
+                            Margin="11,0,25,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
                             Content="{TemplateBinding SelectionBoxItem}"
                             ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
                             ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
-                            Margin="11,0,25,0"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Left"
-                            IsEnabled="True" />
+                            IsEnabled="True"
+                            IsHitTestVisible="False" />
                         <Label
                             x:Name="Watermark"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Left"
-                            Foreground="{StaticResource ColorLetras}"
-                            Visibility="Collapsed"
                             Padding="10,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
                             Content="{TemplateBinding Tag}"
                             FontFamily="Segoe UI"
-                            FontSize="15" />
+                            FontSize="15"
+                            Foreground="{StaticResource ColorLetras}"
+                            Visibility="Collapsed" />
                         <TextBox
                             x:Name="PART_EditableTextBox"
-                            Template="{StaticResource ComboBoxTextBox}"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
                             Focusable="True"
+                            Template="{StaticResource ComboBoxTextBox}"
                             Visibility="Hidden" />
                         <Popup
                             x:Name="Popup"
-                            Placement="Bottom"
-                            IsOpen="{TemplateBinding IsDropDownOpen}"
                             AllowsTransparency="True"
                             Focusable="False"
+                            IsOpen="{TemplateBinding IsDropDownOpen}"
+                            Placement="Bottom"
                             PopupAnimation="Slide">
                             <Grid
                                 x:Name="DropDown"
-                                SnapsToDevicePixels="True"
                                 MinWidth="{TemplateBinding ActualWidth}"
-                                MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                SnapsToDevicePixels="True">
                                 <Border
                                     x:Name="DropDownBorder"
-                                    BorderThickness="1"
+                                    Background="{StaticResource ColorNegro}"
                                     BorderBrush="{StaticResource ColorCremaOscuro}"
-                                    Background="{StaticResource ColorNegro}" />
+                                    BorderThickness="1" />
                                 <ScrollViewer
                                     Margin="4,6,4,6"
-                                    SnapsToDevicePixels="True"
-                                    OverridesDefaultStyle="True"
-                                    Foreground="{StaticResource ColorLetras}"
                                     FontFamily="Segoe UI"
-                                    FontSize="15" />
+                                    FontSize="15"
+                                    Foreground="{StaticResource ColorLetras}"
+                                    OverridesDefaultStyle="True"
+                                    SnapsToDevicePixels="True" />
                                 <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
                             </Grid>
                         </Popup>
@@ -1615,7 +1615,7 @@
                             <MultiTrigger.Conditions>
                                 <Condition Property="Text" Value="" />
                             </MultiTrigger.Conditions>
-                            <Setter Property="Visibility" Value="Visible" TargetName="Watermark" />
+                            <Setter TargetName="Watermark" Property="Visibility" Value="Visible" />
                         </MultiTrigger>
                         <Trigger Property="HasItems" Value="False">
                             <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95" />
@@ -1649,12 +1649,12 @@
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Image
                         x:Name="ArrowImage"
-                        Source="\Recursos\imgCalendar2.png"
-                        Stretch="UniformToFill"
-                        Height="23"
                         Width="23"
+                        Height="23"
                         HorizontalAlignment="Center"
-                        VerticalAlignment="Center" />
+                        VerticalAlignment="Center"
+                        Source="\Recursos\imgCalendar2.png"
+                        Stretch="UniformToFill" />
                     <!--<Path
                         x:Name="IconBar"
                         Width="20"
@@ -1676,8 +1676,8 @@
 
     <Style
         x:Key="DatePickerStyle"
-        TargetType="{x:Type DatePicker}"
-        BasedOn="{StaticResource StyleLetras}">
+        BasedOn="{StaticResource StyleLetras}"
+        TargetType="{x:Type DatePicker}">
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="Template">
             <Setter.Value>
@@ -1686,13 +1686,13 @@
                         <Border
                             x:Name="Border"
                             Grid.ColumnSpan="2"
-                            Height="33"
                             Width="250"
-                            BorderThickness="0,0,0,1.8"
+                            Height="33"
                             Padding="0,0,0,0"
+                            Background="{StaticResource Tranparencia-Textbox}"
                             BorderBrush="{StaticResource ColorCrema}"
-                            CornerRadius="5"
-                            Background="{StaticResource Tranparencia-Textbox}">
+                            BorderThickness="0,0,0,1.8"
+                            CornerRadius="5">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
@@ -1700,20 +1700,20 @@
                                 </Grid.ColumnDefinitions>
                                 <DatePickerTextBox
                                     x:Name="PART_TextBox"
-                                    Style="{StaticResource tbxStyleGeneral}"
                                     Grid.Column="0"
-                                    VerticalAlignment="Center" />
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource tbxStyleGeneral}" />
                                 <Button
                                     x:Name="PART_Button"
-                                    Style="{StaticResource StyleCalendarButton}"
-                                    Grid.Column="1" />
+                                    Grid.Column="1"
+                                    Style="{StaticResource StyleCalendarButton}" />
                                 <Popup
                                     x:Name="PART_Popup"
                                     AllowsTransparency="True"
+                                    HorizontalOffset="17"
                                     Placement="Bottom"
                                     PlacementTarget="{Binding ElementName=PART_TextBox}"
-                                    StaysOpen="False"
-                                    HorizontalOffset="17" />
+                                    StaysOpen="False" />
                                 <!--<Label
                                         x:Name="Watermark"
                                         VerticalAlignment="Center"
@@ -1755,11 +1755,11 @@
                     <StackPanel x:Name="PART_Root" HorizontalAlignment="Center">
                         <CalendarItem
                             x:Name="PART_CalendarItem"
+                            Margin="0,5,0,0"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            Style="{TemplateBinding CalendarItemStyle}"
-                            Margin="0,5,0,0" />
+                            Style="{TemplateBinding CalendarItemStyle}" />
                     </StackPanel>
                 </ControlTemplate>
             </Setter.Value>
@@ -1768,9 +1768,9 @@
     <!--#endregion originalmente de RegistrarBibliotecario-->
 
     <!--#region ESTILO COMPLETO DEL DATAGRID-->
-    <LinearGradientBrush x:Key="gradientedata" StartPoint="0,0" EndPoint="0,1" Opacity="0.95">
-        <GradientStop Color="#007F7FE6" Offset="0.1" />
-        <GradientStop Color="#00FFFFFF" Offset="1.5" />
+    <LinearGradientBrush x:Key="gradientedata" Opacity="0.95" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0.1" Color="#007F7FE6" />
+        <GradientStop Offset="1.5" Color="#00FFFFFF" />
     </LinearGradientBrush>
     <Style x:Key="{ComponentResourceKey ResourceId=DataGridSelectAllButtonStyle, TypeInTargetAssembly={x:Type DataGrid}}" TargetType="{x:Type Button}">
         <Setter Property="Template">
@@ -1783,23 +1783,23 @@
                             SnapsToDevicePixels="True" />
                         <Polygon
                             x:Name="Arrow"
-                            Fill="Black"
-                            HorizontalAlignment="Right"
                             Margin="8,8,3,3"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            Fill="Black"
                             Opacity="0.15"
                             Points="0,10 10,10 10,0"
-                            Stretch="Uniform"
-                            VerticalAlignment="Bottom" />
+                            Stretch="Uniform" />
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Stroke" TargetName="Border" Value="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" />
+                            <Setter TargetName="Border" Property="Stroke" Value="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" />
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Fill" TargetName="Border" Value="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" />
+                            <Setter TargetName="Border" Property="Fill" Value="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" />
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Visibility" TargetName="Arrow" Value="Collapsed" />
+                            <Setter TargetName="Arrow" Property="Visibility" Value="Collapsed" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -1808,8 +1808,8 @@
     </Style>
     <Style
         x:Key="DataGridStyle1"
-        TargetType="{x:Type DataGrid}"
-        BasedOn="{StaticResource StyleLetras}">
+        BasedOn="{StaticResource StyleLetras}"
+        TargetType="{x:Type DataGrid}">
         <Setter Property="Background" Value="#10FFFFFF" />
         <Setter Property="BorderBrush" Value="{DynamicResource brsh-menu-Gradient}" />
         <Setter Property="BorderThickness" Value="2" />
@@ -1832,11 +1832,11 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type DataGrid}">
                     <Border
-                        CornerRadius="5 5 5 5"
+                        Padding="{TemplateBinding Padding}"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
-                        Padding="{TemplateBinding Padding}"
+                        CornerRadius="5 5 5 5"
                         SnapsToDevicePixels="True">
                         <ScrollViewer x:Name="DG_ScrollViewer" Focusable="false">
                             <ScrollViewer.Template>
@@ -1853,32 +1853,32 @@
                                             <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
                                         <Button
+                                            Width="{Binding CellsPanelHorizontalOffset, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
                                             Command="{x:Static DataGrid.SelectAllCommand}"
                                             Focusable="false"
                                             Style="{DynamicResource {ComponentResourceKey ResourceId=DataGridSelectAllButtonStyle,
                                                                                           TypeInTargetAssembly={x:Type DataGrid}}}"
-                                            Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.All}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
-                                            Width="{Binding CellsPanelHorizontalOffset, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
+                                            Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.All}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
                                         <DataGridColumnHeadersPresenter
                                             x:Name="PART_ColumnHeadersPresenter"
                                             Grid.Column="1"
                                             Visibility="{Binding HeadersVisibility, ConverterParameter={x:Static DataGridHeadersVisibility.Column}, Converter={x:Static DataGrid.HeadersVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
                                         <ScrollContentPresenter
                                             x:Name="PART_ScrollContentPresenter"
-                                            CanContentScroll="{TemplateBinding CanContentScroll}"
+                                            Grid.Row="1"
                                             Grid.ColumnSpan="2"
-                                            Grid.Row="1" />
+                                            CanContentScroll="{TemplateBinding CanContentScroll}" />
                                         <ScrollBar
                                             x:Name="PART_VerticalScrollBar"
+                                            Grid.Row="1"
                                             Grid.Column="2"
                                             Maximum="{TemplateBinding ScrollableHeight}"
                                             Orientation="Vertical"
-                                            Grid.Row="1"
-                                            Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                                            Style="{DynamicResource myScrollbar}"
                                             ViewportSize="{TemplateBinding ViewportHeight}"
                                             Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"
-                                            Style="{DynamicResource myScrollbar}" />
-                                        <Grid Grid.Column="1" Grid.Row="2">
+                                            Value="{Binding VerticalOffset, Mode=OneWay, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                                        <Grid Grid.Row="2" Grid.Column="1">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="{Binding NonFrozenColumnsViewportHorizontalOffset, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}" />
                                                 <ColumnDefinition Width="*" />
@@ -1888,9 +1888,9 @@
                                                 Grid.Column="1"
                                                 Maximum="{TemplateBinding ScrollableWidth}"
                                                 Orientation="Horizontal"
-                                                Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource Mode=TemplatedParent}}"
                                                 ViewportSize="{TemplateBinding ViewportWidth}"
-                                                Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}" />
+                                                Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"
+                                                Value="{Binding HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
                                         </Grid>
                                     </Grid>
                                 </ControlTemplate>
@@ -1914,8 +1914,8 @@
 
     <Style
         x:Key="DataGridCellStyle1"
-        TargetType="{x:Type DataGridCell}"
-        BasedOn="{StaticResource StyleLetras}">
+        BasedOn="{StaticResource StyleLetras}"
+        TargetType="{x:Type DataGridCell}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="Margin" Value="0,6,6,0" />
@@ -1927,7 +1927,7 @@
                         Background="{TemplateBinding Background}"
                         BorderThickness="0"
                         SnapsToDevicePixels="True">
-                        <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" HorizontalAlignment="Center" />
+                        <ContentPresenter HorizontalAlignment="Center" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -1941,15 +1941,15 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Thumb}">
-                    <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" />
+                    <Border Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
     <Style
         x:Key="DataGridColumnHeaderStyle1"
-        TargetType="{x:Type DataGridColumnHeader}"
-        BasedOn="{StaticResource StyleLetras}">
+        BasedOn="{StaticResource StyleLetras}"
+        TargetType="{x:Type DataGridColumnHeader}">
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
         <Setter Property="Margin" Value="0,0,2,2" />
@@ -1960,21 +1960,21 @@
                 <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
                     <Grid>
                         <dg:DataGridHeaderBorder
+                            Padding="{TemplateBinding Padding}"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            IsPressed="{TemplateBinding IsPressed}"
-                            IsHovered="{TemplateBinding IsMouseOver}"
                             IsClickable="{TemplateBinding CanUserSort}"
-                            Padding="{TemplateBinding Padding}"
-                            SortDirection="{TemplateBinding SortDirection}"
+                            IsHovered="{TemplateBinding IsMouseOver}"
+                            IsPressed="{TemplateBinding IsPressed}"
+                            SeparatorBrush="{TemplateBinding SeparatorBrush}"
                             SeparatorVisibility="{TemplateBinding SeparatorVisibility}"
-                            SeparatorBrush="{TemplateBinding SeparatorBrush}">
+                            SortDirection="{TemplateBinding SortDirection}">
                             <ContentPresenter
                                 HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                 RecognizesAccessKey="True"
-                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                         </dg:DataGridHeaderBorder>
                         <Thumb
                             x:Name="PART_LeftHeaderGripper"
@@ -2001,10 +2001,10 @@
             <Setter.Value>
                 <ControlTemplate>
                     <TextBlock
-                        Foreground="Red"
                         Margin="2,0,0,0"
-                        Text="!"
-                        VerticalAlignment="Center" />
+                        VerticalAlignment="Center"
+                        Foreground="Red"
+                        Text="!" />
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -2013,11 +2013,11 @@
                 <ControlTemplate TargetType="{x:Type DataGridRow}">
                     <Border
                         x:Name="DGR_Border"
+                        Padding="0,10"
                         Background="{TemplateBinding Background}"
                         BorderThickness="0"
-                        SnapsToDevicePixels="True"
-                        Padding="0,10"
-                        CornerRadius="5">
+                        CornerRadius="5"
+                        SnapsToDevicePixels="True">
                         <SelectiveScrollingGrid>
                             <SelectiveScrollingGrid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
@@ -2032,8 +2032,8 @@
                                 ItemsPanel="{TemplateBinding ItemsPanel}"
                                 SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                             <DataGridDetailsPresenter
-                                Grid.Column="1"
                                 Grid.Row="1"
+                                Grid.Column="1"
                                 SelectiveScrollingGrid.SelectiveScrollingOrientation="{Binding AreRowDetailsFrozen, ConverterParameter={x:Static SelectiveScrollingOrientation.Vertical}, Converter={x:Static DataGrid.RowDetailsScrollingConverter}, RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
                                 Visibility="{TemplateBinding DetailsVisibility}" />
                             <DataGridRowHeader
@@ -2069,8 +2069,8 @@
     </Style>
 
     <LinearGradientBrush x:Key="scrorbargradiente" StartPoint="0,0" EndPoint="1,0">
-        <GradientStop Color="#FCDADA" Offset="0.1" />
-        <GradientStop Color="#FFFFFF" Offset="1.5" />
+        <GradientStop Offset="0.1" Color="#FCDADA" />
+        <GradientStop Offset="1.5" Color="#FFFFFF" />
     </LinearGradientBrush>
 
     <!--<Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">

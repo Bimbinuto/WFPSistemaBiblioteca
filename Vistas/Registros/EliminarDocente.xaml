@@ -26,8 +26,7 @@
                         Direction="0"
                         ShadowDepth="0"
                         BlurRadius="100"
-                        Opacity="0.15" 
-                        />
+                        Opacity="0.15" />
                 </Border.Effect>
                 <StackPanel Orientation="Vertical" Margin="0,30,0,30">
                     <Path
