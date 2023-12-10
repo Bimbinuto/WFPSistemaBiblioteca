@@ -18,78 +18,149 @@
             Content="Estadisticas"
             Style="{StaticResource StyleLabelTitle}" />
 
-        <Grid
-            Grid.Row="1"
-            Margin="20"
-            HorizontalAlignment="Left">
-            <Border
-                Width="500"
-                Height="370"
-                Background="#15FFF7DA"
-                CornerRadius="10">
-                <StackPanel Orientation="Vertical">
+        <WrapPanel Grid.Row="1">
+
+            <Grid Margin="20" HorizontalAlignment="Left">
+                <Border
+                    Width="500"
+                    Height="370"
+                    Background="#15FFF7DA"
+                    CornerRadius="10">
+                    <StackPanel Orientation="Vertical">
+                        <Label
+                            Margin="10"
+                            HorizontalAlignment="Center"
+                            Content="Cantidad de libros prestados en General"
+                            FontSize="16"
+                            FontWeight="Bold"
+                            Style="{StaticResource StyleLabel}" />
+                        <lvc:PieChart
+                            Height="300"
+                            DataTooltip="{x:Null}"
+                            Hoverable="True"
+                            LegendLocation="Bottom"
+                            x:Name="GraficoPastel">
+                            <lvc:PieChart.ChartLegend>
+                                <lvc:DefaultLegend Foreground="White" />
+                            </lvc:PieChart.ChartLegend>
+                        </lvc:PieChart>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <Grid Margin="20" HorizontalAlignment="Left">
+                <Border
+                    Width="500"
+                    Height="370"
+                    Background="#15FFF7DA"
+                    CornerRadius="10">
+                    <StackPanel Orientation="Vertical">
+                        <Label
+                            Margin="10"
+                            HorizontalAlignment="Center"
+                            Content="Prestamos de este Mes"
+                            FontSize="16"
+                            FontWeight="Bold"
+                            Style="{StaticResource StyleLabel}" />
+                        <lvc:PieChart
+                            Height="300"
+                            DataTooltip="{x:Null}"
+                            Hoverable="True"
+                            LegendLocation="Bottom"
+                            x:Name="GraficoEsteMes">
+                            <lvc:PieChart.ChartLegend>
+                                <lvc:DefaultLegend Foreground="White" />
+                            </lvc:PieChart.ChartLegend>
+                        </lvc:PieChart>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <Grid Margin="20" HorizontalAlignment="Left">
+                <Border
+                    Width="150"
+                    Height="370"
+                    Background="#15FFF7DA"
+                    CornerRadius="10">
+                    <StackPanel Orientation="Vertical">
+
+                        <Label
+                            Margin="0,60,0,0"
+                            HorizontalAlignment="Center"
+                            Content="..."
+                            FontSize="36"
+                            FontWeight="Bold"
+                            Style="{StaticResource StyleLabel}"
+                            x:Name="lbTotalGeneral" />
+                        <Label
+                            Margin="0,0,0,0"
+                            HorizontalAlignment="Center"
+                            Content="En general"
+                            FontSize="16"
+                            FontWeight="Bold"
+                            Style="{StaticResource StyleLabel}" />
+
+
+                        <Label
+                            Margin="0,50,0,0"
+                            HorizontalAlignment="Center"
+                            Content="..."
+                            FontSize="36"
+                            FontWeight="Bold"
+                            Style="{StaticResource StyleLabel}"
+                            x:Name="lbTotalEsteMes" />
+                        <Label
+                            Margin="0,0,0,0"
+                            HorizontalAlignment="Center"
+                            Content="Este mes"
+                            FontSize="16"
+                            FontWeight="Bold"
+                            Style="{StaticResource StyleLabel}" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+        </WrapPanel>
+
+        <Grid Grid.Row="2" Margin="20,20,180,20">
+            <Border Background="#15FFFFFF" CornerRadius="10">
+                <StackPanel VerticalAlignment="Center" Orientation="Vertical">
                     <Label
-                        Margin="10"
+                        Margin="0,20,0,30"
                         HorizontalAlignment="Center"
-                        Content="cantidad de libros prestados de varones y mujeres"
+                        Content="Cantidad de prestamos realizados por Mes"
                         FontSize="16"
                         FontWeight="Bold"
                         Style="{StaticResource StyleLabel}" />
-                    <lvc:PieChart
-                        Height="300"
-                        DataTooltip="{x:Null}"
-                        Hoverable="True"
-                        LegendLocation="Bottom">
-                        <lvc:PieChart.ChartLegend>
-                            <lvc:DefaultLegend Foreground="White">
-                                <!--<lvc:DefaultLegend.Resources>
-                                    <Style TargetType="TextBlock">
-                                        <Setter Property="Foreground" Value="White" />
-                                    </Style>
-                                </lvc:DefaultLegend.Resources>-->
-                            </lvc:DefaultLegend>
-                        </lvc:PieChart.ChartLegend>
-                        <lvc:PieChart.Series>
-                            <lvc:PieSeries
-                                Title="varones"
-                                DataLabels="True"
-                                FontSize="30"
-                                Values="10" />
-                            <lvc:PieSeries
-                                Title="mujeres"
-                                DataLabels="True"
-                                FontSize="30"
-                                Foreground="White"
-                                Values="2" />
-                        </lvc:PieChart.Series>
-                    </lvc:PieChart>
+                    <lvc:CartesianChart
+                        Series="{Binding SeriesCollection}"
+                        LegendLocation="Left"
+                        Margin="20"
+                        Height="270"
+                        Foreground="White">
+                        <lvc:CartesianChart.AxisX>
+                            <lvc:Axis
+                                Title="Mes"
+                                Labels="{Binding Labels}"
+                                FontSize="16"
+                                Foreground="White" />
+                        </lvc:CartesianChart.AxisX>
+                        <lvc:CartesianChart.AxisY>
+                            <lvc:Axis
+                                Title="Total Prestamos"
+                                LabelFormatter="{Binding Formatter}"
+                                FontSize="16"
+                                Foreground="White" />
+                        </lvc:CartesianChart.AxisY>
+                    </lvc:CartesianChart>
                 </StackPanel>
             </Border>
         </Grid>
 
-        <lvc:CartesianChart
-            Grid.Row="2"
-            Margin="0"
-            Height="300"
-            Width="300"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center" >
-            <lvc:CartesianChart.AxisX>
-                <lvc:Axis Title="Días" Labels="{Binding Dias}" />
-            </lvc:CartesianChart.AxisX>
-
-            <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="Cantidad de Préstamos" />
-            </lvc:CartesianChart.AxisY>
-
-            <lvc:ColumnSeries Title="Cantidad de Préstamos" Values="{Binding Cantidades}" />
-        </lvc:CartesianChart>
-
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
     </Grid>
 </UserControl>
