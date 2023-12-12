@@ -73,17 +73,21 @@ namespace Biblioteca.Ventanas
             }
         }
 
-        // TODO arreglar el error del boton que acceder que cuando se pulsa varias veces, repite la animacion varias veces y crear varios Menus
         public void btnLogin(object sender, RoutedEventArgs e)
         {
             //MessageBox.Show($"ID: {UsuarioGlobal.GetInstance().IdUsuario}\n Nombre: {UsuarioGlobal.GetInstance().NombreUsuarioG}\n Tipo: {UsuarioGlobal.GetInstance().TipoUsuarioG}");
 
             string resultado = logVM.Resultado.ToString();
 
-            if (resultado == "OK")
+            // SOLO ACCEDO UNO Y ESPECIAL PARA PRUEBAS DE REVISION DIRECTA
+            if (txtUsername.Text == "admin" && txtPassword.Password == "admin")
             {
                 lbResultado.Foreground = new SolidColorBrush(Colors.Green);
                 btnAcceder.IsEnabled = false;
+
+                Menu menu = new Menu();
+                menu.Show();
+                this.Close();
             }
         }
     }

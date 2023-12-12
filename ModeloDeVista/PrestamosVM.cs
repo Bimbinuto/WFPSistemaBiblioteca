@@ -143,6 +143,7 @@ namespace Biblioteca.ModeloDeVista
             _timer.Elapsed += (sender, e) => Task.Run(() => CargarTablaAsync());
             _timer.AutoReset = false;
 
+            Filtro = "Libro";
             TipoPrestamo = "Seleccionar";
 
             CargarTablaAsync();
@@ -155,24 +156,24 @@ namespace Biblioteca.ModeloDeVista
             {
                 await cnx.OpenAsync();
 
-                string consulta = "SELECT e.id_ejemplar, e.codigo, l.titulo, a.nombres, GROUP_CONCAT(a.nombres) AS autores, e.disponibilidad\r\n" +
+                string consulta = "SELECT e.id_ejemplar, e.codigo, l.titulo, GROUP_CONCAT(a.nombres) AS autores, e.disponibilidad\r\n" +
                                   "FROM ejemplar e\r\n" +
                                   "JOIN libro l ON e.id_libro = l.id_libro\r\n" +
-                                  "JOIN libro_autor la ON l.id_libro = la.id_autor\r\n" +
+                                  "JOIN libro_autor la ON l.id_libro = la.id_libro\r\n" +
                                   "JOIN autor a ON la.id_autor = a.id_autor \r\n" +
                                   "WHERE l.titulo LIKE @busqueda\r\n" +
-                                  "AND e.disponibilidad = 'disponible' ";
+                                  "AND e.disponibilidad = 'disponible'\r\n ";
 
                 if (Filtro == "Tesis")
                 {
-                    consulta += "AND e.tipo_ejemplar = 'tesis' ";
+                    consulta += "AND e.tipo_ejemplar = 'tesis'\r\n ";
                 }
                 else if (Filtro == "Libro")
                 {
-                    consulta += "AND (e.tipo_ejemplar = 'original' OR e.tipo_ejemplar = 'copia') ";
+                    consulta += "AND (e.tipo_ejemplar = 'original' OR e.tipo_ejemplar = 'copia') \r\n";
                 }
 
-                consulta += "GROUP BY e.id_ejemplar, e.codigo, l.titulo, e.disponibilidad;";
+                consulta += " GROUP BY e.id_ejemplar, e.codigo, l.titulo, e.disponibilidad;";
 
                 MySqlCommand cmd = new MySqlCommand(consulta, cnx);
                 cmd.Parameters.AddWithValue("@busqueda", $"%{Busqueda}%");

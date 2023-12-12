@@ -157,6 +157,21 @@ namespace Biblioteca.Ventanas
             ccPrincipal.Content = new Prestamos(ccPrincipal);
         }
 
+        private void btnReservaciones(object sender, RoutedEventArgs e)
+        {
+            ccPrincipal.Content = new Reservaciones(ccPrincipal);
+        }
+
+        private void btnHistorial(object sender, RoutedEventArgs e)
+        {
+            ccPrincipal.Content = new Historial();
+        }
+
+        private void btnCatalogo(object sender, RoutedEventArgs e)
+        {
+            ccPrincipal.Content = new Catalogo();
+        }
+
         private void btnReporte(object sender, RoutedEventArgs e)
         {
             ccPrincipal.Content = new Reportes();

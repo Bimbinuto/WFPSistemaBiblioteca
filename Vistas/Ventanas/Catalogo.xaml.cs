@@ -17,16 +17,16 @@ using Biblioteca.ModeloDeVista;
 namespace Biblioteca.Vistas.Ventanas
 {
     /// <summary>
-    /// Lógica de interacción para Inicio.xaml
+    /// Lógica de interacción para Catalogo.xaml
     /// </summary>
-    public partial class Inicio : UserControl
+    public partial class Catalogo : UserControl
     {
-        InicioVM ivm = new InicioVM();
+        CatalogoVM cvm = new CatalogoVM();
 
-        public Inicio()
+        public Catalogo()
         {
             InitializeComponent();
-            DataContext = ivm;
+            DataContext = cvm;
         }
     }
 }

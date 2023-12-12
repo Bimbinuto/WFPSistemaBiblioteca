@@ -183,19 +183,22 @@
                                 x:Name="rbMenuReservaciones"
                                 Style="{StaticResource DesignButton}"
                                 Content="Reservaciones"
-                                Tag="{StaticResource IconReservacion}" />
+                                Tag="{StaticResource IconReservacion}"
+                                Click="btnReservaciones" />
 
-                            <!--<RadioButton
+                            <RadioButton
                                 x:Name="rbMenuLibros"
                                 Style="{StaticResource DesignButton}"
-                                Content="Libros"
-                                Tag="{StaticResource IconLibros}" />-->
+                                Content="Historial"
+                                Tag="{StaticResource IconHistorial}"
+                                Click="btnHistorial"/>
 
                             <RadioButton
                                 x:Name="rbMenuCatalogos"
                                 Style="{StaticResource DesignButton}"
                                 Content="Catalogos"
-                                Tag="{StaticResource IconCatalogos}" />
+                                Tag="{StaticResource IconCatalogos}"
+                                Click="btnCatalogo" />
 
                             <RadioButton
                                 x:Name="rbMenuReportes"
@@ -209,7 +212,7 @@
                                 Style="{StaticResource DesignButton}"
                                 Content="Estadisticas"
                                 Tag="{StaticResource IconEstadistica}"
-                                Click="btnEstadisticas"/>
+                                Click="btnEstadisticas" />
 
                             <RadioButton
                                 x:Name="rbMenuAcercaDe"

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Biblioteca.ModeloDeVista;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,21 +13,20 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Biblioteca.ModeloDeVista;
 
 namespace Biblioteca.Vistas.Ventanas
 {
     /// <summary>
-    /// Lógica de interacción para Inicio.xaml
+    /// Lógica de interacción para Historial.xaml
     /// </summary>
-    public partial class Inicio : UserControl
+    public partial class Historial : UserControl
     {
-        InicioVM ivm = new InicioVM();
+        HistorialVM hvm = new HistorialVM();
 
-        public Inicio()
+        public Historial()
         {
             InitializeComponent();
-            DataContext = ivm;
+            DataContext = hvm;
         }
     }
 }

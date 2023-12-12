@@ -12,21 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Biblioteca.ModeloDeVista;
 
 namespace Biblioteca.Vistas.Ventanas
 {
     /// <summary>
-    /// Lógica de interacción para Inicio.xaml
+    /// Lógica de interacción para InicioLector.xaml
     /// </summary>
-    public partial class Inicio : UserControl
+    public partial class InicioLector : UserControl
     {
-        InicioVM ivm = new InicioVM();
-
-        public Inicio()
+        public InicioLector()
         {
             InitializeComponent();
-            DataContext = ivm;
         }
     }
 }

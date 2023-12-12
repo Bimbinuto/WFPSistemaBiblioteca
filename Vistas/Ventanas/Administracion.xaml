@@ -159,7 +159,7 @@
                     </RadioButton.Content>
                 </RadioButton>
 
-                <RadioButton Style="{StaticResource rb-simple-multiInfo}" Tag="{StaticResource IconDerecha}">
+                <!--<RadioButton Style="{StaticResource rb-simple-multiInfo}" Tag="{StaticResource IconDerecha}">
                     <RadioButton.Content>
                         <StackPanel Orientation="Vertical" Margin="20,0,20,0">
                             <Label Content="Gestionar Proveedores" Style="{StaticResource StyleLabel}" />
@@ -170,9 +170,9 @@
                                 Foreground="#D0D0D0" />
                         </StackPanel>
                     </RadioButton.Content>
-                </RadioButton>
+                </RadioButton>-->
 
-                <RadioButton Style="{StaticResource rb-simple-multiInfo}" Tag="{StaticResource IconDerecha}">
+                <!--<RadioButton Style="{StaticResource rb-simple-multiInfo}" Tag="{StaticResource IconDerecha}">
                     <RadioButton.Content>
                         <StackPanel Orientation="Vertical" Margin="20,0,20,0">
                             <Label Content="Gestionar Autores" Style="{StaticResource StyleLabel}" />
@@ -183,14 +183,15 @@
                                 Foreground="#D0D0D0" />
                         </StackPanel>
                     </RadioButton.Content>
-                </RadioButton>
+                </RadioButton>-->
 
-                <RadioButton Style="{StaticResource rb-simple-multiInfo}" Tag="{StaticResource IconDerecha}">
+                <RadioButton Style="{StaticResource rb-simple-multiInfo}" Tag="{StaticResource IconDerecha}"
+                             Click="btnReasignar">
                     <RadioButton.Content>
                         <StackPanel Orientation="Vertical" Margin="20,0,20,0">
-                            <Label Content="Gestionar Prestamos" Style="{StaticResource StyleLabel}" />
+                            <Label Content="Reasignar Prestamos y Reservaciones" Style="{StaticResource StyleLabel}" />
                             <Label
-                                Content="permite observar, registrar, modificar y eliminar prestamos del sistema"
+                                Content="permite observar y reasignar libros prestamos y reservados del sistema"
                                 Margin="0,-10,0,0"
                                 FontSize="12"
                                 Foreground="#D0D0D0" />
@@ -198,7 +199,7 @@
                     </RadioButton.Content>
                 </RadioButton>
 
-                <RadioButton Style="{StaticResource rb-simple-multiInfo}" Tag="{StaticResource IconDerecha}">
+                <!--<RadioButton Style="{StaticResource rb-simple-multiInfo}" Tag="{StaticResource IconDerecha}">
                     <RadioButton.Content>
                         <StackPanel Orientation="Vertical" Margin="20,0,20,0">
                             <Label Content="Gestionar Reservas" Style="{StaticResource StyleLabel}" />
@@ -209,7 +210,7 @@
                                 Foreground="#D0D0D0" />
                         </StackPanel>
                     </RadioButton.Content>
-                </RadioButton>
+                </RadioButton>-->
 
             </StackPanel>
         </ScrollViewer>

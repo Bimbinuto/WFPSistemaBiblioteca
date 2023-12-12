@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="Biblioteca.Vistas.Registros.EliminarDocente"
+    x:Class="Biblioteca.Vistas.Registros.ConfirmarReserva"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -15,10 +15,10 @@
             Orientation="Vertical">
             <Border
                 Background="Black"
-                Height="290"
-                Width="420"
+                Height="310"
+                Width="480"
                 CornerRadius="10"
-                BorderBrush="red"
+                BorderBrush="LightGray"
                 BorderThickness="2">
                 <Border.Effect>
                     <DropShadowEffect
@@ -26,58 +26,74 @@
                         Direction="0"
                         ShadowDepth="0"
                         BlurRadius="100"
-                        Opacity="0.15" />
+                        Opacity="0.2" />
                 </Border.Effect>
                 <StackPanel Orientation="Vertical" Margin="0,30,0,30">
-                    <Path
-                        Data="{StaticResource IconAdvertencia}"
-                        Fill="Yellow"
-                        HorizontalAlignment="Center"
-                        Stretch="Uniform"
-                        Width="60"
-                        Height="60"
-                        Margin="20,-5,0,0"
-                        RenderTransformOrigin="0.5 0.5" />
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Path
+                            Data="{StaticResource IconInfo}"
+                            Fill="LightGray"
+                            HorizontalAlignment="Center"
+                            Stretch="Uniform"
+                            Width="25"
+                            Height="25"
+                            Margin="0,0,0,0"
+                            RenderTransformOrigin="0.5 0.5" />
+
+                        <Label
+                            Content="Confirmar Reservacion"
+                            Style="{StaticResource StyleLabelTitle}"
+                            HorizontalAlignment="Center" />
+                    </StackPanel>
 
                     <Label
-                        Content="Advertencia"
-                        Style="{StaticResource StyleLabelTitle}"
-                        HorizontalAlignment="Center" />
-                    <Label
-                        Content="Esta de acuerdo el eliminar al Docente?"
+                        Content="Esta de acuerdo con realizar la reservacion del libro:"
                         Style="{StaticResource StyleLabel}"
                         HorizontalAlignment="Center"
-                        Margin="0,10,0,20" />
+                        Margin="0,10,0,10" />
+
+                    <Label
+                        Style="{StaticResource StyleLabel}"
+                        Content="{Binding FilaSeleccionada[titulo]}"
+                        Height="40"
+                        Margin="0,5,0,20"
+                        FontSize="17"
+                        FontWeight="Bold"
+                        HorizontalAlignment="Center" />
+
+
                     <StackPanel
                         Orientation="Horizontal"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center"
                         Margin="0,10,0,0">
                         <Button
-                            x:Name="btnCancelar"
+                            x:Name="CancelarReserva"
                             Content="Cancelar"
                             Style="{StaticResource ButtonLogin}"
                             Margin="20,0,15,0"
                             Width="120"
-                            Click="btnVolverGestionar" />
+                            Click="btnVolverReservas" />
                         <Button
-                            x:Name="btnConfirmar"
-                            Content="Eliminar"
+                            x:Name="ConfirmarReservaLector"
+                            Content="Confirmar"
                             Style="{StaticResource ButtonLogin}"
                             Margin="15,0,20,0"
                             Width="120"
-                            Command="{Binding EliminarCommand}"
-                            Click="btnConfirmarEliminacion" />
+                            Command="{Binding RegistrarReservaCommand}"
+                            Click="btnConfirmarPrestamo" />
                     </StackPanel>
 
                 </StackPanel>
             </Border>
             <Label
-                Content="{Binding ResultadoEliminacionD, UpdateSourceTrigger=PropertyChanged}"
+                Content="{Binding ResultadoReserva, UpdateSourceTrigger=PropertyChanged}"
                 Style="{StaticResource StyleLabel}"
                 Margin="10"
                 HorizontalAlignment="Center" />
 
         </StackPanel>
+
     </Grid>
 </UserControl>

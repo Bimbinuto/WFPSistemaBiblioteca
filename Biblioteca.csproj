@@ -218,15 +218,20 @@
     <Compile Include="Efectos\BlurEffect.cs" />
     <Compile Include="ModeloDeVista\AsyncRelayCommand.cs" />
     <Compile Include="ModeloDeVista\BibliotecarioVM.cs" />
+    <Compile Include="ModeloDeVista\CatalogoVM.cs" />
+    <Compile Include="ModeloDeVista\ControlLibrosVM.cs" />
     <Compile Include="ModeloDeVista\DocenteVM.cs" />
     <Compile Include="ModeloDeVista\EncriptadoUnico.cs" />
     <Compile Include="ModeloDeVista\EstadisticasVM.cs" />
     <Compile Include="ModeloDeVista\EstudianteVM.cs" />
+    <Compile Include="ModeloDeVista\HistorialVM.cs" />
+    <Compile Include="ModeloDeVista\InicioVM.cs" />
     <Compile Include="ModeloDeVista\LibroVM.cs" />
     <Compile Include="ModeloDeVista\LoginVM.cs" />
     <Compile Include="ModeloDeVista\PrestamosVM.cs" />
     <Compile Include="ModeloDeVista\RelayCommand.cs" />
     <Compile Include="ModeloDeVista\ReportesVM.cs" />
+    <Compile Include="ModeloDeVista\ReservacionesVM.cs" />
     <Compile Include="Modelos\AutorM.cs" />
     <Compile Include="Modelos\BibliotecarioM.cs" />
     <Compile Include="Modelos\CarreraM.cs" />
@@ -239,10 +244,17 @@
     <Compile Include="Modelos\MateriaM.cs" />
     <Compile Include="Modelos\PrestamoM.cs" />
     <Compile Include="Modelos\Proveedor.cs" />
+    <Compile Include="Modelos\Reservacion.cs" />
     <Compile Include="Modelos\UsuarioGlobal.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Vistas\Registros\ConfirmarPrestamo.xaml.cs">
       <DependentUpon>ConfirmarPrestamo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\Registros\ConfirmarReserva.xaml.cs">
+      <DependentUpon>ConfirmarReserva.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\Registros\ControlLibros.xaml.cs">
+      <DependentUpon>ControlLibros.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\Registros\EliminarBibliotecario.xaml.cs">
       <DependentUpon>EliminarBibliotecario.xaml</DependentUpon>
@@ -295,6 +307,9 @@
     <Compile Include="Vistas\Registros\RegistrarBibliotecario.xaml.cs">
       <DependentUpon>RegistrarBibliotecario.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Vistas\Registros\RegistrarDevolucion.xaml.cs">
+      <DependentUpon>RegistrarDevolucion.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\Registros\RegistrarDocente.xaml.cs">
       <DependentUpon>RegistrarDocente.xaml</DependentUpon>
     </Compile>
@@ -316,11 +331,20 @@
     <Compile Include="Vistas\Ventanas\Administracion.xaml.cs">
       <DependentUpon>Administracion.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Vistas\Ventanas\Catalogo.xaml.cs">
+      <DependentUpon>Catalogo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\Ventanas\Estadisticas.xaml.cs">
       <DependentUpon>Estadisticas.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Vistas\Ventanas\Historial.xaml.cs">
+      <DependentUpon>Historial.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\Ventanas\Inicio.xaml.cs">
       <DependentUpon>Inicio.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\Ventanas\InicioLector.xaml.cs">
+      <DependentUpon>InicioLector.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\Ventanas\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
@@ -337,6 +361,9 @@
     </Compile>
     <Compile Include="Vistas\Ventanas\Reportes.xaml.cs">
       <DependentUpon>Reportes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\Ventanas\Reservaciones.xaml.cs">
+      <DependentUpon>Reservaciones.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\Ventanas\UserControlTest.xaml.cs">
       <DependentUpon>UserControlTest.xaml</DependentUpon>
@@ -366,6 +393,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vistas\Registros\ConfirmarPrestamo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\Registros\ConfirmarReserva.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\Registros\ControlLibros.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -437,6 +472,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Vistas\Registros\RegistrarDevolucion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Vistas\Registros\RegistrarDocente.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -465,11 +504,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Vistas\Ventanas\Catalogo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Vistas\Ventanas\Estadisticas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Vistas\Ventanas\Historial.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Vistas\Ventanas\Inicio.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\Ventanas\InicioLector.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -490,6 +541,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vistas\Ventanas\Reportes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\Ventanas\Reservaciones.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -572,6 +627,7 @@
     <Content Include="Recursos\Iconos\iDisconnect.svg" />
     <Content Include="Recursos\Iconos\iDisconnect2.svg" />
     <Content Include="Recursos\Iconos\iEdit.svg" />
+    <Content Include="Recursos\Iconos\iHistorial.svg" />
     <Content Include="Recursos\Iconos\iInfo2.svg" />
     <Content Include="Recursos\Iconos\iLeftBtn.svg" />
     <Content Include="Recursos\Iconos\iMax.svg" />
