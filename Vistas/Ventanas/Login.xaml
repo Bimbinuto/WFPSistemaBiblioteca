@@ -132,7 +132,13 @@
                     </Image.OpacityMask>
                 </Image>
 
-                <StackPanel Orientation="Vertical" Background="#90000000" Height="90" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5 5 0 0">
+                <StackPanel Orientation="Vertical" Height="90" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="-3 0 0 0">
+                    <StackPanel.Background>
+                        <LinearGradientBrush StartPoint="1 0" EndPoint="0 1">
+                            <GradientStop Color="#00000000" Offset="0"/>
+                            <GradientStop Color="#C5000000" Offset="1"/>
+                        </LinearGradientBrush>
+                    </StackPanel.Background>
                     <StackPanel Orientation="Horizontal" Margin="-10 10 10 0" HorizontalAlignment="Center">
                         <Image
                             Source="C:\Users\HP\source\repos\Biblioteca\Resources\LOGO_SIS.png"
