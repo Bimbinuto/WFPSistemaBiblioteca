@@ -536,7 +536,7 @@
 
 
     <!--  Estilo del Icono de conexion a la base de datos  -->
-    <Style x:Key="IconChangedConexion" TargetType="{x:Type Path}">
+    <!--<Style x:Key="IconChangedConexion" TargetType="{x:Type Path}">
         <Style.Triggers>
             <DataTrigger Binding="{Binding EstaConectado}" Value="True">
                 <Setter Property="Data" Value="{StaticResource BDConectado}" />
@@ -547,7 +547,38 @@
                 <Setter Property="ToolTip" Value="Error de Conexion" />
             </DataTrigger>
         </Style.Triggers>
+    </Style>-->
+    <Style x:Key="IconChangedConexion" TargetType="{x:Type Path}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding EstaConectado}" Value="True">
+                <Setter Property="Data" Value="{StaticResource BDConectado}" />
+                <Setter Property="ToolTip" Value="Conectado a la Base de Datos" />
+                <Setter Property="Fill">
+                    <Setter.Value>
+                        <LinearGradientBrush StartPoint="0,0.3" EndPoint="1,1">
+                            <GradientStop Color="Green" Offset="0.0" />
+                            <GradientStop Color="LightGreen" Offset="0.58" />
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding EstaConectado}" Value="False">
+                <Setter Property="Data" Value="{StaticResource BDDesconectado}" />
+                <Setter Property="ToolTip" Value="Error de Conexion" />
+                <Setter Property="Fill">
+                    <Setter.Value>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="DarkRed" Offset="0.0" />
+                            <GradientStop Color="Red" Offset="0.58" />
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
+
+
+
     <!--#endregion ESTILOS DEL MENU-->
 
     <!--#region ESTILO DEL SCROLLBAR-->

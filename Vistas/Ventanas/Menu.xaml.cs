@@ -39,7 +39,7 @@ namespace Biblioteca.Ventanas
         {
             BaseDeDatosVM bvm = new BaseDeDatosVM();
             InitializeComponent();
-            ccPrincipal.Content = new Inicio();
+            //ccPrincipal.Content = new Inicio();
 
             //ccPrincipal.Content = new Administracion(ccPrincipal);
             startclock();
@@ -55,6 +55,9 @@ namespace Biblioteca.Ventanas
 
             if (UsuarioGlobal.GetInstance().TipoUsuarioG == "Estudiante")
             {
+                ccPrincipal.Content = new Catalogo();
+                rbMenuCatalogos.IsChecked = true;
+                rbMenuInicio.Visibility = Visibility.Collapsed;
                 rbMenuAdministracion.Visibility = Visibility.Collapsed;
                 rbMenuReservaciones.Visibility = Visibility.Collapsed;
                 rbMenuReportes.Visibility = Visibility.Collapsed;
@@ -63,11 +66,22 @@ namespace Biblioteca.Ventanas
             }
             else if (UsuarioGlobal.GetInstance().TipoUsuarioG == "Docente")
             {
+                ccPrincipal.Content = new Catalogo();
+                rbMenuCatalogos.IsChecked = true;
+                rbMenuInicio.Visibility = Visibility.Collapsed;
                 rbMenuAdministracion.Visibility = Visibility.Collapsed;
                 rbMenuReportes.Visibility = Visibility.Collapsed;
                 rbMenuEstadisticas.Visibility = Visibility.Collapsed;
                 rbMenuNotas.Visibility = Visibility.Collapsed;
             }
+            else if (UsuarioGlobal.GetInstance().TipoUsuarioG == "Bibliotecario")
+            {
+                ccPrincipal.Content = new Inicio();
+                rbMenuLibros.Visibility = Visibility.Collapsed;
+            }
+
+            rbMenuConfiguracion.Visibility = Visibility.Collapsed;
+            rbMenuNotas.Visibility = Visibility.Collapsed;
         }
 
         #region [base de datos y tiempo]eventos

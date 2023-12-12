@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Biblioteca.Vistas.Registros;
+using Biblioteca.Modelos;
 
 namespace Biblioteca.Vistas.Ventanas
 {
@@ -31,6 +32,11 @@ namespace Biblioteca.Vistas.Ventanas
             this.contentControl = ccDelMenu;
             DataContext = rvm;
             rvm.CargarTablaAsync();
+
+            if (UsuarioGlobal.GetInstance().TipoUsuarioG == "Bibliotecario")
+            {
+                TablaReservaciones.IsEnabled = false;
+            }
         }
 
         private void btnReservarClick(object sender, RoutedEventArgs e)

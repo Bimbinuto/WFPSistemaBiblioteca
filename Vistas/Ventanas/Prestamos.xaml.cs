@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Biblioteca.ModeloDeVista;
+using Biblioteca.Modelos;
 using Biblioteca.Vistas.Registros;
 
 namespace Biblioteca.Vistas.Ventanas
@@ -30,6 +31,11 @@ namespace Biblioteca.Vistas.Ventanas
             InitializeComponent();
             DataContext = lpvm;
             ContentControl = ccDelMenu;
+
+            if (UsuarioGlobal.GetInstance().TipoUsuarioG == "Bibliotecario")
+            {
+                TablaPrestamos.IsEnabled = false;
+            }
         }
 
         private void btnEditarClick(object sender, RoutedEventArgs e)

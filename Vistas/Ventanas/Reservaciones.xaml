@@ -47,6 +47,7 @@
 
         <!--  TABLA DE LOS EJEMPLARES  -->
         <DataGrid
+            x:Name="TablaReservaciones"
             Style="{DynamicResource DataGridStyle1}"
             ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}"
             RowStyle="{DynamicResource DataGridRowStyle1}"

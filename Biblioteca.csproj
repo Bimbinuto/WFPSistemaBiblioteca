@@ -223,6 +223,7 @@
     <Compile Include="ModeloDeVista\DocenteVM.cs" />
     <Compile Include="ModeloDeVista\EncriptadoUnico.cs" />
     <Compile Include="ModeloDeVista\EstadisticasVM.cs" />
+    <Compile Include="ModeloDeVista\EstanteriaVM.cs" />
     <Compile Include="ModeloDeVista\EstudianteVM.cs" />
     <Compile Include="ModeloDeVista\HistorialVM.cs" />
     <Compile Include="ModeloDeVista\InicioVM.cs" />
@@ -265,6 +266,9 @@
     <Compile Include="Vistas\Registros\EliminarEjemplar.xaml.cs">
       <DependentUpon>EliminarEjemplar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Vistas\Registros\EliminarEstanteria.xaml.cs">
+      <DependentUpon>EliminarEstanteria.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Vistas\Registros\EliminarEstudiante.xaml.cs">
       <DependentUpon>EliminarEstudiante.xaml</DependentUpon>
     </Compile>
@@ -276,6 +280,9 @@
     </Compile>
     <Compile Include="Vistas\Registros\GestionarDocente.xaml.cs">
       <DependentUpon>GestionarDocente.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\Registros\GestionarEstanteria.xaml.cs">
+      <DependentUpon>GestionarEstanteria.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\Registros\GestionarEstudiante.xaml.cs">
       <DependentUpon>GestionarEstudiante.xaml</DependentUpon>
@@ -291,6 +298,9 @@
     </Compile>
     <Compile Include="Vistas\Registros\ModificarEjemplar.xaml.cs">
       <DependentUpon>ModificarEjemplar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\Registros\ModificarEstanteria.xaml.cs">
+      <DependentUpon>ModificarEstanteria.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\Registros\ModificarEstudiante.xaml.cs">
       <DependentUpon>ModificarEstudiante.xaml</DependentUpon>
@@ -315,6 +325,9 @@
     </Compile>
     <Compile Include="Vistas\Registros\RegistrarEjemplar.xaml.cs">
       <DependentUpon>RegistrarEjemplar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Vistas\Registros\RegistrarEstanteria.xaml.cs">
+      <DependentUpon>RegistrarEstanteria.xaml</DependentUpon>
     </Compile>
     <Compile Include="Vistas\Registros\RegistrarEstudiante.xaml.cs">
       <DependentUpon>RegistrarEstudiante.xaml</DependentUpon>
@@ -416,6 +429,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Vistas\Registros\EliminarEstanteria.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Vistas\Registros\EliminarEstudiante.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -429,6 +446,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vistas\Registros\GestionarDocente.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\Registros\GestionarEstanteria.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -449,6 +470,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vistas\Registros\ModificarEjemplar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\Registros\ModificarEstanteria.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -481,6 +506,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Vistas\Registros\RegistrarEjemplar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Vistas\Registros\RegistrarEstanteria.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

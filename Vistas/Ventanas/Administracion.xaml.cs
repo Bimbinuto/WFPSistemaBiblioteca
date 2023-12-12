@@ -49,6 +49,11 @@ namespace Biblioteca.Vistas.Ventanas
             ContentControl.Content = new GestionarLibro(ContentControl);
         }
 
+        private void btnGestionarEstanterias(object sender, RoutedEventArgs e)
+        {
+            ContentControl.Content = new GestionarEstanteria(ContentControl);
+        }
+
         private void btnReasignar(object sender, RoutedEventArgs e)
         {
             ContentControl.Content = new ControlLibros(ContentControl);

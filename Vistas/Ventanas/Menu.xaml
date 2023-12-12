@@ -37,10 +37,10 @@
         <Border.Effect>
             <!--  Este efecto puede cambiar los colores 'Interntar agregar si hay la posibilidad'  -->
             <DropShadowEffect
-                Color="LightGray"
-                Direction="320"
-                ShadowDepth="3"
-                BlurRadius="20"
+                Color="LightBlue"
+                Direction="20"
+                ShadowDepth="50"
+                BlurRadius="50"
                 Opacity="0.3" />
         </Border.Effect>
 
@@ -52,11 +52,24 @@
                 Background="{StaticResource br-bar-color}"
                 DataContext="{StaticResource BDVM}">
                 <!--  DataContext="{StaticResource BDVM}"  -->
+
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <Image
+                        Source="C:\Users\HP\source\repos\Biblioteca\Resources\LOGO_SIS.png"
+                        VerticalAlignment="Top"
+                        Height="25" />
+
+                    <Image
+                        Source="C:\Users\HP\source\repos\Biblioteca\Resources\LOGO_INF.png"
+                        VerticalAlignment="Top"
+                        Height="25" />
+                </StackPanel>
+
                 <Label
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
                     Content="Biblioteca"
-                    Margin="10,0,0,0"
+                    Margin="70,0,0,0"
                     Style="{StaticResource StyleLabel}" />
 
                 <Label
@@ -75,12 +88,12 @@
                         Height="24"
                         Stretch="Uniform"
                         ToolTipService.InitialShowDelay="200">
-                        <Path.Fill>
+                        <!--<Path.Fill>
                             <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                <GradientStop Color="#FF0000" Offset="0.0" />
-                                <GradientStop Color="#FFDECE" Offset="0.58" />
+                                <GradientStop Color="Green" Offset="0.0" />
+                                <GradientStop Color="LightGreen" Offset="0.58" />
                             </LinearGradientBrush>
-                        </Path.Fill>
+                        </Path.Fill>-->
                         <Path.Style>
                             <StaticResource ResourceKey="IconChangedConexion" />
                         </Path.Style>
@@ -191,7 +204,7 @@
                                 Style="{StaticResource DesignButton}"
                                 Content="Historial"
                                 Tag="{StaticResource IconHistorial}"
-                                Click="btnHistorial"/>
+                                Click="btnHistorial" />
 
                             <RadioButton
                                 x:Name="rbMenuCatalogos"

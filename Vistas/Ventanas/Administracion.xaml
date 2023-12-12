@@ -146,7 +146,8 @@
                     </RadioButton.Content>
                 </RadioButton>
 
-                <RadioButton Style="{StaticResource rb-simple-multiInfo}" Tag="{StaticResource IconDerecha}">
+                <RadioButton Style="{StaticResource rb-simple-multiInfo}" Tag="{StaticResource IconDerecha}"
+                             Click="btnGestionarEstanterias">
                     <RadioButton.Content>
                         <StackPanel Orientation="Vertical" Margin="20,0,20,0">
                             <Label Content="Gestionar Estanterias" Style="{StaticResource StyleLabel}" />

@@ -156,7 +156,7 @@ namespace Biblioteca.ModeloDeVista
 
                         if (TipoUsuario == "Bibliotecario" || TipoUsuario == "Docente" || TipoUsuario == "Estudiante")
                         {
-                            Resultado = "OK";
+                            //Resultado = "OK";
 
                             login.Comenzar();
 
